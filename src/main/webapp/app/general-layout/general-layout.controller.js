@@ -2,9 +2,13 @@
 
 var generalLayoutModule = require('./_index');
 
-function GeneralLayoutCtrl($scope,$window, APP_SETTINGS) {
+function GeneralLayoutCtrl($scope, $window, APP_SETTINGS, globalService) {
     $scope.logout = function() {
-        $window.location.href = APP_SETTINGS.authUrl+ "/#/login?location=" + encodeURIComponent($window.location.origin);
+        globalService.logout().then(function() {
+            $window.location.href = APP_SETTINGS.authUrl + "/#/login?location=" + encodeURIComponent($window.location.origin);
+        }, function() {
+            $window.location.href = APP_SETTINGS.authUrl + "/#/login?location=" + encodeURIComponent($window.location.origin);
+        });
     };
 }
 
