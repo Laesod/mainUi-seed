@@ -1,0 +1,15 @@
+{
+  "node": true,
+  "jasmine": true,
+  "unused": false,
+  "globals": { // Globals variables.
+        "angular": true,
+        "alert": true,
+        "inject": true,
+        "document": false,
+        "window": true,
+        "module": true,
+        "location": true,
+        "_": true
+   }  
+}
