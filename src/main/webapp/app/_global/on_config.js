@@ -8,20 +8,22 @@ function OnConfig($urlRouterProvider, $httpProvider, $injector, APP_SETTINGS) {
         state.go(stateName);
     });
 
-     $httpProvider.interceptors.push(function($injector, $window, $cookies, $q) {
-         return {
-             'responseError': function(err, status) {
-                 switch (err.status) {
-                     case 401:
-                         break;
-                     case 403:
-                         break;
-                 }
+    $httpProvider.defaults.withCredentials = true;
 
-                 return $q.reject(err);
-             }
-         };
-     });
+    $httpProvider.interceptors.push(function($injector, $window, $cookies, $q) {
+        return {
+            'responseError': function(err, status) {
+                switch (err.status) {
+                    case 401:
+                        break;
+                    case 403:
+                        break;
+                }
+
+                return $q.reject(err);
+            }
+        };
+    });
 }
 
 module.exports = OnConfig;
