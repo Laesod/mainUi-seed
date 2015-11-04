@@ -13,7 +13,7 @@ var config = require('../config'),
 
 // Based on: http://blog.avisi.nl/2014/04/25/how-to-keep-a-fast-build-with-browserify-and-reactjs/
 function buildScript(sync) {
-    var browserSync = sync? require('browser-sync') : null;
+    var browserSync = sync ? require('browser-sync') : null;
     // global.isProd = true;
 
     var bundler = browserify({
@@ -46,21 +46,23 @@ function buildScript(sync) {
         var stream = bundler.bundle();
         var createSourcemap = !global.isProd && config.browserify.sourcemap;
 
-        g.util.log('Rebundle...');
+        // g.util.log('Rebundle...');
 
         var result = stream.on('error', handleErrors)
             .pipe(source('main.js'))
             .pipe(g.rename(config.browserify.bundleName))
             // .pipe(g.if(createSourcemap, buffer()))
             // .pipe(g.if(createSourcemap, g.sourcemaps.init()))
-            .pipe(g.if(global.isProd, g.streamify(g.uglify({mangle: false}))))
+            .pipe(g.if(global.isProd, g.streamify(g.uglify({
+                mangle: false
+            }))))
             // .pipe(g.if(createSourcemap, g.sourcemaps.write('./')))
             .pipe(gulp.dest(config.scripts.dest));
 
-        return sync? result.pipe(g.if(browserSync.active, browserSync.reload({
-                stream: true,
-                once: true
-            }))) : result;
+        return sync ? result.pipe(g.if(browserSync.active, browserSync.reload({
+            stream: true,
+            once: true
+        }))) : result;
     }
 
     return rebundle();
