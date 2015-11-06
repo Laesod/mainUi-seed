@@ -7,69 +7,69 @@ module.exports = {
     //'serverport'   : 3002,
     serverport: 6031,
 
-    root: 'src/main/webapp',
-    dist: 'src/main/webapp/build',
+    root: 'src/main/resources/public',
+    dist: 'src/main/resources/public/build',
 
     styles: {
         libSrc: [
-            'src/main/webapp/lib/font-awesome/css/font-awesome.css',
-            'src/main/webapp/lib/angular-material/angular-material.css',
+            'src/main/resources/public/lib/font-awesome/css/font-awesome.css',
+            'src/main/resources/public/lib/angular-material/angular-material.css',
         ],
         src: [
-            'src/main/webapp/app/_global/_vars.less',
-            'src/main/webapp/app/_global/_typography.less',
-            'src/main/webapp/app/_global/main.less',
-            'src/main/webapp/app/**/**/*.less',
-            'src/main/webapp/app/**/*.less'
+            'src/main/resources/public/app/_global/_vars.less',
+            'src/main/resources/public/app/_global/_typography.less',
+            'src/main/resources/public/app/_global/main.less',
+            'src/main/resources/public/app/**/**/*.less',
+            'src/main/resources/public/app/**/*.less'
         ],
-        dest: 'src/main/webapp/build/css'
+        dest: 'src/main/resources/public/build/css'
     },
 
     scripts: {
-        src: 'src/main/webapp/app/**/*.js',
-        dest: 'src/main/webapp/build/js'
+        src: 'src/main/resources/public/app/**/*.js',
+        dest: 'src/main/resources/public/build/js'
     },
 
     images: {
-        src: 'src/main/webapp/img/**/*',
-        dest: 'src/main/webapp/build/img'
+        src: 'src/main/resources/public/img/**/*',
+        dest: 'src/main/resources/public/build/img'
     },
 
     fonts: {
-        src: ['src/main/webapp/fonts/**/*'],
-        dest: 'src/main/webapp/build/fonts'
+        src: ['src/main/resources/public/fonts/**/*'],
+        dest: 'src/main/resources/public/build/fonts'
     },
 
     lib: {
         src: [
-            'src/main/webapp/lib/jquery/jquery.min.js',
-            'src/main/webapp/lib/angular/angular.min.js',
-            'src/main/webapp/lib/angular-aria/angular-aria.min.js',
-            'src/main/webapp/lib/angular-animate/angular-animate.min.js',
-            'src/main/webapp/lib/angular-material/angular-material.min.js',
-            'src/main/webapp/lib/angular-ui-router/release/angular-ui-router.min.js',
-            'src/main/webapp/lib/angular-cookies/angular-cookies.min.js',
-            'src/main/webapp/lib/angular-messages/angular-messages.min.js',
+            'src/main/resources/public/lib/jquery/jquery.min.js',
+            'src/main/resources/public/lib/angular/angular.min.js',
+            'src/main/resources/public/lib/angular-aria/angular-aria.min.js',
+            'src/main/resources/public/lib/angular-animate/angular-animate.min.js',
+            'src/main/resources/public/lib/angular-material/angular-material.min.js',
+            'src/main/resources/public/lib/angular-ui-router/release/angular-ui-router.min.js',
+            'src/main/resources/public/lib/angular-cookies/angular-cookies.min.js',
+            'src/main/resources/public/lib/angular-messages/angular-messages.min.js',
         ],
-        dest: 'src/main/webapp/build/js'
+        dest: 'src/main/resources/public/build/js'
     },
 
     views: {
-        index: 'src/main/webapp/index.html',
+        index: 'src/main/resources/public/index.html',
         src: [
-            'src/main/webapp/app/**/*.html',
-            '!src/main/webapp/lib/**/*.html'
+            'src/main/resources/public/app/**/*.html',
+            '!src/main/resources/public/lib/**/*.html'
         ],
     },
 
     gzip: {
-        src: 'src/main/webapp/build/**/*.{html,xml,json,css,js,js.map}',
-        dest: 'src/main/webapp/build/',
+        src: 'src/main/resources/public/build/**/*.{html,xml,json,css,js,js.map}',
+        dest: 'src/main/resources/public/build/',
         options: {}
     },
 
     browserify: {
-        entries: ['./src/main/webapp/app/_global/main.js'],
+        entries: ['./src/main/resources/public/app/_global/main.js'],
         bundleName: 'app.js',
         sourcemap: true
     },
@@ -79,5 +79,5 @@ module.exports = {
         protractor: 'test/protractor.conf.js'
     },
 
-    tmp: 'src/main/webapp/.tmp'
+    tmp: 'src/main/resources/public/.tmp'
 };

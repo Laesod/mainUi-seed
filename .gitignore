@@ -23,7 +23,7 @@ node_modules
 
 # Build files
 build
-src/main/webapp/build
+src/main/public/resources/build
 templates.js
 node
 target

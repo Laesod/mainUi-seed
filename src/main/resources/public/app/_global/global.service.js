@@ -21,7 +21,7 @@ function globalService($http, $q, $cookies, $timeout, APP_SETTINGS) {
 
     service.logout = function() {
         var deferred = $q.defer();
-        var url = APP_SETTINGS.apiGatewayLogoutUrl;
+        var url = APP_SETTINGS.apiUrl.apiGatewayLogoutUrl;
 
         $http.get(url, {
             withCredentials: true

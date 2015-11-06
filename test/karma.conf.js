@@ -2,7 +2,7 @@
 
 var istanbul = require('browserify-istanbul');
 var tascMock = 'test/tasc.mock.js';
-var mainJs = 'src/main/webapp/app/_global/main.js';
+var mainJs = 'src/main/public/app/_global/main.js';
 
 var configOptions = {
     basePath: '../',
@@ -63,22 +63,22 @@ var configOptions = {
     urlRoot: '/__karma__/',
 
     files: [
-        'src/main/webapp/build/js/lib.js',
-        'src/main/webapp/lib/angular-mocks/angular-mocks.js',
+        'src/main/public/build/js/lib.js',
+        'src/main/public/lib/angular-mocks/angular-mocks.js',
         tascMock,
         mainJs,
-        'src/main/webapp/build/js/templates.js',
+        'src/main/public/build/js/templates.js',
 
         // test files
-        'src/main/webapp/app/**/*.spec.js'
-        // 'src/main/webapp/app/**/recipients/*spec.js'
-        // 'src/main/webapp/app/**/global.service.spec.js'
-        // 'src/main/webapp/app/**/document-delivery.controller.spec.js'
-        // 'src/main/webapp/app/**/document-details.controller.spec.js'
-        // 'src/main/webapp/app/**/document-upload.controller.spec.js'
-        // 'src/main/webapp/app/**/acknowledgement.controller.spec.js'
-        // 'src/main/webapp/app/**/documents.service.spec.js'
-        // 'src/main/webapp/app/**/*directive.spec.js'
+        'src/main/public/app/**/*.spec.js'
+        // 'src/main/public/app/**/recipients/*spec.js'
+        // 'src/main/public/app/**/global.service.spec.js'
+        // 'src/main/public/app/**/document-delivery.controller.spec.js'
+        // 'src/main/public/app/**/document-details.controller.spec.js'
+        // 'src/main/public/app/**/document-upload.controller.spec.js'
+        // 'src/main/public/app/**/acknowledgement.controller.spec.js'
+        // 'src/main/public/app/**/documents.service.spec.js'
+        // 'src/main/public/app/**/*directive.spec.js'
     ],
 
     colors: true
