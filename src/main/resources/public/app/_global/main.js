@@ -18,7 +18,7 @@ function redirectToAuth() {
 
 function checkAuthentication() {
     var deferred = q.defer();
-    http.get(APP_SETTINGS.apiUrl.apiGatewayGetUserProfileUrl + '?' + new Date().getTime(), {
+    http.get(APP_SETTINGS.apiUrl.apiGatewayGetUserProfileUrl, {
         withCredentials: true
     }).
     success(function(response) {
