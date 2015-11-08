@@ -14,4 +14,7 @@ In order to start the application execute in cmd in the root path:
 	- gulp dev; (will produce build folder with final app that should be ready for production use)
 	- mvn clean install
 	- mvn spring-boot:run
+	
+Just forked
+	
 
