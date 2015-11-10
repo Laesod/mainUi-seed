@@ -5,28 +5,28 @@ var config = require('../config'),
     g = require('gulp-load-plugins')(),
     version = new Date().getTime();
 
-gulp.task('index', function() {
+gulp.task('prepareIndexHtml', function() {
     gulp.src(config.views.index)
         .pipe(g.htmlReplace({
             css: {
                 tpl: '<link type="text/css" rel="stylesheet" href="%s">',
-                src: 'css/app.css?' + version
+                src: 'mainUi/build/css/app.css?' + version
             },
 
             js: {
                 tpl: '<script src="%s"></script>',
-                src: 'js/app.js?' + version
+                src: 'mainUi/build/js/app.js?' + version
             },
 
             jsLib: {
                 tpl: '<script src="%s"></script>',
-                src: 'js/lib.js?' + version
+                src: 'mainUi/build/js/lib.js?' + version
             },
 
             templates: {
                 tpl: '<script src="%s"></script>',
-                src: 'js/templates.js?' + version
+                src: 'mainUi/build/js/templates.js?' + version
             }
         }))
-        .pipe(gulp.dest(config.dist));
+        .pipe(gulp.dest(config.root));
 });

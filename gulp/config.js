@@ -55,7 +55,7 @@ module.exports = {
     },
 
     views: {
-        index: 'src/main/resources/public/index.html',
+        index: 'src/main/resources/public/templates/index.html',
         src: [
             'src/main/resources/public/app/**/*.html',
             '!src/main/resources/public/lib/**/*.html'

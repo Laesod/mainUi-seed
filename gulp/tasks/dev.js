@@ -15,5 +15,5 @@ gulp.task('dev', ['lib'], function(cb) {
         console.log('\n');
     };
 
-    runSequence(['styles', 'images', 'fonts', 'views', 'index', 'browserify'], 'clean', 'lint', 'watch', cb);
+    runSequence(['styles', 'images', 'fonts', 'views', 'prepareIndexHtml', 'browserify'], 'clean', 'lint', 'watch', cb);
 });
