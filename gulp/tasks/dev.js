@@ -10,7 +10,7 @@ gulp.task('dev', ['lib'], function(cb) {
         console.log('\n');
         console.log('-----------------------------------------------');
         console.log('gulp dev task finished and is in watch mode now');
-        console.log('use http://localhost:6031 to access the app');
+        console.log('use http://localhost:63769 to access the app');
         console.log('-----------------------------------------------');
         console.log('\n');
     };
