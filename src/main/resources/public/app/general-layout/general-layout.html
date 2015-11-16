@@ -1,7 +1,20 @@
-<div>
-    <p class="log-out"><a class="boldLink" ng-click="logout()" style="cursor:pointer;">LOG OUT</a></p>
-    <div ui-view style="clear: both;"></div>
-</div>
+ <md-content>
+    <md-toolbar layout="row" layout-align="end center">
+	    <a ng-click="logout()" style="cursor:pointer; margin-right:2rem;">LOG OUT</a>
+    </md-toolbar>
+
+	<div style="padding: 1rem;">
+
+	    <div ui-view style="clear: both;"></div>
+	</div>
+ </md-content>
+
+
+
+
+
+
+
 
 
 

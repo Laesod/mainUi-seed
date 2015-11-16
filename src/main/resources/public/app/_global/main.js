@@ -37,7 +37,8 @@ function onDocumentReady() {
     http = injector.get('$http');
     q = injector.get('$q');
 
-    http.get('mainUi/config?' + new Date().getTime()).
+    //before commiting path should be changed to mainUi/config?
+    http.get('http://localhost:63769/mainUi/config?' + new Date().getTime()).
     success(function(response) {
         APP_SETTINGS = constants(response);
         checkAuthentication().then(function(isUserAuthenticated) {
