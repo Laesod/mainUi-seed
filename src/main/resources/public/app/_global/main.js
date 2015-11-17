@@ -11,6 +11,7 @@ var app = require('./_index'),
     q;
 
 var constants = require('./constants');
+var contextParams = require('./context-params');
 
 function redirectToAuth() {
     window.location = APP_SETTINGS.apiUrl.authUrl + '/#/login?location=' + encodeURIComponent(window.location.href);
@@ -37,8 +38,7 @@ function onDocumentReady() {
     http = injector.get('$http');
     q = injector.get('$q');
 
-    //before commiting path should be changed to mainUi/config?
-    http.get('http://localhost:63769/mainUi/config?' + new Date().getTime()).
+    http.get(contextParams.configServicePrefix() + 'mainUi/config?' + new Date().getTime()).
     success(function(response) {
         APP_SETTINGS = constants(response);
         checkAuthentication().then(function(isUserAuthenticated) {
