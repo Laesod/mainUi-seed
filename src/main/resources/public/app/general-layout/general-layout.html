@@ -1,6 +1,7 @@
  <md-content>
     <md-toolbar layout="row" layout-align="end center">
-	    <a ng-click="logout()" style="cursor:pointer; margin-right:2rem;">LOG OUT</a>
+    	<a ng-click="changeLanguage()" style="cursor:pointer; margin-right:2rem;">{{currentLanguageCode}}</a>
+	    <a ng-click="logout()" style="cursor:pointer; margin-right:2rem;">{{'logOut' | translate}}</a>
     </md-toolbar>
 
 	<div style="padding: 1rem;">

@@ -9,7 +9,8 @@ var requires = [
     'documents',
     'ngMessages',
     'ngCookies',
-    'ngMaterial'
+    'ngMaterial',
+    'pascalprecht.translate'
 ];
 
 module.exports = angular.module('app', requires);

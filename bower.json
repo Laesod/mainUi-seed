@@ -16,6 +16,7 @@
         "font-awesome": "latest",
         "angular-animate": "latest",
         "angular-aria": "latest",
-        "angular-material": "latest"
+        "angular-material": "latest",
+        "angular-translate": "latest"
     }
 }

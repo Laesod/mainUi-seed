@@ -8,7 +8,8 @@ var app = require('./_index'),
     constants = require('./constants'),
     APP_SETTINGS,
     http,
-    q;
+    q,
+    cookies;
 
 var constants = require('./constants');
 var contextParams = require('./context-params');
@@ -37,10 +38,18 @@ function onDocumentReady() {
     injector = injector(['app']);
     http = injector.get('$http');
     q = injector.get('$q');
+    cookies = injector.get('$cookies');
+
+    var appLanguage = cookies.get('appLanguage');
 
     http.get(contextParams.configServicePrefix() + 'mainUi/config?' + new Date().getTime()).
     success(function(response) {
         APP_SETTINGS = constants(response);
+
+        if (appLanguage) {
+            APP_SETTINGS.appLanguage = appLanguage;
+        }
+
         checkAuthentication().then(function(isUserAuthenticated) {
             if (isUserAuthenticated) {
                 createApp();

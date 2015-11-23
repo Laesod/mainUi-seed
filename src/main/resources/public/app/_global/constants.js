@@ -7,6 +7,7 @@ var AppSettings = function(config) {
 
     return {
         appTitle: 'conspector',
+        appLanguage: 'en',
         contextPrefix: contextParams.contextPrefix(), //'/gateway',        
         apiUrl: {
             authUrl: apiGatewayBaseUrl + '/gateway',
