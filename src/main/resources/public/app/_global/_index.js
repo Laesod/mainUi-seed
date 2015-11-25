@@ -7,7 +7,6 @@ var requires = [
     'globals',
     'generalLayout',
     'documents',
-    'ngMessages',
     'ngCookies',
     'ngMaterial',
     'pascalprecht.translate'
