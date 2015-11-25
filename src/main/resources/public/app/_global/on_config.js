@@ -39,8 +39,6 @@ function OnConfig($urlRouterProvider, $httpProvider, $injector, APP_SETTINGS, $t
         "logedInWithRolesMsg": "Your roles are: (fr)"
     });
 
-    //$translateProvider.preferredLanguage('en');
-
     if (APP_SETTINGS.appLanguage) {
         $translateProvider.use(APP_SETTINGS.appLanguage);
     }

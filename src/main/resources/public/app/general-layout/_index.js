@@ -16,4 +16,14 @@ angular.module("generalLayout").config(function($stateProvider) {
         });
 });
 
+angular.module("generalLayout").controller("ToastCtrl", function($scope, $rootScope, $mdToast) {
+    // if (angular.isArray($rootScope.toastMessageText)) {
+    //     $scope.isArrayOfMessages = true;
+    // }
+
+    $scope.messageText = $rootScope.toastMessageText;
+
+    $scope.messageType = $rootScope.toastMessageType;
+});
+
 bulk(__dirname, ['./**/!(*_index|*.spec).js']);
