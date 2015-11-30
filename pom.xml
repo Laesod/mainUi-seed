@@ -6,7 +6,7 @@
 	<groupId>mainUi</groupId>
 	<artifactId>mainUi-seed</artifactId>
 	<version>0.0.2-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>mainUi-seed</name>
 	<description>Demo project for Spring Boot</description>
@@ -46,11 +46,19 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>1.3.0.RELEASE</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>				
 			</plugin>
 		</plugins>
 	</build>
 
-    <profiles>
+<!--     <profiles>
         <profile>
             <id>NoTomcat</id>
             <dependencies>
@@ -61,5 +69,5 @@
                 </dependency>
             </dependencies>
         </profile>
-    </profiles>
+    </profiles> -->
 </project>

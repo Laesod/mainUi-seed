@@ -21,12 +21,12 @@ import javax.inject.Inject;
 @EnableTransactionManagement
 @RestController // needed to enable rest end points within the class
 @SpringBootApplication
-public class MainUiSeedApplication extends SpringBootServletInitializer {
-
-    @Override
+public class MainUiSeedApplication{
+//extends SpringBootServletInitializer
+/*    @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(MainUiSeedApplication.class);
-    }
+    }*/
 
     public static void main(String[] args) {
         SpringApplication.run(MainUiSeedApplication.class, args);

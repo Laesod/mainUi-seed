@@ -2,10 +2,10 @@
 
 var contextParams = {
     contextPrefix: function() {
-        return "";
+        return "/mainUi";
     },
     configServicePrefix: function() {
-        return "http://localhost:63769/";
+        return "";
     }
 
 };
