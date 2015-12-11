@@ -1,12 +1,11 @@
- <md-content>
-    <md-toolbar layout="row" layout-align="end center">
-    	<a ng-click="changeLanguage()" style="cursor:pointer; margin-right:2rem;">{{currentLanguageCode}}</a>
-	    <a ng-click="logout()" style="cursor:pointer; margin-right:2rem;">{{'logOut' | translate}}</a>
+ <md-content style="height: 100%;">
+    <md-toolbar layout="row" layout-align="end center" style="height: 64px;">
+    	<a ng-click="changeLanguage()" style="cursor:pointer; margin-right: 2rem;">{{currentLanguageCode}}</a>
+	    <a ng-click="logout()" style="cursor:pointer; margin-right: 0.7rem;">{{'logOut' | translate}}</a>
     </md-toolbar>
 
-	<div style="padding: 1rem;">
-
-	    <div ui-view style="clear: both;"></div>
+	<div style="height: calc(100% - 64px);">
+	    <div ui-view style="clear: both; height: 100%;"></div>
 	</div>
  </md-content>
 
