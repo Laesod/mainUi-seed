@@ -1,0 +1,58 @@
+<div style="height: 60px;" layout-align="end center" layout="row">
+	<md-input-container flex  style="margin-left: 1rem; margin-top: 1rem;">
+	  <label>Search</label>
+      <input type="text" id="search" ng-model="searchCriteria" style="width: 20%; min-width: 150px;" ng-keypress="onKeyPress($event)" >
+	</md-input-container>  
+
+	<md-button class="md-icon-button launch" style="height: 35px; line-height: 35px; width: 35px; min-height: 35px; margin-top: -5px; color: black;" ng-click="onSettings($event)" md-no-ink>
+		  <i class="fa fa-th" style="font-size: 15pt;"></i>
+	</md-button>
+
+	<md-button class="md-icon-button launch" style="height: 35px; line-height: 35px; width: 35px; min-height: 35px; margin-top: -5px; color: black;" ng-click="onAdd($event)" md-no-ink>
+		  <i class="fa fa-plus" style="font-size: 15pt;"></i>
+	</md-button>	
+</div>
+
+<md-content layout="column" style="height: calc(100% - 60px);">
+	<div style="width: 100%; border-bottom: 1px solid #ddd;"></div>
+    <md-virtual-repeat-container id="vertical-container" style="border-bottom: 0px solid #ddd"; md-auto-shrink>
+      <div md-virtual-repeat="item in entries" md-on-demand
+          class="repeated-item" flex style="padding-left: 0.5rem; padding-right: 0.5rem; padding-top:0.2rem; padding-bottom:0.2rem;" layout="column" ng-class="{'3. Done': 'doneTaskEntry', '2. In Progress': 'inProgressTaskEntry', '1. Open': 'openTaskEntry'}[item.status]">
+          	<div layout="row">
+				<div layout="column" flex=10 style="min-width: 100px;">
+					<div layout="row">
+						<div>{{item.project}}</div>
+					</div>			
+					<div layout="row">
+						<div>{{item.type}}</div>
+					</div>
+
+					<div layout="row">
+						<div>{{item.status}}</div>
+					</div>
+
+					<div layout="row">
+						<div>{{item.createdAt | date:'yyyy-MM-dd'}}</div>
+					</div>
+
+					<div layout="raw" style="margin-left: -0.8rem; margin-top: -10px;">
+					   <md-button class="md-icon-button launch" style="height: 35px; line-height: 35px; width: 35px; min-height: 35px;" ng-click="onEdit($event, $index)" md-no-ink>
+					   	  <i class="fa fa-pencil-square-o" style="font-size: 15pt; color: black;"></i>
+					   </md-button>	
+
+					   <md-button class="md-icon-button launch" style="height: 35px; line-height: 35px; width: 35px; min-height: 35px;" ng-click="onDelete($index)" md-no-ink>
+					   	  <i class="fa fa-times" style="font-size: 15pt; color: black;"></i>
+					   </md-button>			   		   
+					</div>				
+				</div>
+
+				<div flex=90 style="margin-left: 0.5rem;word-break: break-all;">
+					{{item.description}}
+				</div>
+			</div>	
+		</div>
+      </div>
+    </md-virtual-repeat-container>
+</md-content>
+
+

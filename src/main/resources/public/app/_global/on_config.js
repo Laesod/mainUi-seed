@@ -6,7 +6,7 @@ function OnConfig($urlRouterProvider, $httpProvider, $injector, APP_SETTINGS, $t
     $urlRouterProvider.otherwise(function($injector) {
         var globalService = $injector.get('globalService');
         var state = $injector.get('$state');
-        var stateName = "app.documentsList";
+        var stateName = "app.tasksList";
         state.go(stateName);
     });
 
@@ -30,7 +30,9 @@ function OnConfig($urlRouterProvider, $httpProvider, $injector, APP_SETTINGS, $t
     $translateProvider.translations('en', {
         "logOut": "LOG OUT",
         "logedInAsMsg": "You are currently logged in as:",
-        "logedInWithRolesMsg": "Your roles are:"
+        "logedInWithRolesMsg": "Your roles are:",
+        "add": "Add",
+        "settings": "Settings"
     });
 
     $translateProvider.translations('fr', {

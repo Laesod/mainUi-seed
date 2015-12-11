@@ -6,7 +6,7 @@ function GeneralLayoutCtrl($scope, $window, APP_SETTINGS, globalService, $cookie
     $scope.currentLanguageCode = APP_SETTINGS.appLanguage.toUpperCase();
 
     $scope.logout = function() {
-        var url = APP_SETTINGS.apiUrl.authUrl + "/#/login?location=" + encodeURIComponent($window.location.origin + '/mainUi');
+        var url = APP_SETTINGS.apiUrl.authUrl + "/#/login?location=" + encodeURIComponent($window.location.origin + $window.location.pathname + $window.location.hash);
         globalService.logout().then(function() {
             $window.location.href = url;
         }, function() {
