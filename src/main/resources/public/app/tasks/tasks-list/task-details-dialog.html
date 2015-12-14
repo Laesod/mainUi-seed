@@ -4,7 +4,7 @@
       <div class="md-toolbar-tools">
         <h2>{{popupHeader}}</h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="cancel()">
+        <md-button class="md-icon-button" ng-click="cancel()" style="outline: none;" md-no-ink>
            <i class="fa fa-times" style="font-size: 15pt;"></i>
         </md-button>
       </div>
@@ -51,6 +51,9 @@
       <md-button ng-click="cancel()" style="margin-right:20px;">
         Cancel
       </md-button>
+      <md-button style="margin-right:20px; display: none;" md-autofocus>
+        autofocus killer
+      </md-button>      
     </md-dialog-actions>  
   </form>
 </md-dialog>

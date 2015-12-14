@@ -3,7 +3,7 @@
 var documentsModule = require('../_index');
 var url = require('url');
 
-function TasksListCtrl($scope, $timeout, $http, APP_SETTINGS, globalService, $window, $mdDialog, $mdMedia, tasksService) {
+function TasksListCtrl($scope, $timeout, $http, APP_SETTINGS, globalService, $window, $mdDialog, $mdMedia, tasksService, $sce) {
     $scope.selectedSortingCriterias = [{
         fieldName: "project (asc)",
         field: "project",
@@ -148,18 +148,15 @@ function TasksListCtrl($scope, $timeout, $http, APP_SETTINGS, globalService, $wi
 
         return $scope.entries.loadedPages[pageNumber][itemNumber];
     };
-    /*    var changeEntryByIndex = function(index, newEntry) {
-        var pageNumber = Math.floor(index / $scope.entries.PAGE_SIZE);
-        var itemNumber = index % $scope.entries.PAGE_SIZE;
 
-        $scope.entries.loadedPages[pageNumber][itemNumber] = newEntry;
-    };*/
-    /*    var removeEntyByIndex = function(index) {
-        var pageNumber = Math.floor(index / $scope.entries.PAGE_SIZE);
-        var itemNumber = index % $scope.entries.PAGE_SIZE;
-
-        $scope.entries.loadedPages[pageNumber].splice(itemNumber, 1);
-    };   */
+    $scope.highlight = function(text, searchCriteria) {
+        if(!searchCriteria || !text) {
+            return $sce.trustAsHtml(text);
+        }
+        return $sce.trustAsHtml(text.replace(new RegExp(searchCriteria, "gi"), function(match) {
+            return '<span class="highlightedText">' + match + '</span>';
+        }));
+    };
 
     $scope.isOpen = false;
 
@@ -179,10 +176,18 @@ function TasksListCtrl($scope, $timeout, $http, APP_SETTINGS, globalService, $wi
             .then(function(dialogReturns) {
                 if (dialogReturns.index === undefined || dialogReturns.index === null) {
                     var creationDate = new Date();
+
+                    if (dialogReturns.entry.type === "Info") {
+                        dialogReturns.entry.status = "_";
+                    }
                     tasksService.createTask({
                         payload: dialogReturns.entry
                     }).then(function() {
                         //$scope.entries.unshift(angular.copy(dialogReturns.entry));
+                        globalService.displayToast({
+                            messageText: "New entry has been added.",
+                            messageType: "success"
+                        });                        
                         reloadEntries();
                     });
 
@@ -192,10 +197,18 @@ function TasksListCtrl($scope, $timeout, $http, APP_SETTINGS, globalService, $wi
                     delete dialogReturns.entry['modifiedByUser'];
                     delete dialogReturns.entry['modifiedAt'];
 
+                    if (dialogReturns.entry.type === "Info") {
+                        dialogReturns.entry.status = "_";
+                    }
+
                     tasksService.changeTask({
                         guid: dialogReturns.entry.taskGuid,
                         payload: angular.copy(dialogReturns.entry)
                     }).then(angular.bind(this, function(data) {
+                        globalService.displayToast({
+                            messageText: "Entry has been changed.",
+                            messageType: "success"
+                        });                         
                         reloadEntries();
                         // changeEntryByIndex(dialogReturns.index, angular.copy(dialogReturns.entry));
                     }));
@@ -279,6 +292,10 @@ function TasksListCtrl($scope, $timeout, $http, APP_SETTINGS, globalService, $wi
         tasksService.deleteTask({
             guid: getEntryByIndex.taskGuid
         }).then(angular.bind(this, function() {
+            globalService.displayToast({
+                messageText: "Entry has been removed.",
+                messageType: "success"
+            });             
             reloadEntries();
         }));
     };

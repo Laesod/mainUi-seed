@@ -15,10 +15,10 @@ function OnConfig($urlRouterProvider, $httpProvider, $injector, APP_SETTINGS, $t
     $httpProvider.interceptors.push(function($injector, $window, $cookies, $q) {
         return {
             'responseError': function(err, status) {
+
                 switch (err.status) {
-                    case 401:
-                        break;
-                    case 403:
+                    case -1: //-1 is used instead of 401 because that's the status intercepted by angular in case of not authorize exception
+                        window.location = APP_SETTINGS.apiUrl.authUrl + '/#/login?location=' + encodeURIComponent(window.location.href);
                         break;
                 }
 

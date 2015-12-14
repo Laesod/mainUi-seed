@@ -16,15 +16,23 @@
 	  height: 100%;
 	  width: 100%; }
 
+	.repeated-item-mobile {
+	  border-bottom: 1px solid #ddd;
+	  box-sizing: border-box;
+	  height: 100px;
+	  overflow: hidden;
+	}
+
 	.repeated-item {
 	  border-bottom: 1px solid #ddd;
 	  box-sizing: border-box;
-	  height: auto;
+	  height: 50px;
+	  overflow: hidden;
 	}
 
-	.md-virtual-repeat-sizer{
-		height: auto !important;
-	}
+	// .md-virtual-repeat-sizer{
+	// 	height: auto !important;
+	// }
 
 	.sortigCriteriaItem{
 	    padding: 1rem;
@@ -54,6 +62,14 @@
 
 	.openTaskEntry{
 		border-left: 5px solid red;
+	}
+
+	.noStatusEntry{
+		border-left: 5px solid white;
+	}
+
+	.highlightedText{
+		background: yellow;
 	}
 
 	md-tab-item:not([disabled]).md-active{
