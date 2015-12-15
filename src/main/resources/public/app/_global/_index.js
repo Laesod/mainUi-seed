@@ -11,7 +11,8 @@ var requires = [
     'ngMaterial',
     'pascalprecht.translate',
     'iosDblclick',
-    'tasks'
+    'tasks',
+    'profile'
 ];
 
 module.exports = angular.module('app', requires);

@@ -1,12 +1,39 @@
  <md-content style="height: 100%;">
-    <md-toolbar layout="row" layout-align="end center" style="height: 64px;">
-    	<a ng-click="changeLanguage()" style="cursor:pointer; margin-right: 2rem;">{{currentLanguageCode}}</a>
-	    <a ng-click="logout()" style="cursor:pointer; margin-right: 0.7rem;">{{'logOut' | translate}}</a>
+    <md-toolbar layout="row" style="height: 64px;">
+    	<div layout="row" flex=20 layout-align="start center" style="margin-left: 2rem;">
+    		<a ng-click="toggleLeft()" style="cursor: pointer;">Menu</a>
+    	</div>
+    	
+    	<div layout="row" flex=80 layout-align="end center">
+    		<a ng-click="changeLanguage()" style="cursor:pointer; margin-right: 2rem;">{{currentLanguageCode}}</a>
+	    	<a ng-click="logout()" style="cursor:pointer; margin-right: 0.7rem;">{{'logOut' | translate}}</a>
+    	</div>
+
     </md-toolbar>
 
 	<div style="height: calc(100% - 64px);">
 	    <div ui-view style="clear: both; height: 100%;"></div>
 	</div>
+
+
+  <section layout="row" flex>
+     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="leftSideNav">
+      <md-toolbar class="md-theme-light" ng-controller="LeftSideNavCtrl">
+      	<div layout="row" layout-align="space-between center" style="margin-left: 1rem; margin-right: 1rem;">
+        	<h1 class="md-toolbar-tools">Menu</h1>
+
+        	<md-button style="height: 35px; line-height: 35px; width: 35px; min-height: 35px; outline: none; min-width:35px;" ng-click="close()" aria-label="Close" md-no-ink>
+        		  <i class="fa fa-times" style="font-size: 15pt;"></i>
+        	</md-button>	        	
+        </div>
+      </md-toolbar>
+      <md-content layout-padding ng-controller="LeftSideNavCtrl">
+      	<md-button ng-click="onManageProfile()" style="width: 90%;">Manage profile</md-button>
+
+      	<md-button ng-click="onListOfTasks()" style="width: 90%;">List of tasks</md-button>
+      </md-content>
+    </md-sidenav>
+  </section>	
  </md-content>
 
 
