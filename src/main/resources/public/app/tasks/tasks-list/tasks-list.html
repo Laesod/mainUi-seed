@@ -28,14 +28,14 @@
 				<div flex=10 style="min-width: 100px;">{{item.type}}</div>
 <!-- 				<div flex=10>{{item.status}}</div> -->
 				<div flex=10 style="min-width: 100px;">{{item.createdAt | date:'yyyy-MM-dd'}}</div>
-				<div flex=60 style="text-align: justify; word-break: break-all;" ng-bind-html="highlight(item.description, searchCriteria)"></div>
+				<div flex=65 style="text-align: justify; word-break: break-all;" ng-bind-html="highlight(item.description, searchCriteria)"></div>
 
-				<div layout="raw" flex=10 style="margin-top: -10px; min-width: 100px;">
-				   <md-button class="md-icon-button launch" style="height: 35px; line-height: 35px; width: 35px; min-height: 35px; margin-left:30px; outline: none;" ng-click="onEdit($event, $index)" aria-label="Edit" md-no-ink>
+				<div layout="raw" flex=5 style="margin-top: -10px; min-width: 50px;">
+<!-- 				   <md-button style="height: 35px; line-height: 35px; width: 35px; min-height: 35px; margin-left:30px; outline: none; min-width:35px;" ng-click="onEdit($event, $index)" aria-label="Edit" md-no-ink>
 				   	  <i class="fa fa-pencil-square-o" style="font-size: 15pt;"></i>
-				   </md-button>	
+				   </md-button>	 -->
 
-				   <md-button class="md-icon-button launch" style="height: 35px; line-height: 35px; width: 35px; min-height: 35px; outline: none;" ng-click="onDelete($index)" aria-label="Delete" md-no-ink>
+				   <md-button style="height: 35px; line-height: 35px; width: 35px; min-height: 35px; outline: none; min-width=35px;" ng-click="onDelete($index)" aria-label="Delete" md-no-ink>
 				   	  <i class="fa fa-times" style="font-size: 15pt;"></i>
 				   </md-button>			   		   
 				</div>				

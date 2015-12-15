@@ -10,6 +10,7 @@ var requires = [
     'ngCookies',
     'ngMaterial',
     'pascalprecht.translate',
+    'iosDblclick',
     'tasks'
 ];
 

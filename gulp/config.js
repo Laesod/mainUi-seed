@@ -50,7 +50,8 @@ module.exports = {
             'src/main/resources/public/lib/angular-ui-router/release/angular-ui-router.min.js',
             'src/main/resources/public/lib/angular-cookies/angular-cookies.min.js',
             'src/main/resources/public/lib/angular-messages/angular-messages.min.js',
-            'src/main/resources/public/lib/angular-translate/angular-translate.min.js'
+            'src/main/resources/public/lib/angular-translate/angular-translate.min.js',
+            'src/main/resources/public/lib/ios-dblclick/ios-dblclick.js'
         ],
         dest: 'src/main/resources/public/build/js'
     },

@@ -158,6 +158,14 @@ function TasksListCtrl($scope, $timeout, $http, APP_SETTINGS, globalService, $wi
         }));
     };
 
+    $scope.showDeleteOption = function(index){
+        getEntyByIndex(index).showDeleteOption = true;
+    };
+
+    $scope.hideDeleteOption = function(index){
+        getEntyByIndex(index).showDeleteOption = false;
+    };    
+
     $scope.isOpen = false;
 
     var showTaskDetailsDialog = function(event, entry, index) {
@@ -196,6 +204,7 @@ function TasksListCtrl($scope, $timeout, $http, APP_SETTINGS, globalService, $wi
                     delete dialogReturns.entry['createdAt'];
                     delete dialogReturns.entry['modifiedByUser'];
                     delete dialogReturns.entry['modifiedAt'];
+                    delete dialogReturns.entry['showDeleteOption'];
 
                     if (dialogReturns.entry.type === "Info") {
                         dialogReturns.entry.status = "_";
