@@ -17,7 +17,7 @@
   limitations under the License.
   #L%
   -->
-<md-toast ng-class="messageType == 'error' ? 'errorToast' : 'successToast'" style="min-width: 30%; padding: 1rem; border-radius: 5px; top: 0.2rem; right: 0.2rem;" >
+<md-toast ng-class="messageType == 'error' ? 'errorToast' : 'successToast'" style="min-width: 30%; padding: 1rem; border-radius: 5px; top: 0.2rem; right: 0.2rem; bottom: initial;" >
   <div layout="column">
   	<div ng-repeat="message in messageText">
   		<span ng-if="messageText.length > 1">-</span> {{message}}
