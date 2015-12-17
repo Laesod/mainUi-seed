@@ -5,9 +5,9 @@
 		<div ng-style="{'width': '230px', 'height': '230px', 'background': 'url(' + avatarUrl + ')', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></div>
 	</div>
 
-	<md-button ngf-select ng-model="file" accept="image/*" ngf-max-size="5MB">
+	<button type="file" ngf-select ng-model="file" accept="image/*" ngf-max-size="5MB">
 	    Change Avatar
-	 </md-button>	
+	 </button type="file">	
 
 	<md-button ng-click="onUpload()">
 	    Upload
