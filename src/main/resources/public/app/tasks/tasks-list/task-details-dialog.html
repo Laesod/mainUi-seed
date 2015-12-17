@@ -1,12 +1,12 @@
 <md-dialog  style="width: 100%; height: 100%;">
   <form>
-    <md-toolbar>
-      <div class="md-toolbar-tools">
+    <md-toolbar style="min-height: 64px;">
+      <div class="md-toolbar-tools" style="padding-left: 1rem; padding-right: 0rem; margin-top: 0.2rem;">
         <h2>{{popupHeader}}</h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="cancel()" style="outline: none;" md-no-ink>
-           <i class="fa fa-times" style="font-size: 15pt;"></i>
-        </md-button>
+        <div ng-click="cancel()"  style="padding: 1rem; cursor: pointer; outline: none; margin-left: 1rem;">
+          <i class="fa fa-times" style="color: white; cursor: pointer; outline: none; font-size: 15pt;"></i>
+        </div>        
       </div>
     </md-toolbar>
     <md-dialog-content>

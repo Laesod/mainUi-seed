@@ -1,12 +1,29 @@
  <md-content style="height: 100%;">
     <md-toolbar layout="row" style="height: 64px;">
-    	<div layout="row" flex=20 layout-align="start center" style="margin-left: 2rem;">
-    		<a ng-click="toggleLeft()" style="cursor: pointer;">Menu</a>
+    	<div layout="row" flex=20 layout-align="start center" style="margin-left: 0rem">
+    		<div ng-click="toggleLeft()" style="padding: 1rem; cursor: pointer; outline: none">
+    			<i class="fa fa-bars" style="color: white; cursor: pointer; outline: none"></i>
+    		</div>
+    		
+<!--     		<a  style="cursor: pointer;">Menu</a> -->
     	</div>
     	
-    	<div layout="row" flex=80 layout-align="end center">
-    		<a ng-click="changeLanguage()" style="cursor:pointer; margin-right: 2rem;">{{currentLanguageCode}}</a>
-	    	<a ng-click="logout()" style="cursor:pointer; margin-right: 0.7rem;">{{'logOut' | translate}}</a>
+    	<div layout="row" flex=80 layout-align="end center" style="margin-right: 0rem;">
+
+    		<div ng-click="changeLanguage()"  style="padding: 1rem; cursor: pointer; outline: none;">
+    			{{currentLanguageCode}}
+    		</div>
+
+
+<!--     		<a ng-click="changeLanguage()" style="cursor:pointer; margin-right: 2rem;">{{currentLanguageCode}}</a> -->
+
+    		<div ng-click="logout()"  style="padding: 1rem; cursor: pointer; outline: none">
+    			<i class="fa fa-power-off" style="color: white; cursor: pointer; outline: none"></i>
+    		</div>
+
+<!-- 
+
+	    	<a style="cursor:pointer; margin-right: 0.7rem;">{{'logOut' | translate}}</a> -->
     	</div>
 
     </md-toolbar>
@@ -18,13 +35,20 @@
 
   <section layout="row" flex>
      <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="leftSideNav">
-      <md-toolbar class="md-theme-light" ng-controller="LeftSideNavCtrl">
-      	<div layout="row" layout-align="space-between center" style="margin-left: 1rem; margin-right: 1rem;">
-        	<h1 class="md-toolbar-tools">Menu</h1>
+      <md-toolbar class="md-theme-light" ng-controller="LeftSideNavCtrl" style="min-height: 64px;">
+      	<div layout="row" layout-align="space-between center" style="margin-top: 0.3rem;">
 
-        	<md-button style="height: 35px; line-height: 35px; width: 35px; min-height: 35px; outline: none; min-width:35px;" ng-click="close()" aria-label="Close" md-no-ink>
+    		<div style="padding: 1rem; cursor: pointer; outline: none">
+    			<i class="fa fa-bars" style="color: white; cursor: pointer; outline: none"></i>
+    		</div>
+
+    		<div ng-click="close()"  style="padding: 1rem; cursor: pointer; outline: none">
+    			<i class="fa fa-times" style="color: white; cursor: pointer; outline: none"></i>
+    		</div>    		
+
+<!--         	<md-button style="height: 35px; line-height: 35px; width: 35px; min-height: 35px; outline: none; min-width:35px;" ng-click="close()" aria-label="Close" md-no-ink>
         		  <i class="fa fa-times" style="font-size: 15pt;"></i>
-        	</md-button>	        	
+        	</md-button> -->	        	
         </div>
       </md-toolbar>
       <md-content layout-padding ng-controller="LeftSideNavCtrl">

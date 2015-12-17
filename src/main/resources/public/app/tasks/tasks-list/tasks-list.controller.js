@@ -369,6 +369,21 @@ function DialogController($scope, $mdDialog, entry, index) {
 }
 
 function GridSettingsDialogController($scope, $mdDialog, selectedSortingCriterias, availableSortingCriterias, appliedFilters) {
+    $scope.currentSettingType = "Filtering";
+
+    $scope.changeSettingType = function(settingType){
+        switch (settingType) {
+            case "Filtering" :
+                $scope.currentSettingType = "Filtering";
+                break;
+            case "Sorting" :
+                $scope.currentSettingType = "Sorting";
+                break;                
+        }
+    };
+
+
+
     if (!angular.equals(appliedFilters, {})) {
         $scope.appliedFilters = angular.copy(appliedFilters);
     } else {

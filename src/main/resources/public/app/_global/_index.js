@@ -11,6 +11,7 @@ var requires = [
     'ngMaterial',
     'pascalprecht.translate',
     'iosDblclick',
+    'ngFileUpload',
     'tasks',
     'profile'
 ];

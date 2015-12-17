@@ -26,7 +26,9 @@ function checkAuthentication() {
         withCredentials: true
     }).
     success(function(response) {
-        if (response.authenticated) {
+        if (response.user && response.user.authenticated) {
+            APP_SETTINGS.userProfile = response;
+
             deferred.resolve(true);
         } else {
             deferred.resolve(false);

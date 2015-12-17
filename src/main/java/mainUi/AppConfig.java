@@ -20,6 +20,18 @@ public class AppConfig {
     @Value("${mainAppPort}")
     private String mainAppPort;
 
+    @Value("${aws.s3.uploadUrl}")
+    private String s3UploadUrl;
+
+    @Value("${aws.s3.accessKeyId}")
+    private String s3AccessKeyId;
+
+    @Value("${aws.s3.policy}")
+    private String s3Policy;
+
+    @Value("${aws.s3.signature}")
+    private String s3Signature;
+
     public String getGatewayHost() {
         return gatewayHost;
     }
@@ -50,5 +62,37 @@ public class AppConfig {
 
     public void setMainAppPort(String mainAppPort) {
         this.mainAppPort = mainAppPort;
+    }
+
+    public String getS3AccessKeyId() {
+        return s3AccessKeyId;
+    }
+
+    public void setS3AccessKeyId(String s3AccessKeyId) {
+        this.s3AccessKeyId = s3AccessKeyId;
+    }
+
+    public String getS3Policy() {
+        return s3Policy;
+    }
+
+    public void setS3Policy(String s3Policy) {
+        this.s3Policy = s3Policy;
+    }
+
+    public String getS3Signature() {
+        return s3Signature;
+    }
+
+    public void setS3Signature(String s3Signature) {
+        this.s3Signature = s3Signature;
+    }
+
+    public String getS3UploadUrl() {
+        return s3UploadUrl;
+    }
+
+    public void setS3UploadUrl(String s3UploadUrl) {
+        this.s3UploadUrl = s3UploadUrl;
     }
 }

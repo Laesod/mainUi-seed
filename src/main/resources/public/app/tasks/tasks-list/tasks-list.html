@@ -31,13 +31,9 @@
 				<div flex=65 style="text-align: justify; word-break: break-all;" ng-bind-html="highlight(item.description, searchCriteria)"></div>
 
 				<div layout="raw" flex=5 style="margin-top: -10px; min-width: 50px;">
-<!-- 				   <md-button style="height: 35px; line-height: 35px; width: 35px; min-height: 35px; margin-left:30px; outline: none; min-width:35px;" ng-click="onEdit($event, $index)" aria-label="Edit" md-no-ink>
-				   	  <i class="fa fa-pencil-square-o" style="font-size: 15pt;"></i>
-				   </md-button>	 -->
-
-				   <md-button style="height: 35px; line-height: 35px; width: 35px; min-height: 35px; outline: none; min-width:35px;" ng-click="onDelete($index)" aria-label="Delete" md-no-ink>
-				   	  <i class="fa fa-times" style="font-size: 15pt;"></i>
-				   </md-button>			   		   
+					<div ng-click="onDelete($event)"  style="padding: 1rem; cursor: pointer; outline: none; margin-left: 1rem;">
+						<i class="fa fa-times" style="color: black; cursor: pointer; outline: none; font-size: 15pt;"></i>
+					</div>				
 				</div>				
 			</div>
       </div>
@@ -49,55 +45,6 @@
 
 
 
-<!-- FOR MOBILE: -->
-<!-- <md-content layout="column" style="height: 90%;">
-	<div style="width: 100%; border-bottom: 1px solid #ddd;"></div>
-    <md-virtual-repeat-container id="vertical-container" style="border-bottom: 0px solid #ddd"; md-auto-shrink>
-      <div md-virtual-repeat="item in entries" md-on-demand
-          class="repeated-item" flex style="padding-left: 1rem; padding-right: 1rem; padding-top:0.2rem; padding-bottom:0.2rem;" layout="column" ng-class="{'3. Done': 'doneTaskEntry', '2. In Progress': 'inProgressTaskEntry', '1. Open': 'openTaskEntry'}[item.status]">
-          	<div layout="row">
-				<div layout="column" flex=30>
-					<div layout="row">
-						<div style="font-weight: bold; margin-bottom: 0.3rem;" flex=40>Project:
-						</div>
-						<div flex=60>{{item.project}}</div>
-					</div>			
-					<div layout="row">
-						<div style="font-weight: bold; margin-bottom: 0.3rem;" flex=40>Type:
-						</div>
-						<div flex=60>{{item.type}}</div>
-					</div>
 
-					<div layout="row">
-						<div style="font-weight: bold; margin-bottom: 0.3rem;" flex=40>Status:
-						</div>
-						<div flex=60>{{item.status}}</div>
-					</div>
-
-					<div layout="row">
-						<div style="font-weight: bold; margin-bottom: 0.3rem;" flex=40>Created:
-						</div>
-						<div flex=60>{{item.createdAt | date:'yyyy-MM-dd'}}</div>
-					</div>
-
-					<div layout="raw" style="margin-top:0.5rem; margin-left: -0.8rem;">
-					   <md-button class="md-icon-button launch" style="height: 35px; line-height: 35px; width: 35px; min-height: 35px;" ng-click="onEdit($event, $index)">
-					   	  <i class="fa fa-pencil-square-o" style="font-size: 15pt;"></i>
-					   </md-button>	
-
-					   <md-button class="md-icon-button launch" style="height: 35px; line-height: 35px; width: 35px; min-height: 35px;" ng-click="onDelete($index)">
-					   	  <i class="fa fa-times" style="font-size: 15pt;"></i>
-					   </md-button>			   		   
-					</div>				
-				</div>
-
-				<div flex=70 style="padding-right: 2rem;">
-					{{item.description}}
-				</div>
-			</div>	
-		</div>
-      </div>
-    </md-virtual-repeat-container>
-</md-content> -->
 
 

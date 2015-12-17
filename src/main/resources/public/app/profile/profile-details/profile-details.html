@@ -1,3 +1,19 @@
-<div>Profile details view...</div>
+<div style="padding: 2rem">
+	<div style="margin-bottom: 1rem">Current avatar:</div>
+
+	<div style="padding: 1rem; border: 1px solid gray; width: 230px; height: 230px;">
+		<div ng-style="{'width': '230px', 'height': '230px', 'background': 'url(' + avatarUrl + ')', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></div>
+	</div>
+
+	<md-button ngf-select ng-model="file" accept="image/*" ngf-max-size="5MB">
+	    Change Avatar
+	 </md-button>	
+
+	<md-button ng-click="onUpload()">
+	    Upload
+	</md-button>	
+
+</div>
+
 
 

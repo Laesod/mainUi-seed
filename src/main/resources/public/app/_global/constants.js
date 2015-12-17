@@ -16,16 +16,24 @@ var AppSettings = function(config) {
     return {
         appTitle: 'conspector',
         appLanguage: 'en',
+        s3AccessInfo: {
+            s3UploadUrl: config.s3UploadUrl,
+            s3AccessKeyId: config.s3AccessKeyId, 
+            s3Policy: config.s3Policy, 
+            s3Signature: config.s3Signature
+        },
         /*        isNotMobile: isNotMobile,*/
         contextPrefix: contextParams.contextPrefix(), //'/gateway',        
         apiUrl: {
             authUrl: apiGatewayBaseUrl + '/gateway',
-            apiGatewayGetUserProfileUrl: apiGatewayBaseUrl + '/gateway/user',
+            apiGatewayGetUserProfileUrl: apiGatewayBaseUrl + '/gateway/gateway/getUserProfile',
             apiGatewayLogoutUrl: apiGatewayBaseUrl + "/gateway/logout",
             tasksManagementGetTasksUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/getTasks',
             tasksManagementCreateTaskUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/createTask',
             tasksManagementChangeTaskUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/changeTask',
             tasksManagementDeleteTaskUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/deleteTask',
+            filesManagementGeneratePresignedUrlForS3: apiGatewayBaseUrl + '/gateway/filesManagement/generatePresignedUrlForS3',
+            changeAvatarUrl: apiGatewayBaseUrl + '/gateway/gateway/changeAvatar'
         },
     };
 };
