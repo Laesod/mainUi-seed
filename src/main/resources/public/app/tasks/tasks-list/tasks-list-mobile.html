@@ -32,7 +32,7 @@
 						<div>{{item.createdAt | date:'yyyy-MM-dd'}}</div>
 					</div>
 
-					<div ng-if="item.showDeleteOption" ng-click="onDelete($event)"  style="padding: 1rem; cursor: pointer; outline: none; width: 18px;">
+					<div ng-if="item.showDeleteOption" ng-click="onDelete($index)"  style="padding: 1rem; cursor: pointer; outline: none; width: 18px;">
 						<i class="fa fa-times" style="color: black; cursor: pointer; outline: none; font-size: 15pt;"></i>
 					</div>
 				</div>
