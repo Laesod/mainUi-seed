@@ -1,60 +1,59 @@
-<md-dialog  style="width: 100%; height: 100%;">
-  <form>
-    <md-toolbar style="min-height: 64px;">
-      <div class="md-toolbar-tools" style="padding-left: 1rem; padding-right: 0rem; margin-top: 0.2rem;">
-        <h2>{{popupHeader}}</h2>
-        <span flex></span>
-        <div ng-click="cancel()"  style="padding: 1rem; cursor: pointer; outline: none; margin-left: 1rem;">
-          <i class="fa fa-times" style="color: white; cursor: pointer; outline: none; font-size: 15pt;"></i>
-        </div>        
-      </div>
-    </md-toolbar>
-    <md-dialog-content>
-        <div class="md-dialog-content" layout="column">
-          <md-input-container flex>
-            <label>Project</label>
-            <md-select ng-model="entry.project">
-              <md-option ng-repeat="project in projects" value="{{project.description}}">
-                {{project.description}}
-              </md-option>
-            </md-select>
-          </md-input-container>  
+<md-dialog style="width: 100%; height: 100%;">
+   <form>
+      <md-toolbar style="min-height: 64px;">
+         <div class="md-toolbar-tools" style="padding-left: 1rem; padding-right: 0rem; margin-top: 0.2rem;">
+            <h2>{{popupHeader}}</h2>
+            <span flex></span>
+            <div ng-click="cancel()" style="padding: 1rem; cursor: pointer; outline: none; margin-left: 1rem;">
+               <i class="fa fa-times" style="color: white; cursor: pointer; outline: none; font-size: 15pt;"></i>
+            </div>
+         </div>
+      </md-toolbar>
+      <md-dialog-content>
+         <div class="md-dialog-content" layout="column">
+            <md-input-container flex>
+               <label>Project</label>
+               <md-select ng-model="entry.project">
+                  <md-option ng-repeat="project in projects" value="{{project.description}}">
+                     {{project.description}}
+                  </md-option>
+               </md-select>
+            </md-input-container>
 
-          <md-input-container flex>
-            <label>Type</label>
-            <md-select ng-model="entry.type">
-              <md-option ng-repeat="type in types" value="{{type.description}}">
-                {{type.description}}
-              </md-option>
-            </md-select>
-          </md-input-container>          
+            <md-input-container flex>
+               <label>Type</label>
+               <md-select ng-model="entry.type">
+                  <md-option ng-repeat="type in types" value="{{type.description}}">
+                     {{type.description}}
+                  </md-option>
+               </md-select>
+            </md-input-container>
 
-          <md-input-container flex>
-            <label>Status</label>
-            <md-select ng-model="entry.status">
-              <md-option ng-repeat="status in statuses" value="{{status.description}}">
-                {{status.description}}
-              </md-option>
-            </md-select>
-          </md-input-container> 
+            <md-input-container flex>
+               <label>Status</label>
+               <md-select ng-model="entry.status">
+                  <md-option ng-repeat="status in statuses" value="{{status.description}}">
+                     {{status.description}}
+                  </md-option>
+               </md-select>
+            </md-input-container>
 
-          <md-input-container class="md-block">
-            <label>Description</label>
-            <textarea ng-model="entry.description" columns="1" ></textarea>
-          </md-input-container>
-        </div> 
-    </md-dialog-content>
-    <md-dialog-actions layout="row" layout-align="center center" style="order:2;">
-      <md-button ng-click="returnEntry()">
-       Save
-      </md-button>
-      <md-button ng-click="cancel()" style="margin-right:20px;">
-        Cancel
-      </md-button>
-      <md-button style="margin-right:20px; display: none;" md-autofocus>
-        autofocus killer
-      </md-button>      
-    </md-dialog-actions>  
-  </form>
+            <md-input-container class="md-block">
+               <label>Description</label>
+               <textarea ng-model="entry.description" columns="1"></textarea>
+            </md-input-container>
+         </div>
+      </md-dialog-content>
+      <md-dialog-actions layout="row" layout-align="center center" style="order:2;">
+         <md-button ng-click="returnEntry()">
+            Save
+         </md-button>
+         <md-button ng-click="cancel()" style="margin-right:20px;">
+            Cancel
+         </md-button>
+         <md-button style="margin-right:20px; display: none;" md-autofocus>
+            autofocus killer
+         </md-button>
+      </md-dialog-actions>
+   </form>
 </md-dialog>
-

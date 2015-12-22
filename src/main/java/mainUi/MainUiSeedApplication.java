@@ -1,6 +1,8 @@
 package mainUi;
 
+import javafx.application.Application;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.system.ApplicationPidFileWriter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import java.io.File;
 
 @Configuration // needed to specify that the class contains global spring configurations
 @ComponentScan
@@ -29,7 +32,14 @@ public class MainUiSeedApplication extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(MainUiSeedApplication.class, args);
+        File pid = new File("app.pid");
+        pid.deleteOnExit();
+
+        SpringApplication app = new SpringApplication(Application.class);
+        app.setShowBanner(false);
+        app.addListeners(new ApplicationPidFileWriter(pid));
+
+        app.run(MainUiSeedApplication.class, args);
     }
 
     @Inject

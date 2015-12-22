@@ -1,92 +1,89 @@
-<md-dialog  style="width: 100%; height: 100%;">
-  <form>
-    <md-toolbar style="min-height: 64px;">
-      <div class="md-toolbar-tools" style="padding-left: 1rem; padding-right: 0rem; margin-top: 0.2rem;">
-        <h2>{{popupHeader}}</h2>
-        <span flex></span>
-        <div ng-click="cancel()"  style="padding: 1rem; cursor: pointer; outline: none; margin-left: 1rem;">
-          <i class="fa fa-times" style="color: white; cursor: pointer; outline: none; font-size: 15pt;"></i>
-        </div>        
-      </div>
-    </md-toolbar>
-
-    <md-dialog-content>
-      <div style="height: 60px;" layout-align="start center" layout="row">
-
-        <div ng-click="changeSettingType('Filtering')"  style="padding: 1rem; cursor: pointer; outline: none">
-          <i class="fa fa-filter" style="cursor: pointer; outline: none; font-size: 15pt;" ng-class="{'Filtering': 'activeActionIcon', 'Sorting': 'actionIcon'}[currentSettingType]"></i>
-        </div>  
-        <div ng-click="changeSettingType('Sorting')"  style="padding: 1rem; cursor: pointer; outline: none">
-          <i class="fa fa-sort" style="cursor: pointer; outline: none; font-size: 15pt;" ng-class="{'Filtering': 'actionIcon', 'Sorting': 'activeActionIcon'}[currentSettingType]"></i>
-        </div>             
-      </div>
-
-      <div ng-if="currentSettingType === 'Filtering'" layout="column" style="padding-left: 1rem; padding-right: 1rem;">
-        <md-input-container flex>
-          <label>Project</label>
-          <md-select ng-model="appliedFilters.project" multiple>
-            <md-option ng-repeat="project in projects" value="{{project.description}}">
-              {{project.description}}
-            </md-option>
-          </md-select>
-        </md-input-container>  
-
-        <md-input-container flex>
-          <label>Type</label>
-          <md-select ng-model="appliedFilters.type" multiple>
-            <md-option ng-repeat="type in types" value="{{type.description}}">
-                {{type.description}}
-              </md-option>
-            </md-select>
-          </md-input-container>          
-
-          <md-input-container flex>
-            <label>Status</label>
-            <md-select ng-model="appliedFilters.status" multiple>
-              <md-option ng-repeat="status in statuses" value="{{status.description}}">
-                {{status.description}}
-              </md-option>
-            </md-select>
-          </md-input-container> 
-        </div>
-
-        <div ng-if="currentSettingType === 'Sorting'" layout="row" style="width:100%; margin-top: 0.5rem; margin-bottom: 0.5rem; padding-left: 0.5rem; padding-right: 0.5rem;">
-          <div flex=40 layout="column" layout-align="start start">
-            <div style="padding: 1rem; font-weight: bold;">Applied:</div>
-            <div ng-repeat="selectedSortingCriteria in selectedSortingCriterias" style="width: 100%; border-bottom: solid 1px black;">
-              <div ng-class="{true: 'selectedSortigCriteriaItem', false: 'sortigCriteriaItem'}[selectedSortingCriteria.selected]" ng-click="onSelectSortingCriteria($index, 'selected')">{{selectedSortingCriteria.fieldName}}</div>              
+<md-dialog style="width: 100%; height: 100%;">
+   <form>
+      <md-toolbar style="min-height: 64px;">
+         <div class="md-toolbar-tools" style="padding-left: 1rem; padding-right: 0rem; margin-top: 0.2rem;">
+            <h2>{{popupHeader}}</h2>
+            <span flex></span>
+            <div ng-click="cancel()" style="padding: 1rem; cursor: pointer; outline: none; margin-left: 1rem;">
+               <i class="fa fa-times" style="color: white; cursor: pointer; outline: none; font-size: 15pt;"></i>
             </div>
+         </div>
+      </md-toolbar>
 
-          </div>
-          <div flex=20 layout="column" layout="column" layout-align="center center">
-            <div ng-click="onAddSorting($index)"  style="padding: 1rem; cursor: pointer; outline: none">
-              <i class="fa fa-plus" style="cursor: pointer; outline: none;"></i>
-            </div> 
-
-            <div ng-click="onRemoveSorting($index)"  style="padding: 1rem; cursor: pointer; outline: none">
-              <i class="fa fa-minus" style="cursor: pointer; outline: none;"></i>
-            </div> 
-          </div>
-          <div flex=40 layout="column" layout-align="start start">
-            <div style="padding: 1rem; font-weight: bold;">Available:</div>
-            <div ng-repeat="availableSortingCriteria in availableSortingCriterias" style="width: 100%; border-bottom: solid 1px black;">
-              <div ng-class="{true: 'selectedSortigCriteriaItem', false: 'sortigCriteriaItem'}[availableSortingCriteria.selected]" ng-click="onSelectSortingCriteria($index, 'available')">{{availableSortingCriteria.fieldName}}</div>              
+      <md-dialog-content>
+         <div style="height: 60px;" layout-align="start center" layout="row">
+            <div ng-click="changeSettingType('Filtering')" style="padding: 1rem; cursor: pointer; outline: none">
+               <i class="fa fa-filter" style="cursor: pointer; outline: none; font-size: 15pt;" ng-class="{'Filtering': 'activeActionIcon', 'Sorting': 'actionIcon'}[currentSettingType]"></i>
             </div>
+            <div ng-click="changeSettingType('Sorting')" style="padding: 1rem; cursor: pointer; outline: none">
+               <i class="fa fa-sort" style="cursor: pointer; outline: none; font-size: 15pt;" ng-class="{'Filtering': 'actionIcon', 'Sorting': 'activeActionIcon'}[currentSettingType]"></i>
+            </div>
+         </div>
 
-          </div>
-        </div>
-    </md-dialog-content>
-    <md-dialog-actions layout="row" layout-align="center center" style="order:2;">
-      <md-button ng-click="returnEntry()">
-       Apply
-      </md-button>
-      <md-button ng-click="cancel()" style="margin-right:20px;">
-        Cancel
-      </md-button>
-      <md-button style="margin-right:20px; display: none;" md-autofocus>
-        autofocus killer
-      </md-button>        
-    </md-dialog-actions> 
-  </form>
+         <div ng-if="currentSettingType === 'Filtering'" layout="column" style="padding-left: 1rem; padding-right: 1rem;">
+            <md-input-container flex>
+               <label>Project</label>
+               <md-select ng-model="appliedFilters.project" multiple>
+                  <md-option ng-repeat="project in projects" value="{{project.description}}">
+                     {{project.description}}
+                  </md-option>
+               </md-select>
+            </md-input-container>
+
+            <md-input-container flex>
+               <label>Type</label>
+               <md-select ng-model="appliedFilters.type" multiple>
+                  <md-option ng-repeat="type in types" value="{{type.description}}">
+                     {{type.description}}
+                  </md-option>
+               </md-select>
+            </md-input-container>
+
+            <md-input-container flex>
+               <label>Status</label>
+               <md-select ng-model="appliedFilters.status" multiple>
+                  <md-option ng-repeat="status in statuses" value="{{status.description}}">
+                     {{status.description}}
+                  </md-option>
+               </md-select>
+            </md-input-container>
+         </div>
+
+         <div ng-if="currentSettingType === 'Sorting'" layout="row" style="width:100%; margin-top: 0.5rem; margin-bottom: 0.5rem; padding-left: 0.5rem; padding-right: 0.5rem;">
+            <div flex=40 layout="column" layout-align="start start">
+               <div style="padding: 1rem; font-weight: bold;">Applied:</div>
+               <div ng-repeat="selectedSortingCriteria in selectedSortingCriterias" style="width: 100%; border-bottom: solid 1px black;">
+                  <div ng-class="{true: 'selectedSortigCriteriaItem', false: 'sortigCriteriaItem'}[selectedSortingCriteria.selected]" ng-click="onSelectSortingCriteria($index, 'selected')">{{selectedSortingCriteria.fieldName}}</div>
+               </div>
+
+            </div>
+            <div flex=20 layout="column" layout="column" layout-align="center center">
+               <div ng-click="onAddSorting($index)" style="padding: 1rem; cursor: pointer; outline: none">
+                  <i class="fa fa-plus" style="cursor: pointer; outline: none;"></i>
+               </div>
+
+               <div ng-click="onRemoveSorting($index)" style="padding: 1rem; cursor: pointer; outline: none">
+                  <i class="fa fa-minus" style="cursor: pointer; outline: none;"></i>
+               </div>
+            </div>
+            <div flex=40 layout="column" layout-align="start start">
+               <div style="padding: 1rem; font-weight: bold;">Available:</div>
+               <div ng-repeat="availableSortingCriteria in availableSortingCriterias" style="width: 100%; border-bottom: solid 1px black;">
+                  <div ng-class="{true: 'selectedSortigCriteriaItem', false: 'sortigCriteriaItem'}[availableSortingCriteria.selected]" ng-click="onSelectSortingCriteria($index, 'available')">{{availableSortingCriteria.fieldName}}</div>
+               </div>
+            </div>
+         </div>
+      </md-dialog-content>
+      <md-dialog-actions layout="row" layout-align="center center" style="order:2;">
+         <md-button ng-click="returnEntry()">
+            Apply
+         </md-button>
+         <md-button ng-click="cancel()" style="margin-right:20px;">
+            Cancel
+         </md-button>
+         <md-button style="margin-right:20px; display: none;" md-autofocus>
+            autofocus killer
+         </md-button>
+      </md-dialog-actions>
+   </form>
 </md-dialog>
-

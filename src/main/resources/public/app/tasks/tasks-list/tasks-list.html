@@ -1,50 +1,36 @@
 <div style="height: 60px;" layout-align="end center" layout="row">
-
-	<md-input-container flex  style="margin-left: 1rem; margin-top: 1rem;">
-	  <label>Search</label>
-      <input type="text" id="search" ng-model="searchCriteria" style="width: 20%; min-width: 150px;" ng-keypress="onKeyPress($event)" >
-	</md-input-container>  
-
-	<md-button class="md-raised md-primary" ng-click="onSettings($event)">{{'settings' | translate}}</md-button>
-
-	<md-button class="md-raised md-primary" ng-click="onAdd($event)">{{'add' | translate}}</md-button>
+   <md-input-container flex style="margin-left: 1rem; margin-top: 1rem;">
+      <label>Search</label>
+      <input type="text" id="search" ng-model="searchCriteria" style="width: 20%; min-width: 150px;" ng-keypress="onKeyPress($event)">
+   </md-input-container>
+   <md-button class="md-raised md-primary" ng-click="onSettings($event)">{{'settings' | translate}}</md-button>
+   <md-button class="md-raised md-primary" ng-click="onAdd($event)">{{'add' | translate}}</md-button>
 </div>
 
 <div layout="row" layout-align="start center" style="padding-left: 1rem; padding-right: 1rem; padding-top:0.2rem; padding-bottom:0.2rem; font-weight: bold; height: 25px; border-left: 5px solid white;">
-	<div flex=10 style="min-width: 100px;">Project</div>
-	<div flex=10 style="min-width: 100px;">Type</div>
-<!-- 	<div flex=10>Status</div> -->
-	<div flex=10 style="min-width: 100px;">Created</div>
-	<div flex=65>Description</div>
+   <div flex=10 style="min-width: 100px;">Project</div>
+   <div flex=10 style="min-width: 100px;">Type</div>
+   <div flex=10 style="min-width: 100px;">Created</div>
+   <div flex=65>Description</div>
 </div>
 
 <md-content layout="column" style="height: calc(100% - 85px);">
-	<div style="width: 100%; border-bottom: 1px solid #ddd;"></div>
-    <md-virtual-repeat-container id="vertical-container" style="border-bottom: 0px solid #ddd;">
-      <div md-virtual-repeat="item in entries" md-on-demand
-          class="repeated-item" flex style="padding-left: 1rem; padding-right: 1rem; padding-top:0.2rem; padding-bottom:0.2rem; outline: none;" layout="column" ng-class="{'3. Done': 'doneTaskEntry', '2. In Progress': 'inProgressTaskEntry', '1. Open': 'openTaskEntry', '_': 'noStatusEntry'}[item.status]" ng-dblclick="onEdit($event, $index)">
-			<div layout="row" layout-align="start start">
-				<div flex=10 style="min-width: 100px;">{{item.project}}</div>
-				<div flex=10 style="min-width: 100px;">{{item.type}}</div>
-<!-- 				<div flex=10>{{item.status}}</div> -->
-				<div flex=10 style="min-width: 100px;">{{item.createdAt | date:'yyyy-MM-dd'}}</div>
-				<div flex=65 style="text-align: justify; word-break: break-all;" ng-bind-html="highlight(item.description, searchCriteria)"></div>
-
-				<div layout="raw" flex=5 style="margin-top: -10px; min-width: 50px;">
-					<div ng-click="onDelete($index)"  style="padding: 1rem; cursor: pointer; outline: none; margin-left: 1rem;">
-						<i class="fa fa-times" style="color: black; cursor: pointer; outline: none; font-size: 15pt;"></i>
-					</div>				
-				</div>				
-			</div>
+   <div style="width: 100%; border-bottom: 1px solid #ddd;"></div>
+   <md-virtual-repeat-container id="vertical-container" style="border-bottom: 0px solid #ddd;">
+      <div md-virtual-repeat="item in entries" md-on-demand class="repeated-item" flex style="padding-left: 1rem; padding-right: 1rem; padding-top:0.2rem; padding-bottom:0.2rem; outline: none;"
+      layout="column" ng-class="{'3. Done': 'doneTaskEntry', '2. In Progress': 'inProgressTaskEntry', '1. Open': 'openTaskEntry', '_': 'noStatusEntry'}[item.status]"
+      ng-dblclick="onEdit($event, $index)">
+         <div layout="row" layout-align="start start">
+            <div flex=10 style="min-width: 100px;">{{item.project}}</div>
+            <div flex=10 style="min-width: 100px;">{{item.type}}</div>
+            <div flex=10 style="min-width: 100px;">{{item.createdAt | date:'yyyy-MM-dd'}}</div>
+            <div flex=65 style="text-align: justify; word-break: break-all;" ng-bind-html="highlight(item.description, searchCriteria)"></div>
+            <div layout="raw" flex=5 style="margin-top: -10px; min-width: 50px;">
+               <div ng-click="onDelete($index)" style="padding: 1rem; cursor: pointer; outline: none; margin-left: 1rem;">
+                  <i class="fa fa-times" style="color: black; cursor: pointer; outline: none; font-size: 15pt;"></i>
+               </div>
+            </div>
+         </div>
       </div>
-    </md-virtual-repeat-container>
-
-
-
-
-
-
-
-
-
-
+   </md-virtual-repeat-container>
+</md-content>
