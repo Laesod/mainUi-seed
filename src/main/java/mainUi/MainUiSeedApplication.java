@@ -1,6 +1,5 @@
 package mainUi;
 
-import javafx.application.Application;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.system.ApplicationPidFileWriter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -35,11 +34,11 @@ public class MainUiSeedApplication extends SpringBootServletInitializer {
         File pid = new File("app.pid");
         pid.deleteOnExit();
 
-        SpringApplication app = new SpringApplication(Application.class);
+        SpringApplication app = new SpringApplication(MainUiSeedApplication.class);
         app.setShowBanner(false);
         app.addListeners(new ApplicationPidFileWriter(pid));
 
-        app.run(MainUiSeedApplication.class, args);
+        app.run(args);
     }
 
     @Inject
