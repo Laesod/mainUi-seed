@@ -3,7 +3,6 @@ package mainUi;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.system.ApplicationPidFileWriter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
@@ -22,7 +21,8 @@ import java.io.File;
 @EnableAutoConfiguration
 @EnableTransactionManagement
 @RestController // needed to enable rest end points within the class
-@SpringBootApplication
+
+
 public class MainUiSeedApplication extends SpringBootServletInitializer {
 
     @Override
