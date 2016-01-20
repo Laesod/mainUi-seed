@@ -32,7 +32,8 @@ function OnConfig($urlRouterProvider, $httpProvider, $injector, APP_SETTINGS, $t
         "logedInAsMsg": "You are currently logged in as:",
         "logedInWithRolesMsg": "Your roles are:",
         "add": "Add",
-        "settings": "Settings"
+        "settings": "Settings",
+        "download": "Download"
     });
 
     $translateProvider.translations('fr', {

@@ -36,6 +36,9 @@ target
 .idea
 *.iml
 
+#visual code
+.vscode
+
 #eclipse
 .project
 .settings

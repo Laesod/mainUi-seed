@@ -50,6 +50,33 @@ function TasksListCtrl($scope, $timeout, $http, APP_SETTINGS, globalService, $wi
 
     $scope.appliedFilters = {};
 
+
+    var prepareCurrentSortingParams = function(){
+        var sortingCriterias = [];
+        if ($scope.selectedSortingCriterias.length) {
+            for (var i = 0; i < $scope.selectedSortingCriterias.length; i++) {
+                sortingCriterias.push($scope.selectedSortingCriterias[i].field + "," + $scope.selectedSortingCriterias[i].direction);
+            }
+        }
+        
+        return sortingCriterias;       
+    };
+
+    var prepareCurrentFilteringParams = function(targetObj){
+        if (!angular.equals($scope.appliedFilters, {})) {
+            for (var property in $scope.appliedFilters) {
+                if ($scope.appliedFilters.hasOwnProperty(property)) {
+                    var filterValues = [];
+                    for (var i = 0; i < $scope.appliedFilters[property].length; i++) {
+                        filterValues.push($scope.appliedFilters[property][i]);
+                    }
+
+                    targetObj[property] = filterValues;
+                }
+            }
+        }      
+    };
+
     var DynamicItems = function() {
         this.loadedPages = {};
         this.numItems = 0;
@@ -76,34 +103,21 @@ function TasksListCtrl($scope, $timeout, $http, APP_SETTINGS, globalService, $wi
         // For demo purposes, we simulate loading more items with a timed
         // promise. In real code, this function would likely contain an
         // $http request.
-        var sortingCriterias = [];
-        if ($scope.selectedSortingCriterias.length) {
-            for (var i = 0; i < $scope.selectedSortingCriterias.length; i++) {
-                sortingCriterias.push($scope.selectedSortingCriterias[i].field + "," + $scope.selectedSortingCriterias[i].direction);
-            }
-        }
+      //   var sortingCriterias = [];
+      //   if ($scope.selectedSortingCriterias.length) {
+      //       for (var i = 0; i < $scope.selectedSortingCriterias.length; i++) {
+      //           sortingCriterias.push($scope.selectedSortingCriterias[i].field + "," + $scope.selectedSortingCriterias[i].direction);
+      //       }
+      //   }
 
         var getTasksParams = {
             size: this.PAGE_SIZE,
             page: pageNumber,
-            sort: sortingCriterias,
+            sort: prepareCurrentSortingParams(),
             description: $scope.searchCriteria
-        };
+        }; 
 
-        if (!angular.equals($scope.appliedFilters, {})) {
-            for (var property in $scope.appliedFilters) {
-                if ($scope.appliedFilters.hasOwnProperty(property)) {
-                    var filterValues = [];
-                    for (var i = 0; i < $scope.appliedFilters[property].length; i++) {
-                        filterValues.push($scope.appliedFilters[property][i]);
-                    }
-
-                    getTasksParams[property] = filterValues;
-                }
-            }
-
-        }
-
+        prepareCurrentFilteringParams(getTasksParams);
         tasksService.getTasks(getTasksParams).then(angular.bind(this, function(data) {
             this.loadedPages[pageNumber] = [];
             var pageOffset = pageNumber * this.PAGE_SIZE;
@@ -115,23 +129,11 @@ function TasksListCtrl($scope, $timeout, $http, APP_SETTINGS, globalService, $wi
     DynamicItems.prototype.fetchNumItems_ = function() {
         var getTasksParams = {
             size: 1,
-            page: 1,
+            page: 0,
             description: $scope.searchCriteria
         };
 
-        if (!angular.equals($scope.appliedFilters, {})) {
-            for (var property in $scope.appliedFilters) {
-                if ($scope.appliedFilters.hasOwnProperty(property)) {
-                    var filterValues = [];
-                    for (var i = 0; i < $scope.appliedFilters[property].length; i++) {
-                        filterValues.push($scope.appliedFilters[property][i]);
-                    }
-
-                    getTasksParams[property] = filterValues;
-                }
-            }
-        }
-
+        prepareCurrentFilteringParams(getTasksParams);
         tasksService.getTasks(getTasksParams).then(angular.bind(this, function(data) {
             this.numItems = data.totalElements;
         }));
@@ -314,6 +316,29 @@ function TasksListCtrl($scope, $timeout, $http, APP_SETTINGS, globalService, $wi
             reloadEntries();
         }
     };
+    
+    $scope.onDownload = function(){
+       var sortParams = prepareCurrentSortingParams();
+
+        var getTasksParams = {
+            size: 10000,
+            page: 0
+        };
+        
+        if($scope.searchCriteria){
+           getTasksParams.description = $scope.searchCriteria;
+        }
+        if(sortParams.length){
+           getTasksParams.sort = sortParams;
+        }        
+        
+       prepareCurrentFilteringParams(getTasksParams);
+       
+       var urlParams = globalService.objToUrlParamsString(getTasksParams); //"?size=10000&page=0&sort=project,asc&sort=type,asc&sort=status,asc&sort=createdAt,desc&project=Personal"; //
+       
+       
+       $window.open( APP_SETTINGS.apiUrl.tasksManagementExportTasksToCSVUrl + '?' + urlParams);
+    }
 }
 
 documentsModule.controller('TasksListCtrl', TasksListCtrl);
