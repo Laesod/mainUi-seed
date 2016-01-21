@@ -1,19 +1,15 @@
 <div style="padding: 2rem">
-	<div style="margin-bottom: 1rem">Current avatar:</div>
+   <div style="margin-bottom: 1rem">Current avatar:</div>
 
-	<div style="padding: 1rem; border: 1px solid gray; width: 230px; height: 230px;">
-		<div ng-style="{'width': '230px', 'height': '230px', 'background': 'url(' + avatarUrl + ')', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></div>
-	</div>
-
-	<button type="file" ngf-select ng-model="file" accept="image/*" ngf-max-size="5MB">
-	    Change Avatar
-	 </button type="file">	
-
-	<md-button ng-click="onUpload()">
-	    Upload
-	</md-button>	
-
+   <div style="padding: 1rem; border: 1px solid gray; width: 230px; height: 230px;">
+      <div ng-style="{'width': '230px', 'height': '230px', 'background': 'url(' + avatarUrl + ')', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></div>
+   </div>
+   <div style="margin-top: 1rem;">
+      <input type="file" name="img" ngf-select ng-model="file" accept="image/*" ngf-max-size="5MB">
+   </div>
+   <div>
+      <md-button ng-click="onUpload()">
+         Upload
+      </md-button>
+   </div>
 </div>
-
-
-
