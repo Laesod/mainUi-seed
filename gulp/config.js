@@ -54,6 +54,7 @@ module.exports = {
             'src/main/resources/public/lib/ios-dblclick/ios-dblclick.js',
             'src/main/resources/public/lib/ng-file-upload-shim/ng-file-upload-shim.js',
             'src/main/resources/public/lib/ng-file-upload/ng-file-upload.js',
+            'src/main/resources/public/lib/angular-file-saver/dist/angular-file-saver.bundle.min.js'
         ],
         dest: 'src/main/resources/public/build/js'
     },

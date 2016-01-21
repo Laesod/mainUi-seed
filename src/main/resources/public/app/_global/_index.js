@@ -12,8 +12,9 @@ var requires = [
     'pascalprecht.translate',
     'iosDblclick',
     'ngFileUpload',
+    'ngFileSaver',
     'tasks',
-    'profile'
+    'profile',
 ];
 
 module.exports = angular.module('app', requires);

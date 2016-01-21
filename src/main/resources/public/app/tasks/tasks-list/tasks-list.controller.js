@@ -3,7 +3,7 @@
 var documentsModule = require('../_index');
 var url = require('url');
 
-function TasksListCtrl($scope, $timeout, $http, APP_SETTINGS, globalService, $window, $mdDialog, $mdMedia, tasksService, $sce) {
+function TasksListCtrl($scope, $timeout, $http, APP_SETTINGS, globalService, $window, $mdDialog, $mdMedia, tasksService, $sce, FileSaver, Blob) {
    $scope.selectedSortingCriterias = [{
       fieldName: "project (asc)",
       field: "project",
@@ -346,10 +346,10 @@ function TasksListCtrl($scope, $timeout, $http, APP_SETTINGS, globalService, $wi
 
       prepareCurrentFilteringParams(getTasksParams);
 
-      var urlParams = globalService.objToUrlParamsString(getTasksParams); //"?size=10000&page=0&sort=project,asc&sort=type,asc&sort=status,asc&sort=createdAt,desc&project=Personal"; //
-       
-       
-      $window.open(APP_SETTINGS.apiUrl.tasksManagementExportTasksToCSVUrl + '?' + urlParams);
+      tasksService.exportTasksToCSV(getTasksParams).then(function (response) {
+         var data = new Blob([response], { type: 'text/csv;charset=utf-8' });
+         FileSaver.saveAs(data, 'TasksList.csv');
+      });
    }
 }
 
