@@ -103,7 +103,16 @@ function globalService($rootScope, $http, $q, $cookies, $timeout, APP_SETTINGS, 
                   case 6:
                      // 90° rotate right
                      context.rotate(0.5 * Math.PI);
-                     context.translate(0, -canvas.height);
+
+                     if (newWidth >= newHeight) {//prefaced a lot of manual tuning/playing...
+                        var translationValue = (newWidth - newHeight) / 2;
+                        context.translate(0, -(newHeight + translationValue));
+                     }
+                     else{
+                        var translationValue = (newHeight - newWidth) / 2;
+                        context.translate(0, -(newWidth + translationValue));
+                     }
+
                      break;
                   case 7:
                      // horizontal flip + 90 rotate right
@@ -117,7 +126,7 @@ function globalService($rootScope, $http, $q, $cookies, $timeout, APP_SETTINGS, 
                      context.translate(-canvas.width, 0);
                      break;
                }
-            });            
+            });
 
             context.drawImage(this, 0, 0, newWidth, newHeight);
 
