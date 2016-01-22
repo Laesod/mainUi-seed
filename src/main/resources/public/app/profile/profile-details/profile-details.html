@@ -5,11 +5,11 @@
       <div ng-style="{'width': '230px', 'height': '230px', 'background': 'url(' + avatarUrl + ')', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></div>
    </div>
    <div style="margin-top: 1rem;">
-      <input type="file" name="img" ngf-select ng-model="file" accept="image/*" ngf-max-size="5MB">
+      <input type="file" name="img" ngf-select ng-model="file" accept="image/*" ngf-max-size="5MB" ngf-change=onUpload()>
    </div>
-   <div>
+   <!--<div>
       <md-button ng-click="onUpload()">
          Upload
       </md-button>
-   </div>
+   </div>-->
 </div>
