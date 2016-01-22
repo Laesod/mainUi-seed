@@ -16,7 +16,7 @@
     "font-awesome": "latest",
     "angular-animate": "latest",
     "angular-aria": "latest",
-    "angular-material": "1.0.0-rc7",
+    "angular-material": "latest",
     "angular-translate": "latest",
     "ios-dblclick": "~0.1.0",
     "ng-file-upload-shim": "~10.1.9",
