@@ -2,7 +2,7 @@
 
 module.exports = angular.module('globals', []);
 
-function globalService($rootScope, $http, $q, $cookies, $timeout, APP_SETTINGS, $mdToast, Upload) {
+function globalService($rootScope, $http, $q, $cookies, $timeout, APP_SETTINGS, $mdToast, Upload, Blob) {
    var service = {};
 
    service.request = function (params) {
@@ -37,38 +37,143 @@ function globalService($rootScope, $http, $q, $cookies, $timeout, APP_SETTINGS, 
       return deferred.promise;
    };
 
-   service.fileUploadToS3 = function (file, guid) {
-      // var keyGuid = this.generateGuid();
+   service.preprocessImg = function (file, guid) {
+      var deferred = $q.defer();
+
+      function processFile(file, dataURL) {
+         var deferred = $q.defer();
+
+         var maxWidth = 800;
+         var maxHeight = 800;
+
+         var image = new Image();
+         image.src = dataURL;
+
+         image.onload = function () {
+            var width = image.width;
+            var height = image.height;
+            var shouldResize = (width > maxWidth) || (height > maxHeight);
+
+            if (!shouldResize) {
+               deferred.resolve(dataURL);
+            }
+
+            var newWidth;
+            var newHeight;
+
+            if (width > height) {
+               newHeight = height * (maxWidth / width);
+               newWidth = maxWidth;
+            } else {
+               newWidth = width * (maxHeight / height);
+               newHeight = maxHeight;
+            }
+
+            var canvas = document.createElement('canvas');
+
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+
+            var context = canvas.getContext('2d');
+
+            EXIF.getData(image, function () {
+               var imgOrientation = EXIF(this).EXIFwrapped.exifdata.Orientation;
+
+               switch (imgOrientation) {
+                  case 2:
+                     // horizontal flip
+                     context.translate(canvas.width, 0);
+                     context.scale(-1, 1);
+                     break;
+                  case 3:
+                     // 180° rotate left
+                     context.translate(canvas.width, canvas.height);
+                     context.rotate(Math.PI);
+                     break;
+                  case 4:
+                     // vertical flip
+                     context.translate(0, canvas.height);
+                     context.scale(1, -1);
+                     break;
+                  case 5:
+                     // vertical flip + 90 rotate right
+                     context.rotate(0.5 * Math.PI);
+                     context.scale(1, -1);
+                     break;
+                  case 6:
+                     // 90° rotate right
+                     context.rotate(0.5 * Math.PI);
+                     context.translate(0, -canvas.height);
+                     break;
+                  case 7:
+                     // horizontal flip + 90 rotate right
+                     context.rotate(0.5 * Math.PI);
+                     context.translate(canvas.width, -canvas.height);
+                     context.scale(-1, 1);
+                     break;
+                  case 8:
+                     // 90° rotate left
+                     context.rotate(-0.5 * Math.PI);
+                     context.translate(-canvas.width, 0);
+                     break;
+               }
+            });            
+
+            context.drawImage(this, 0, 0, newWidth, newHeight);
+
+            dataURL = canvas.toDataURL(file.type);
+
+            deferred.resolve(dataURL);
+         };
+
+         return deferred.promise;
+      };
+
+      function readFile(file, guid) {
+         var deferred = $q.defer();
+
+         var reader = new FileReader();
+
+         reader.onloadend = function () {
+            processFile(file, reader.result).then(function (dataURL) { deferred.resolve(dataURL); });
+         }
+
+         reader.readAsDataURL(file);
+
+         return deferred.promise;
+      };
+
+      readFile(file, guid).then(function (dataURL) { deferred.resolve(dataURL); })
+
+      return deferred.promise;
+   };
+
+   service.fileUploadToS3 = function (file, dataURL, guid) {
+      var dataURItoBlob = function (dataURI, dataTYPE) {
+         var binary = atob(dataURI.split(',')[1]), array = [];
+         for (var i = 0; i < binary.length; i++) array.push(binary.charCodeAt(i));
+         return new Blob([new Uint8Array(array)], { type: dataTYPE });
+      }
+
+      var blob = dataURItoBlob(dataURL, file.type);
+
       if (file) {
-         file.upload = Upload.upload({ //to be moved to global services...
+         file.upload = Upload.upload({
             url: APP_SETTINGS.s3AccessInfo.s3UploadUrl,
             withCredentials: false,
             data: {
-               key: guid, //"test",
+               key: guid,
                AWSAccessKeyId: APP_SETTINGS.s3AccessInfo.s3AccessKeyId,
                acl: 'private',
                policy: APP_SETTINGS.s3AccessInfo.s3Policy,
                signature: APP_SETTINGS.s3AccessInfo.s3Signature,
-               "Content-Type": file.type !== '' ? file.type : 'application/octet-stream',
+               "Content-Type": file.type,
                filename: file.name,
-               file: file,
+               file: blob
             }
          });
 
          return file.upload;
-
-         // file.upload.then(function (response) {
-         //     //keyGuid to be passed to metadata
-         //     $timeout(function () {
-         //         file.result = response.data;
-         //     });
-         // }, function (response) {
-         //     // if (response.status > 0)
-         //     //     $scope.errorMsg = response.status + ': ' + response.data;
-         // }, function (evt) {
-         //     file.progress = Math.min(100, parseInt(100.0 * 
-         //                              evt.loaded / evt.total));
-         // });
       }
    };
 

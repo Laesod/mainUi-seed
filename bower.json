@@ -21,6 +21,7 @@
     "ios-dblclick": "~0.1.0",
     "ng-file-upload-shim": "~10.1.9",
     "ng-file-upload": "~10.1.9",
-    "angular-file-saver": "~1.0.2"
+    "angular-file-saver": "~1.0.2",
+    "exif-js": "latest"
   }
 }
