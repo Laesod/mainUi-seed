@@ -3,7 +3,7 @@
 function OnConfig($urlRouterProvider, $httpProvider, $injector, APP_SETTINGS, $translateProvider) {
     // var cookies = $injector.get('$cookies');
 
-    $urlRouterProvider.otherwise(function($injector) {
+    $urlRouterProvider.otherwise(function ($injector) {
         var globalService = $injector.get('globalService');
         var state = $injector.get('$state');
         var stateName = "app.tasksList";
@@ -12,16 +12,16 @@ function OnConfig($urlRouterProvider, $httpProvider, $injector, APP_SETTINGS, $t
 
     $httpProvider.defaults.withCredentials = true;
 
-    $httpProvider.interceptors.push(function($injector, $window, $cookies, $q) {
+    $httpProvider.interceptors.push(function ($injector, $window, $cookies, $q) {
         return {
-            'responseError': function(err, status) {
-
-                switch (err.status) {
-                    case -1: //-1 is used instead of 401 because that's the status intercepted by angular in case of not authorize exception
-                        window.location = APP_SETTINGS.apiUrl.authUrl + '/#/login?location=' + encodeURIComponent(window.location.href);
-                        break;
+            'responseError': function (err, status) {
+                if (err) {
+                    switch (err.status) {
+                        case -1: //-1 is used instead of 401 because that's the status intercepted by angular in case of not authorize exception
+                            window.location = APP_SETTINGS.apiUrl.authUrl + '/#/login?location=' + encodeURIComponent(window.location.href);
+                            break;
+                    }
                 }
-
                 return $q.reject(err);
             }
         };
