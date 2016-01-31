@@ -1,8 +1,6 @@
 'use strict';
 
 function OnConfig($urlRouterProvider, $httpProvider, $injector, APP_SETTINGS, $translateProvider) {
-    // var cookies = $injector.get('$cookies');
-
     $urlRouterProvider.otherwise(function ($injector) {
         var globalService = $injector.get('globalService');
         var state = $injector.get('$state');
