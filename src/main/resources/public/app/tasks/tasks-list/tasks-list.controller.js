@@ -220,10 +220,10 @@ function TasksListCtrl($scope, $timeout, $http, APP_SETTINGS, globalService, $wi
                   guid: dialogReturns.entry.taskGuid,
                   payload: angular.copy(dialogReturns.entry)
                }).then(angular.bind(this, function (data) {
-                //   globalService.displayToast({
-                //      messageText: "Entry has been changed.",
-                //      messageType: "success"
-                //   });
+                  globalService.displayToast({
+                     messageText: "Entry has been changed.",
+                     messageType: "success"
+                  });
                   var currentListTopIndex = $scope.tasksListTopIndex;
                   //alert($scope.tasksListTopIndex);
                   reloadEntries();
