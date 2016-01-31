@@ -194,21 +194,21 @@ function globalService($rootScope, $http, $q, $cookies, $timeout, APP_SETTINGS, 
       });
    };
 
-   service.displayToast = function (parameters) {
-      var templateUrl = APP_SETTINGS.contextPrefix + "/templates/toast-template.html";
+    service.displayToast = function (parameters) {
+        var templateUrl = APP_SETTINGS.contextPrefix + "/templates/toast-template.html";
 
-      $rootScope.toastMessageText = [parameters.messageText];
-      $rootScope.toastMessageType = parameters.messageType;
+        $rootScope.toastMessageText = [parameters.messageText];
+        $rootScope.toastMessageType = parameters.messageType;
 
-      var oToast = {
-         controller: "ToastCtrl",
-         templateUrl: templateUrl,
-         hideDelay: 3000,
-         position: "top right"
-      };
+        var oToast = {
+            controller: "ToastCtrl",
+            templateUrl: templateUrl, //"templates/toast-template.html",
+            hideDelay: 3000,
+            position: "top right"
+        };
 
-      $mdToast.show(oToast);
-   };
+        $mdToast.show(oToast);
+    };
 
    service.generateGuid = function () {
       function s4() {
