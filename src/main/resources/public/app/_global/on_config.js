@@ -21,7 +21,7 @@ function OnConfig($urlRouterProvider, $httpProvider, $injector, APP_SETTINGS, $t
                             window.location = APP_SETTINGS.apiUrl.authUrl + '/#/login?location=' + encodeURIComponent(window.location.href);
                             break;
                     }
-                }
+                } 
                 return $q.reject(err);
             }
         };
