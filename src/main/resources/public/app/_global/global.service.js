@@ -196,7 +196,6 @@ function globalService($rootScope, $http, $q, $cookies, $timeout, APP_SETTINGS, 
 
     service.displayToast = function (parameters) {
         var templateUrl = APP_SETTINGS.contextPrefix + "/templates/toast-template.html";
-        console.log(templateUrl);
         
         $rootScope.toastMessageText = [parameters.messageText];
         $rootScope.toastMessageType = parameters.messageType;
