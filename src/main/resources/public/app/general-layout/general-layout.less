@@ -1,15 +1,19 @@
-@successMsgBackGroundColor: #75FF75;
-	@errorMsgBackGroundColor: #FF704D;  
-
+	@successMsgColor: #75FF75;
+	@errorMsgColor: #FF704D;  
 
 	.successToast{
-	  	background-color: @successMsgBackGroundColor !important;
-	  	color: black;
+	  	color: @successMsgColor !important;
 	}
 
 	.errorToast{
-		background-color: @errorMsgBackGroundColor !important;
-		color: black;
+		color: @errorMsgColor !important;
+	}
+
+	.formItemErrorMessage{
+		color: red;
+		margin-top: -40px;
+		font-size: 9pt;
+		margin-left: 3px;
 	}
 
 	#vertical-container {
