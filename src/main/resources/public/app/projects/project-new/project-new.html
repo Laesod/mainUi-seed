@@ -1,0 +1,20 @@
+<div style="height: 100%;" layout="column" layout-align="center center">
+
+   <div layout="row" style="width: 100%;">
+      <div flex=30 flex-md=20 flex-sm=10 flex-xs=10></div>
+
+      <div flex=40 flex-md=60 flex-sm=80 flex-xs=80 layout="column">
+         <md-input-container>
+            <label>Project Description</label>
+            <input type="text" id="text" ng-model="project.description" ng-keypress="onKeyPress($event)" ng-change="onFormElementChange('projectRequestDto_description')">
+            <span ng-if="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage">{{$root.formElementsErrors.projectRequestDto_description}}</span>            
+         </md-input-container>
+
+         <md-button type="submit" id="submitBtn" ng-click="onCreate()" class="md-raised md-primary">Create</md-button>
+
+      </div>
+
+      <div flex=30 flex-md=20 flex-sm=10 flex-xs=10></div>
+   </div>
+
+</div>

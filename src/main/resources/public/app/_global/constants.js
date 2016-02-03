@@ -27,6 +27,8 @@ var AppSettings = function(config) {
         apiUrl: {
             authUrl: apiGatewayBaseUrl + '/gateway',
             apiGatewayGetUserProfileUrl: apiGatewayBaseUrl + '/gateway/gateway/getUserProfile',
+            apiGatewayGetProjectsUrl: apiGatewayBaseUrl + '/gateway/gateway/getProjects',
+            apiGatewayCreateProjectUrl: apiGatewayBaseUrl + '/gateway/gateway/createProject',            
             apiGatewayLogoutUrl: apiGatewayBaseUrl + "/gateway/logout",
             tasksManagementGetTasksUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/getTasks',
             tasksManagementExportTasksToCSVUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/exportTasksToCsv',

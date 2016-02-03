@@ -51,6 +51,11 @@ function LeftSideNavCtrl($scope, $mdSidenav, $state) {
         $scope.close();        
         $state.go("app.tasksList");
     };
+    
+    $scope.onListOfProjects = function(){
+        $scope.close();        
+        $state.go("app.projectsList");       
+    }
 } 
 
 

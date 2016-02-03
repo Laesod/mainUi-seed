@@ -1,75 +1,76 @@
 'use strict';
 
 require('../general-layout/_index');
-require('../documents/_index');
 require('../tasks/_index');
+require('../projects/_index');
 require('../profile/_index');
 
 var app = require('./_index'),
-    injector = angular.injector,
-    constants = require('./constants'),
-    APP_SETTINGS,
-    http,
-    q,
-    cookies;
+   injector = angular.injector,
+   constants = require('./constants'),
+   APP_SETTINGS,
+   http,
+   q,
+   cookies;
 
 var constants = require('./constants');
 var contextParams = require('./context-params');
 
 function redirectToAuth() {
-    window.location = APP_SETTINGS.apiUrl.authUrl + '/#/login?location=' + encodeURIComponent(window.location.href);
+   window.location = APP_SETTINGS.apiUrl.authUrl + '/#/login?location=' + encodeURIComponent(window.location.href);
 }
 
 function checkAuthentication() {
-    var deferred = q.defer();
-    http.get(APP_SETTINGS.apiUrl.apiGatewayGetUserProfileUrl, {
-        withCredentials: true
-    }).
-    success(function(response) {
-        if (response.user && response.user.authenticated) {
+   var deferred = q.defer();
+   http.get(APP_SETTINGS.apiUrl.apiGatewayGetUserProfileUrl, {
+      withCredentials: true
+   }).
+      success(function (response) {
+         if (response.user && response.user.authenticated) {
             APP_SETTINGS.userProfile = response;
 
             deferred.resolve(true);
-        } else {
+         } else {
             deferred.resolve(false);
-        }
-    });
+         }
+      });
 
-    return deferred.promise;
+   return deferred.promise;
 }
 
 function onDocumentReady() {
-    injector = injector(['app']);
-    http = injector.get('$http');
-    q = injector.get('$q');
-    cookies = injector.get('$cookies');
+   injector = injector(['app']);
+   http = injector.get('$http');
+   q = injector.get('$q');
+   cookies = injector.get('$cookies');
 
-    var appLanguage = cookies.get('appLanguage');
+   var appLanguage = cookies.get('appLanguage');
 
-    http.get(contextParams.configServicePrefix() + 'mainUi/config?' + new Date().getTime()).
-    success(function(response) {
-        APP_SETTINGS = constants(response);
+   http.get(contextParams.configServicePrefix() + 'mainUi/config?' + new Date().getTime()).
+      success(function (response) {
+         APP_SETTINGS = constants(response);
 
-        if (appLanguage) {
+         if (appLanguage) {
             APP_SETTINGS.appLanguage = appLanguage;
-        }
+         }
 
-        checkAuthentication().then(function(isUserAuthenticated) {
+         checkAuthentication().then(function (isUserAuthenticated) {
             if (isUserAuthenticated) {
-                createApp();
+               createApp();
             } else {
-                redirectToAuth();
+               redirectToAuth();
             }
-        });
-    }).error(function() {
+         });
+      }).error(function () {
 
-    });
+      });
 }
 
 angular.element(document).ready(onDocumentReady);
 
 function createApp() {
-    app.constant('APP_SETTINGS', APP_SETTINGS);
-    app.config(require('./on_config'));
-    angular.bootstrap(document, ['app']);
+   app.constant('APP_SETTINGS', APP_SETTINGS);
+   angular.module('app').config(require('./on_config'));
+   angular.module('app').run(require('./on_run'));
+   angular.bootstrap(document, ['app']);
 }

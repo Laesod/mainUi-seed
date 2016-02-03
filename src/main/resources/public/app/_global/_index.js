@@ -6,7 +6,6 @@ var requires = [
     'templates',
     'globals',
     'generalLayout',
-    'documents',
     'ngCookies',
     'ngMaterial',
     'pascalprecht.translate',
@@ -14,6 +13,7 @@ var requires = [
     'ngFileUpload',
     'ngFileSaver',
     'tasks',
+    'projects',
     'profile',
 ];
 

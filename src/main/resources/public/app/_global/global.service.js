@@ -6,6 +6,7 @@ function globalService($rootScope, $http, $q, $cookies, $timeout, APP_SETTINGS, 
    var service = {};
 
    service.request = function (params) {
+      var that = this;
       var deferred = $q.defer();
       params.withCredentials = true;
 
@@ -14,6 +15,17 @@ function globalService($rootScope, $http, $q, $cookies, $timeout, APP_SETTINGS, 
             deferred.resolve(data);
          }).
          error(function (err, status) {
+            switch (err.status) {
+                case 500:
+                    that.displayToast({
+                        messageText: err.message,
+                        messageType: "error"
+                    });
+                    break;
+                case 400:
+                    that.parseSpringValidationError(err);
+                    break;
+            }            
             deferred.reject(err);
          });
 
@@ -108,7 +120,7 @@ function globalService($rootScope, $http, $q, $cookies, $timeout, APP_SETTINGS, 
                         var translationValue = (newWidth - newHeight) / 2;
                         context.translate(0, -(newHeight + translationValue));
                      }
-                     else{
+                     else {
                         var translationValue = (newHeight - newWidth) / 2;
                         context.translate(0, -(newWidth + translationValue));
                      }
@@ -194,21 +206,21 @@ function globalService($rootScope, $http, $q, $cookies, $timeout, APP_SETTINGS, 
       });
    };
 
-    service.displayToast = function (parameters) {
-        var templateUrl = APP_SETTINGS.contextPrefix + "/templates/toast-template.html";
-        
-        $rootScope.toastMessageText = [parameters.messageText];
-        $rootScope.toastMessageType = parameters.messageType;
+   service.displayToast = function (parameters) {
+      var templateUrl = APP_SETTINGS.contextPrefix + "/templates/toast-template.html";
 
-        var oToast = {
-            controller: "ToastCtrl",
-            templateUrl: templateUrl, //"templates/toast-template.html",
-            hideDelay: 3000,
-            position: "top right"
-        };
+      $rootScope.toastMessageText = [parameters.messageText];
+      $rootScope.toastMessageType = parameters.messageType;
 
-        $mdToast.show(oToast);
-    };
+      var oToast = {
+         controller: "ToastCtrl",
+         templateUrl: templateUrl, //"templates/toast-template.html",
+         hideDelay: 3000,
+         position: "top right"
+      };
+
+      $mdToast.show(oToast);
+   };
 
    service.generateGuid = function () {
       function s4() {
@@ -229,6 +241,35 @@ function globalService($rootScope, $http, $q, $cookies, $timeout, APP_SETTINGS, 
          }
       }
       return str.join("&");
+   };
+
+   service.parseSpringValidationError = function (parameters) {
+      var errorMessages = [];
+      var errorMessage = "";
+      var fieldName = "";
+      var objectName = "";
+
+      if (parameters.message) {
+         while (parameters.message.indexOf("default message") >= 0) {
+
+            parameters.message = parameters.message.substring(parameters.message.indexOf("'") + 1);
+            objectName = parameters.message.substring(0, parameters.message.indexOf("'"));
+            parameters.message = parameters.message.substring(parameters.message.indexOf("default message") + 17);
+
+            fieldName = parameters.message.substring(0, parameters.message.indexOf("]"));
+            parameters.message = parameters.message.substring(parameters.message.indexOf("default message") + 17);
+            errorMessage = parameters.message.substring(0, parameters.message.indexOf("]"));
+            errorMessages.push({
+               object: objectName,
+               field: fieldName,
+               message: errorMessage
+            });
+
+            $rootScope.formElementsErrors[objectName + '_' + fieldName] = errorMessage;
+         }
+      }
+
+      return errorMessages;
    };
 
    return service;
