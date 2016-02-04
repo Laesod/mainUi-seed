@@ -6,12 +6,6 @@ module.exports = angular.module('projects', []);
 
 angular.module("projects").config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
    $stateProvider
-      .state('app.projectsList', {
-         url: '/projects-list',
-         controller: 'ProjectsListCtrl',
-         templateUrl: "views/projects-list.html",
-         title: 'My Projects'
-      })
       .state('app.projectDetails', {
          url: '/project-details',
          controller: 'ProjectDetailsCtrl',

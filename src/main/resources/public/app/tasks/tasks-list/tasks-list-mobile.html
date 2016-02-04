@@ -14,7 +14,7 @@
 <md-content layout="column" style="height: calc(100% - 60px);">
    <div style="width: 100%; border-bottom: 1px solid #ddd;"></div>
    <md-virtual-repeat-container id="vertical-container" style="border-bottom: 0px solid #ddd" ;>
-      <div md-virtual-repeat="item in entries" md-on-demand class="repeated-item-mobile" flex style="padding-left: 0.5rem; padding-right: 0.5rem; padding-top:0.2rem; padding-bottom:0.2rem; outline: none;"
+      <div md-virtual-repeat="item in entries" md-on-demand class="repeated-item-mobile" flex style="height: 112px; padding-left: 0.5rem; padding-right: 0.5rem; padding-top:0.2rem; padding-bottom:0.2rem; outline: none;"
       layout="column" ng-class="{'3. Done': 'doneTaskEntry', '2. In Progress': 'inProgressTaskEntry', '1. Open': 'openTaskEntry', '_': 'noStatusEntry'}[item.status]"
       ios-dblclick="onEdit($event, $index)" md-swipe-left="showDeleteOption($index)" md-swipe-right="hideDeleteOption($index)">
          <div layout="row">

@@ -5,8 +5,8 @@ require('../tasks/_index');
 require('../projects/_index');
 require('../profile/_index');
 
-var app = require('./_index'),
-   injector = angular.injector,
+var injector = angular.injector,
+   app = require('./_index'),
    constants = require('./constants'),
    APP_SETTINGS,
    http,
@@ -39,13 +39,14 @@ function checkAuthentication() {
 }
 
 function onDocumentReady() {
-   injector = injector(['app']);
+   angular.module('dummy_module', ['ngCookies']); //ngCookies includes core module 'ng', so $http and $q will be available as well
+   injector = injector(['dummy_module']);
+
    http = injector.get('$http');
    q = injector.get('$q');
    cookies = injector.get('$cookies');
 
    var appLanguage = cookies.get('appLanguage');
-
    http.get(contextParams.configServicePrefix() + 'mainUi/config?' + new Date().getTime()).
       success(function (response) {
          APP_SETTINGS = constants(response);
@@ -70,7 +71,8 @@ angular.element(document).ready(onDocumentReady);
 
 function createApp() {
    app.constant('APP_SETTINGS', APP_SETTINGS);
-   angular.module('app').config(require('./on_config'));
-   angular.module('app').run(require('./on_run'));
+   app.config(require('./on_config'));
+   app.run(require('./on_run'));
+
    angular.bootstrap(document, ['app']);
 }
