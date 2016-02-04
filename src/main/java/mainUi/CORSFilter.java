@@ -18,7 +18,7 @@ public class CORSFilter implements Filter {
 
                 String origin = ((RequestFacade) req).getHeaders("Origin").nextElement().toString();
 
-                if(origin.equals("http://localhost:2000") || origin.equals("http://localhost:1000") || origin.equals("http://localhost:1001")){
+                if(origin.equals("http://localhost:2000") || origin.equals("http://localhost:1000") || origin.equals("http://localhost:1001") || origin.equals("http://main-ui-app.s3-website-us-west-2.amazonaws.com")){
                     response.setHeader("Access-Control-Allow-Origin", origin);
                 }
             }
