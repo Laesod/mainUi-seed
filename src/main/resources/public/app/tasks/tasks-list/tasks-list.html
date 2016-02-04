@@ -20,7 +20,7 @@
    <md-virtual-repeat-container id="vertical-container" style="border-bottom: 0px solid #ddd;" md-top-index="tasksListTopIndex">
       <div md-virtual-repeat="item in entries" md-on-demand class="repeated-item" flex style="padding-left: 1rem; padding-right: 1rem; padding-top:0.2rem; padding-bottom:0.2rem; outline: none;"
       layout="column" ng-class="{'3. Done': 'doneTaskEntry', '2. In Progress': 'inProgressTaskEntry', '1. Open': 'openTaskEntry', '_': 'noStatusEntry'}[item.status]"
-      ng-dblclick="onEdit($event, $index)">
+      ios-dblclick="onEdit($event, $index)">
          <div layout="row" layout-align="start start">
             <div flex=10 style="min-width: 100px;">{{item.project}}</div>
             <div flex=10 style="min-width: 100px;">{{item.type}}</div>
