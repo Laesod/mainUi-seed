@@ -7,7 +7,7 @@ module.exports = angular.module('projects', []);
 angular.module("projects").config(function ($stateProvider, $locationProvider, $urlRouterProvider) {
    $stateProvider
       .state('app.projectDetails', {
-         url: '/project-details',
+         url: '/project-details/:projectGuid',
          controller: 'ProjectDetailsCtrl',
          templateUrl: "views/project-details.html",
          title: 'Project Details'

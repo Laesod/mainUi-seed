@@ -1,1 +1,37 @@
-Details...
+<div style="height: 100%; padding-top: 2rem;" layout="column">
+
+    <div layout="row" style="width: 100%;">
+        <div flex=30 flex-md=20 flex-sm=10 flex-xs=10></div>
+
+        <div flex=40 flex-md=60 flex-sm=80 flex-xs=80 layout="column">
+           
+           <label class="sectionHeaderLabel">Project Details</label>
+           
+            <md-input-container>
+                <label>Description</label>
+                <input type="text" ng-model="project.description" ng-change="onFormElementChange('projectRequestDto_description')">
+                <span ng-if="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage">{{$root.formElementsErrors.projectRequestDto_description}}</span>                
+            </md-input-container>
+
+            <md-button type="submit" id="submitBtn" ng-click="onSubmit()" class="md-raised md-primary">{{'submit' | translate}}</md-button>
+            
+            <label class="sectionHeaderLabel" style="margin-top: 2rem;">Assigned Users</label> 
+            
+            <label class="sectionHeaderLabel" style="margin-top: 2rem;">Invite a new user</label>            
+
+            <md-input-container>
+                <label>Send to email</label>
+                <input type="email" ng-model="invitation.email" ng-change="onFormElementChange('projectRequestDto_description')">
+                <span ng-if="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage">{{$root.formElementsErrors.projectRequestDto_description}}</span>                
+            </md-input-container>
+
+            <md-button type="submit" id="submitBtn" ng-click="onSendInvitation()" class="md-raised md-primary">{{'submit' | translate}}</md-button>
+            
+            <label class="sectionHeaderLabel" style="margin-top: 2rem;">Pending invitations</label>                                    
+        </div>
+
+        <div flex=30 flex-md=20 flex-sm=10 flex-xs=10></div>
+    </div>
+
+</div> 
+

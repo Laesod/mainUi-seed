@@ -9,7 +9,7 @@ function profileService($q, $http, Upload, $cookies, APP_SETTINGS, globalService
     service.changeAvatar = function(parameters) {
         return globalService.request({
             method: "PUT",
-            url: apiUrl.changeAvatarUrl + '?s3ObjectKey=' + parameters.avatarS3ObjectKey,            
+            url: apiUrl.changeAvatarUrl + '?s3ObjectKey=' + parameters.avatarS3ObjectKey,
         });
     };
 
