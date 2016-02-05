@@ -8,7 +8,7 @@
    <div style="width: 100%; border-bottom: 1px solid #ddd;"></div>
    <md-virtual-repeat-container id="vertical-container" style="border-bottom: 0px solid #ddd" ;>
       <div md-virtual-repeat="item in projects" class="repeated-item-mobile" flex style="height: 50px; padding-left: 0.5rem; padding-right: 0.5rem; padding-top:0.2rem; padding-bottom:0.2rem; outline: none;"
-      layout="column" ios-dblclick="onEdit($event, $index)">
+      layout="column" ios-dblclick="onEdit($index)">
          <div layout="row">
             <!--<div layout="column" flex=10 style="min-width: 100px;">
                <div layout="row">
