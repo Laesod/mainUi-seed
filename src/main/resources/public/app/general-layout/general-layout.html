@@ -1,5 +1,5 @@
 <md-content style="height: 100%;">
-   <md-toolbar layout="row" style="height: 64px;">
+   <md-toolbar layout="row" style="height: 64px; position: fixed;">
       <div layout="row" flex=20 layout-align="start center" style="margin-left: 0rem">
          <div ng-click="toggleLeft()" style="padding: 1rem; cursor: pointer; outline: none">
             <i class="fa fa-bars" style="color: white; cursor: pointer; outline: none"></i>
@@ -28,7 +28,7 @@
 
    </md-toolbar>
 
-   <div style="height: calc(100% - 64px);">
+   <div style="height: calc(100% - 64px); overflow-y: auto; position: fixed; width: 100%; top: 64px;">
       <div ui-view style="clear: both; height: 100%;"></div>
    </div>
 
