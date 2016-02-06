@@ -10,7 +10,7 @@ gulp.task('prepareIndexHtml', function() {
         .pipe(g.htmlReplace({
             favicon: {
                 tpl: '<link rel="icon" type="image/x-icon" href="%s" />',
-                src: '/mainUi/favicon.ico'                
+                src: 'mainUi/favicon.ico'                
             },             
             css: {
                 tpl: '<link type="text/css" rel="stylesheet" href="%s">',
