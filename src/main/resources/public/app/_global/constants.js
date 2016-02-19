@@ -21,7 +21,7 @@ var AppSettings = function(config) {
             apiGatewayGetUserProfileUrl: apiGatewayBaseUrl + '/gateway/gateway/getUserProfile',
             apiGatewayGetProjectUrl:  apiGatewayBaseUrl + '/gateway/gateway/getProject',
             apiGatewayUpdateProjectUrl:  apiGatewayBaseUrl + '/gateway/gateway/updateProject',
-            apiGatewayGetProjectsUrl: apiGatewayBaseUrl + '/gateway/gateway/getProjects',
+            apiGatewayGetProjectsUrl: apiGatewayBaseUrl + '/gateway/gateway/getUserProjects',
             apiGatewayCreateProjectUrl: apiGatewayBaseUrl + '/gateway/gateway/createProject',          
             apiGatewayLogoutUrl: apiGatewayBaseUrl + "/gateway/logout",
             changeAvatarUrl: apiGatewayBaseUrl + '/gateway/gateway/changeAvatar',

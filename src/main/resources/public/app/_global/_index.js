@@ -8,6 +8,7 @@ var requires = [
     'generalLayout',
     'ngCookies',
     'ngMaterial',
+    'ngTagsInput',
     'pascalprecht.translate',
     'iosDblclick',
     'ngFileUpload',

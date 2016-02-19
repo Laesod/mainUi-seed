@@ -14,6 +14,7 @@ module.exports = {
         libSrc: [
             'src/main/resources/public/lib/font-awesome/css/font-awesome.css',
             'src/main/resources/public/lib/angular-material/angular-material.css',
+            'src/main/resources/public/lib/ng-tags-input/ng-tags-input.min.css' 
         ],
         src: [
             'src/main/resources/public/app/_global/_vars.less',
@@ -55,7 +56,7 @@ module.exports = {
             'src/main/resources/public/lib/ng-file-upload-shim/ng-file-upload-shim.js',
             'src/main/resources/public/lib/ng-file-upload/ng-file-upload.js',
             'src/main/resources/public/lib/angular-file-saver/dist/angular-file-saver.bundle.min.js',
-            'src/main/resources/public/lib/exif-js/exif.js'            
+            'src/main/resources/public/lib/ng-tags-input/ng-tags-input.min.js' 
         ],
         dest: 'src/main/resources/public/build/js'
     },
