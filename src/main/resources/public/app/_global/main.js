@@ -59,14 +59,15 @@ function onDocumentReady() {
          if (appLanguage) {
             APP_SETTINGS.appLanguage = appLanguage;
          }
-
-         checkAuthentication().then(function (isUserAuthenticated) {
-            if (isUserAuthenticated) {
-               createApp();
-            } else {
-               redirectToAuth();
-            }
-         });
+        
+         createApp();
+        //  checkAuthentication().then(function (isUserAuthenticated) {
+        //     if (isUserAuthenticated) {
+        //        createApp();
+        //     } else {
+        //        redirectToAuth();
+        //     }
+        //  });
       }).error(function () {
 
       });
