@@ -271,6 +271,27 @@ function globalService($rootScope, $http, $q, $cookies, $timeout, APP_SETTINGS, 
 
       return errorMessages;
    };
+   
+   service.checkPermissions = function(projectGuid, roles){
+       var valid = false;
+        var userProject = _.find(APP_SETTINGS.userProfile.userProjects, function(item){
+            return item.projectGuid === projectGuid;
+        });
+        
+        if(userProject){
+            _.forEach(roles, function(item){
+                var role = _.find(userProject.roles, function(userRole){
+                    return item === userRole.roleName;
+                });
+                
+                if(role){
+                    valid = true;
+                }
+            }); 
+        }       
+       
+        return valid;
+   }
 
    return service;
 }

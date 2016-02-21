@@ -4,34 +4,71 @@
         <div flex=30 flex-md=20 flex-sm=10 flex-xs=10></div>
 
         <div flex=40 flex-md=60 flex-sm=80 flex-xs=80 layout="column">
-           
-           <label class="sectionHeaderLabel">Project Details</label>
-           
+
+            <label class="sectionHeaderLabel" style="margin-bottom:0.5rem;">Project Details</label>
+
             <md-input-container>
                 <label>Description</label>
-                <input type="text" ng-model="project.description" ng-change="onFormElementChange('projectRequestDto_description')">
-                <span ng-if="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage">{{$root.formElementsErrors.projectRequestDto_description}}</span>                
+                <input type="text" ng-model="project.description" ng-change="onFormElementChange('projectRequestDto_description')" ng-disabled="!isAdmin">
+                <span ng-if="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage">{{$root.formElementsErrors.projectRequestDto_description}}</span>
             </md-input-container>
 
-            <md-button type="submit" id="submitBtn" ng-click="onSubmit()" class="md-raised md-primary">{{'submit' | translate}}</md-button>
-            
-            <label class="sectionHeaderLabel" style="margin-top: 2rem;">Assigned Users</label> 
-            
-            <label class="sectionHeaderLabel" style="margin-top: 2rem;">Invite a new user</label>            
+            <div ng-if="isAdmin" layout="column" style="padding-bottom: 4rem;">
+                <md-button type="submit" id="submitBtn" ng-click="onSubmit()" class="md-raised md-primary">{{'submit' | translate}}</md-button>
 
-            <md-input-container>
-                <label>Send to email</label>
-                <input type="email" ng-model="invitation.email" ng-change="onFormElementChange('projectRequestDto_description')">
-                <span ng-if="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage">{{$root.formElementsErrors.projectRequestDto_description}}</span>                
-            </md-input-container>
+                <label class="sectionHeaderLabel" style="margin-top: 2rem; margin-bottom:0.5rem;">Assigned Users</label>
+                <div ng-repeat="projectUser in projectUsers">
+                    <span>{{projectUser.username}}</span>
+                    <tags-input ng-model="projectUser.roles" key-property="roleGuid" display-property="roleName" placeholder="Add a role">
+                        <auto-complete source="getPossibleRoles($query, projectUser.roles)" min-length="0" load-on-focus="true" load-on-empty="true">
+                        </auto-complete>
+                    </tags-input>
+                    
+                    <!--<tags-input ng-model="projectUser.roles" key-property="roleGuid" displayProperty="roleName" placeholder="Add a group">
+                        <auto-complete source="getPossibleRoles($query, projectUser.roles)" min-length="0" load-on-focus="true" load-on-empty="true">
+                        </auto-complete>
+                    </tags-input>                    -->
+                    
+                    <tags-input ng-model="projectUser.groups" key-property="groupGuid" display-property="groupName" placeholder="Add a group">
+                        <auto-complete source="getPossibleGroups($query, projectUser.groups)" min-length="0" load-on-focus="true" load-on-empty="true">
+                        </auto-complete>
+                    </tags-input>
+                </div>
 
-            <md-button type="submit" id="submitBtn" ng-click="onSendInvitation()" class="md-raised md-primary">{{'submit' | translate}}</md-button>
-            
-            <label class="sectionHeaderLabel" style="margin-top: 2rem;">Pending invitations</label>                                    
+                <md-button type="submit" id="submitBtn" ng-click="onChangeAssignedUser()" class="md-raised md-primary">{{'submit' | translate}}</md-button>
+
+                <label class="sectionHeaderLabel" style="margin-top: 2rem; margin-bottom:0.5rem;">Invite a new user</label>
+
+                <md-input-container style="margin-bottom: 0px;">
+                    <label>Send to email</label>
+                    <input type="email" ng-model="invitation.email" ng-change="onFormElementChange('projectRequestDto_description')">
+                    <span ng-if="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage">{{$root.formElementsErrors.projectRequestDto_description}}</span>
+                </md-input-container>
+
+                <tags-input ng-model="invitation.roles" key-property="roleGuid" display-property="roleName" placeholder="Add a role">
+                    <auto-complete source="getPossibleRoles($query, invitation.roles)" min-length="0" load-on-focus="true" load-on-empty="true">
+                    </auto-complete>
+                </tags-input>
+                <tags-input ng-model="invitation.groups" key-property="groupGuid" display-property="groupName" placeholder="Add a group">
+                    <auto-complete source="getPossibleGroups($query, invitation.groups)" min-length="0" load-on-focus="true" load-on-empty="true">
+                    </auto-complete>
+                </tags-input>
+
+                <md-button type="submit" id="submitBtn" ng-click="onSendInvitation()" class="md-raised md-primary">{{'submit' | translate}}</md-button>
+
+                <label class="sectionHeaderLabel" style="margin-top: 2rem; margin-bottom:0.5rem;">Pending invitations</label>
+                <div ng-repeat="invitation in pendingInvitations">
+                    <div></div>
+                    <div layout="column">
+                        <span style="margin-bottom: 0.5rem;">{{invitation.email}}</span>
+                        <span style="margin-bottom: 0.5rem;">{{invitation.createdBy}}</span>
+                        <span style="margin-bottom: 0.5rem;">{{invitation.createdAt | date:'yyyy-MM-dd'}}</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div flex=30 flex-md=20 flex-sm=10 flex-xs=10></div>
     </div>
 
-</div> 
-
+</div>

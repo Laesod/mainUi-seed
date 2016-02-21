@@ -23,6 +23,7 @@
     "ng-file-upload": "~10.1.9",
     "angular-file-saver": "~1.0.2",
     "exif-js": "latest",
-    "ng-tags-input": "~3.0.0"
+    "ng-tags-input": "~3.0.0",
+    "lodash": "~4.5.0"
   }
 }

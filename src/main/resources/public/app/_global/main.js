@@ -26,13 +26,18 @@ function checkAuthentication() {
       withCredentials: true
    }).
       success(function (response) {
-         if (response.user && response.user.authenticated) {
+        //  if (response.user && response.user.authenticated) {
             APP_SETTINGS.userProfile = response;
+            
+            //faking response...
+            // _.forEach(APP_SETTINGS.userProfile.userProjects, function(userProject){
+            //     userProject.roles = [{roleName: "manager"}];
+            // })
 
             deferred.resolve(true);
-         } else {
-            deferred.resolve(false);
-         }
+        //  } else {
+        //     deferred.resolve(false);
+        //  }
       });
 
    return deferred.promise;
