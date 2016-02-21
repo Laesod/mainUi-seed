@@ -14,28 +14,26 @@
             </md-input-container>
 
             <div ng-if="isAdmin" layout="column" style="padding-bottom: 4rem;">
-                <md-button type="submit" id="submitBtn" ng-click="onSubmit()" class="md-raised md-primary">{{'submit' | translate}}</md-button>
+                <div layout="row" layout-align="end">
+                    <md-button type="submit" id="submitBtn" ng-click="onSubmit()" class="md-raised md-primary" style="margin-right: 0px;">Save</md-button>
+                </div>
 
                 <label class="sectionHeaderLabel" style="margin-top: 2rem; margin-bottom:0.5rem;">Assigned Users</label>
-                <div ng-repeat="projectUser in projectUsers">
+                <div ng-repeat="projectUser in projectUsers" style="border-bottom: 1px solid gray;">
                     <span>{{projectUser.username}}</span>
                     <tags-input ng-model="projectUser.roles" key-property="roleGuid" display-property="roleName" placeholder="Add a role">
                         <auto-complete source="getPossibleRoles($query, projectUser.roles)" min-length="0" load-on-focus="true" load-on-empty="true">
                         </auto-complete>
                     </tags-input>
-                    
-                    <!--<tags-input ng-model="projectUser.roles" key-property="roleGuid" displayProperty="roleName" placeholder="Add a group">
-                        <auto-complete source="getPossibleRoles($query, projectUser.roles)" min-length="0" load-on-focus="true" load-on-empty="true">
-                        </auto-complete>
-                    </tags-input>                    -->
-                    
+
                     <tags-input ng-model="projectUser.groups" key-property="groupGuid" display-property="groupName" placeholder="Add a group">
                         <auto-complete source="getPossibleGroups($query, projectUser.groups)" min-length="0" load-on-focus="true" load-on-empty="true">
                         </auto-complete>
                     </tags-input>
+                    <div layout="row" layout-align="end">
+                        <md-button type="submit" id="submitBtn" ng-click="onChangeAssignedUser()" class="md-raised md-primary" style="margin-right: 0px;">Save</md-button>
+                    </div>
                 </div>
-
-                <md-button type="submit" id="submitBtn" ng-click="onChangeAssignedUser()" class="md-raised md-primary">{{'submit' | translate}}</md-button>
 
                 <label class="sectionHeaderLabel" style="margin-top: 2rem; margin-bottom:0.5rem;">Invite a new user</label>
 
@@ -54,15 +52,26 @@
                     </auto-complete>
                 </tags-input>
 
-                <md-button type="submit" id="submitBtn" ng-click="onSendInvitation()" class="md-raised md-primary">{{'submit' | translate}}</md-button>
+                <div layout="row" layout-align="end">
+                    <md-button type="submit" id="submitBtn" ng-click="onSendInvitation()" class="md-raised md-primary" style="margin-right: 0px;">Save</md-button>
+                </div>
 
-                <label class="sectionHeaderLabel" style="margin-top: 2rem; margin-bottom:0.5rem;">Pending invitations</label>
+                <label class="sectionHeaderLabel" style="margin-top: 2rem; margin-bottom:0px;">Pending invitations</label>
                 <div ng-repeat="invitation in pendingInvitations">
                     <div></div>
-                    <div layout="column">
-                        <span style="margin-bottom: 0.5rem;">{{invitation.email}}</span>
-                        <span style="margin-bottom: 0.5rem;">{{invitation.createdBy}}</span>
-                        <span style="margin-bottom: 0.5rem;">{{invitation.createdAt | date:'yyyy-MM-dd'}}</span>
+                    <div layout="column" style="border-bottom: 1px solid gray; padding: 5px;">
+                        <div layout="row">
+                            <span flex=30>Recipient: </span>
+                            <span flex=70 style="margin-bottom: 0.5rem;">{{invitation.email}}</span>
+                        </div>
+                        <div layout="row">
+                            <span flex=30>Created by: </span>
+                            <span flex=70 style="margin-bottom: 0.5rem;">{{invitation.createdBy}}</span>
+                        </div>
+                        <div layout="row">
+                            <span flex=30>Creation date: </span>
+                            <span flex=70 style="margin-bottom: 0.5rem;">{{invitation.createdAt | date:'yyyy-MM-dd'}}</span>
+                        </div>
                     </div>
                 </div>
             </div>

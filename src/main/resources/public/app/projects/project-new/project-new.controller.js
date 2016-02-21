@@ -13,6 +13,8 @@ function ProjectNewCtrl($scope, $rootScope, $state, globalService, projectsServi
             messageText: "New project has been added.",
             messageType: "success"
          });
+         
+         //globalService.getUserProfile...
       });
    }
    

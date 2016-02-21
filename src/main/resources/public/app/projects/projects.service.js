@@ -66,6 +66,14 @@ function projectsService($q, $http, $cookies, APP_SETTINGS, globalService) {
       });       
    }   
    
+   service.createInvitation = function(payload){
+      return globalService.request({
+         method: "POST",
+         url: apiUrl.apiGatewayCreateInvitationUrl,
+         data: payload
+      });       
+   }
+   
    return service;
 }
 
