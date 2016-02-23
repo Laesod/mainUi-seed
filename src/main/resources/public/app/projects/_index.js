@@ -17,6 +17,12 @@ angular.module("projects").config(function ($stateProvider, $locationProvider, $
          controller: 'ProjectNewCtrl',
          templateUrl: "views/project-new.html",
          title: 'Project New'
+      })
+      .state('app.receivedInvitations', {
+         url: '/received-invitatioins',
+         controller: 'ReceivedInvitationsCtrl',
+         templateUrl: "views/received-invitations.html",
+         title: 'Received Invitations'
       });
 });
 

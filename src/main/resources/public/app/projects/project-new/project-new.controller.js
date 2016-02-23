@@ -3,18 +3,18 @@
 var projectsModule = require('../_index');
 var url = require('url');
 
-function ProjectNewCtrl($scope, $rootScope, $state, globalService, projectsService) {
+function ProjectNewCtrl($scope, $rootScope, $state, globalService, projectsService, APP_SETTINGS) {
    $scope.project = {};
 
    $scope.onCreate = function () {
-      projectsService.createProject($scope.project).then(function () {
+      projectsService.createProject($scope.project).then(function (createdProject) {
          $state.go("app.projectsList");
          globalService.displayToast({
             messageText: "New project has been added.",
             messageType: "success"
          });
-         
-         //globalService.getUserProfile...
+
+         $rootScope.userProfile.userProjects.push(createdProject);
       });
    }
    

@@ -15,7 +15,7 @@
 
             <div ng-if="isAdmin" layout="column" style="padding-bottom: 4rem;">
                 <div layout="row" layout-align="end">
-                    <md-button type="submit" id="submitBtn" ng-click="onSubmit()" class="md-raised md-primary" style="margin-right: 0px;">Save</md-button>
+                    <md-button type="submit" id="submitBtn" ng-click="onSubmitProjectChanges()" class="md-raised md-primary" style="margin-right: 0px;">Save</md-button>
                 </div>
 
                 <label class="sectionHeaderLabel" style="margin-top: 2rem; margin-bottom:0.5rem;">Assigned Users</label>
@@ -25,13 +25,18 @@
                         <auto-complete source="getPossibleRoles($query, projectUser.roles)" min-length="0" load-on-focus="true" load-on-empty="true">
                         </auto-complete>
                     </tags-input>
-
+                    <div layout="row" layout-align="end">
+                        <md-button type="submit" id="submitBtn" ng-click="onChangeAssignedUserRoles($index)" class="md-raised md-primary" style="margin-right: 0px;">Save</md-button>
+                    </div>
                     <tags-input ng-model="projectUser.groups" key-property="groupGuid" display-property="groupName" placeholder="Add a group">
                         <auto-complete source="getPossibleGroups($query, projectUser.groups)" min-length="0" load-on-focus="true" load-on-empty="true">
                         </auto-complete>
                     </tags-input>
                     <div layout="row" layout-align="end">
-                        <md-button type="submit" id="submitBtn" ng-click="onChangeAssignedUser()" class="md-raised md-primary" style="margin-right: 0px;">Save</md-button>
+                        <md-button type="submit" id="submitBtn" ng-click="onChangeAssignedUserGroups($index)" class="md-raised md-primary" style="margin-right: 0px;">Save</md-button>
+                    </div>                    
+                    <div layout="row" layout-align="end">
+                        <md-button type="submit" id="submitBtn" ng-click="onUnassignUser($index)" class="md-raised md-primary" style="margin-right: 0px;">Unassign user</md-button>
                     </div>
                 </div>
 
@@ -58,8 +63,7 @@
 
                 <label class="sectionHeaderLabel" style="margin-top: 2rem; margin-bottom:0px;">Pending invitations</label>
                 <div ng-repeat="invitation in pendingInvitations">
-                    <div></div>
-                    <div layout="column" style="border-bottom: 1px solid gray; padding: 5px;">
+                     <div layout="column" style="border-bottom: 1px solid gray; padding: 5px;">
                         <div layout="row">
                             <span flex=30>Recipient: </span>
                             <span flex=70 style="margin-bottom: 0.5rem;">{{invitation.email}}</span>

@@ -74,6 +74,50 @@ function projectsService($q, $http, $cookies, APP_SETTINGS, globalService) {
       });       
    }
    
+   service.getReceivedInvitations = function(){
+      return globalService.request({
+         method: "GET",
+         url: apiUrl.apiGatewayGetReceivedInvitationsUrl
+      });         
+   }
+   
+   service.acceptInvitation = function(invitationGuid){
+      return globalService.request({
+         method: "PUT",
+         url: apiUrl.apiGatewayAcceptInvitationUrl + "/" + invitationGuid
+      });         
+   }   
+   
+   service.declineInvitation = function(invitationGuid){
+      return globalService.request({
+         method: "PUT",
+         url: apiUrl.apiGatewayDeclineInvitationUrl + "/" + invitationGuid
+      });         
+   }   
+   
+   service.removeUserFromProject = function(params){
+      return globalService.request({
+         method: "PUT",
+         url: apiUrl.apiGatewayRemoveUserFromProjectUrl + "/" + params.projectGuid + "?username=" + params.username
+      });          
+   }  
+   
+   service.updateUserRolesForProject = function(params){
+      return globalService.request({
+         method: "PUT",
+         url: apiUrl.apiGatewayUpdateUserRolesForProjectUrl + "/" + params.projectGuid + "?username=" + params.username,
+         data: params.payload
+      });       
+   }
+   
+   service.updateUserGroupsForProject = function(params){
+      return globalService.request({
+         method: "PUT",
+         url: apiUrl.apiGatewayUpdateUserGroupsForProjectUrl + "/" + params.projectGuid + "?username=" + params.username,
+         data: params.payload
+      });       
+   }   
+   
    return service;
 }
 

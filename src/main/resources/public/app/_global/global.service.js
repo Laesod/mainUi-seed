@@ -274,7 +274,7 @@ function globalService($rootScope, $http, $q, $cookies, $timeout, APP_SETTINGS, 
    
    service.checkPermissions = function(projectGuid, roles){
        var valid = false;
-        var userProject = _.find(APP_SETTINGS.userProfile.userProjects, function(item){
+        var userProject = _.find($rootScope.userProfile.userProjects, function(item){
             return item.projectGuid === projectGuid;
         });
         

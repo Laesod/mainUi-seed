@@ -1,0 +1,35 @@
+<div style="padding-top: 2rem;" layout="column">
+
+    <div layout="row" style="width: 100%;">
+        <div flex=30 flex-md=20 flex-sm=10 flex-xs=10></div>
+
+        <div flex=40 flex-md=60 flex-sm=80 flex-xs=80 layout="column">
+            <label class="sectionHeaderLabel" style="margin-top: 2rem; margin-bottom: 5px;">Received Invitations</label>
+            <div ng-if="receivedInvitations.length > 0" ng-repeat="invitation in receivedInvitations">
+                <div layout="column" style="border-bottom: 1px solid gray; padding-top: 5px;">
+                    <div layout="row">
+                        <span flex=30>Project: </span>
+                        <span flex=70 style="margin-bottom: 0.5rem;">{{invitation.projectDescription}}</span>
+                    </div>
+                    <div layout="row">
+                        <span flex=30>Created by: </span>
+                        <span flex=70 style="margin-bottom: 0.5rem;">{{invitation.createdBy}}</span>
+                    </div>
+                    <div layout="row">
+                        <span flex=30>Creation date: </span>
+                        <span flex=70 style="margin-bottom: 0.5rem;">{{invitation.createdAt | date:'yyyy-MM-dd'}}</span>
+                    </div>
+                    <div layout="row" layout-align="end">
+                        <md-button type="submit" id="submitBtn" ng-click="onAccept($index)" class="md-raised md-primary" style="margin-right: 0px;">Accept</md-button>
+                        <md-button type="submit" id="submitBtn" ng-click="onDecline($index)" class="md-raised md-primary" style="margin-right: 0px;">Decline</md-button>
+                    </div>
+                </div>
+
+
+            </div>
+            <span ng-if="receivedInvitations.length === 0">No invitations received yet</span>
+            <div flex=30 flex-md=20 flex-sm=10 flex-xs=10></div>
+        </div>
+
+    </div>
+</div>

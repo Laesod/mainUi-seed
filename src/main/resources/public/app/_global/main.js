@@ -26,7 +26,6 @@ function checkAuthentication() {
         withCredentials: true
     }).
         success(function (response) {
-            console.log("user profile: " + response.username);
             if (response.username) {
                 APP_SETTINGS.userProfile = response;
             
