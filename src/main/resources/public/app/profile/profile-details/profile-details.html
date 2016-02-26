@@ -27,10 +27,10 @@
                     <div ng-style="{ 'width': '230px', 'height': '230px', 'background': 'url(' + avatarUrl + ')',
                 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></div>
                 </div>
-                <div layout="row" layout-align="end">
+                <div layout="column" layout-align="end">
                     <md-button type="submit" id="submitBtn" ng-click="onChangeAvatar()" class="md-raised md-primary
                 detailsSectionButton" style>Change Avatar</md-button>
-                    <input id="UploadInput" style="height: 0px; width: 0px; position: absolute; top: -100px;" type="file" name="img" ngf-select ng-model="file" accept="image/*"
+                    <input id="UploadInput" type="file" name="img" ngf-select ng-model="file" accept="image/*"
                     ngf-max-size="5MB" ngf-change=onUpload()>
                 </div>
             </section>

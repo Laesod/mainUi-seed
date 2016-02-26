@@ -23,8 +23,8 @@
             <div ng-if="isAdmin" class="detailsSectionHeader">Assigned Users</div>
             <section ng-if="isAdmin" class="detailsSectionContent">
                 <div ng-repeat="projectUser in projectUsers" class="detailsSectionListItem">
-                    <div layout="row" layout-align="space-between">
-                        <span>{{projectUser.username}}</span>
+                    <div layout="row" layout-align="space-between center">
+                        <div>{{projectUser.username}}</div>
                         <i class="fa fa fa-times detailsSectionActionIcon" ng-click="onUnassignUser($index)"></i>
                     </div>
                     <tags-input ng-model="projectUser.roles" key-property="roleGuid" display-property="roleName" placeholder="Add a role">
