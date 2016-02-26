@@ -1,121 +1,137 @@
-	@successMsgColor: #75FF75;
-	@errorMsgColor: #FF704D;  
+@successMsgColor: #75FF75;
+@errorMsgColor: #FF704D;
+.successToast {
+    color: @successMsgColor !important;
+}
+.errorToast {
+    color: @errorMsgColor !important;
+}
+.formItemErrorMessage {
+    color: red;
+    font-size: 9pt;
+    margin-left: 4px;
+    width: 100%;
+    min-height: 15px;    
+}
+#vertical-container {
+    height: 100%;
+    width: 100%;
+}
+.repeated-item-mobile {
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.repeated-item {
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    height: 60px;
+    overflow: hidden;
+}
+.sortigCriteriaItem {
+    padding: 1rem 0.2rem;
+    // border-bottom: 1px solid gray;
+    outline: none;
+    cursor: pointer;
+}
+.selectedSortigCriteriaItem {
+    padding: 1rem 0.2rem;
+    color: white;
+    background-color: rgb(63, 81, 181);
+    outline: none;
+    cursor: pointer;
+}
+.doneTaskEntry {
+    border-left: 5px solid green;
+}
+.inProgressTaskEntry {
+    border-left: 5px solid orange;
+}
+.openTaskEntry {
+    border-left: 5px solid red;
+}
+.noStatusEntry {
+    border-left: 5px solid white;
+}
+.highlightedText {
+    background: yellow;
+}
+.detailsSectionContent {
+    border: 1px solid rgb(63, 81, 181);
+    padding: 1rem;
+    margin-bottom: 2rem;    
+}
+.detailsSectionHeader {
+    padding: 2px;
+    background-color: white;
+    z-index: 1;
+    margin-bottom: -10px;
+    margin-left: 1rem;
+    font-weight: bold;
+    display: table;
+    color: rgb(63, 81, 181);
+}
+.detailsSectionButton{
+    margin-right: 0px;
+}
+.detailsSectionListItem{
+    padding: 0.5rem;
+}
+.detailsSectionContent > .detailsSectionListItem:not(:last-child){
+    border-bottom: 1px gray dashed;
+}
+.detailsSectionActionIcon{
+    color: rgb(63, 81, 181);
+    margin-right: 3px;
+    padding: 3px;
+    outline: none;
+    cursor: pointer;
+    margin-top: -4px;
+}
+.highlightedText {
+    background: yellow;
+}
+.activeActionIcon {
+    color: rgb(63, 81, 181);
+}
+.actionIcon {
+    color: black;
+}
 
-	.successToast{
-	  	color: @successMsgColor !important;
-	}
 
-	.errorToast{
-		color: @errorMsgColor !important;
-	}
+.md-button md-ink-ripple:hover {
+    background: none;
+    background-color: none;
+}
+.md-button md-ink-ripple:focus {
+    background: none;
+    background-color: none;
+}
+.md-button:not([disabled]):hover {
+    background-color: transparent;
+}
+md-tab-item:not([disabled]).md-active {
+    color: rgb(63, 81, 181) !important;
+}
+md-tabs .md-tab {
+    color: rgba(0, 0, 0, 0.54) !important;
+}
+md-dialog {
+    max-width: 100%;
+    max-height: 100%;
+}
+.md-select-value .md-text {
+    display: inline;
+}
+md-input-container.md-input-focused .md-input, md-input-container .md-input.ng-invalid.ng-dirty {
+    padding-bottom: 0;
+    border-width: 0 0 1px 0; 
+}
 
-	.formItemErrorMessage{
-		color: red;
-		margin-top: -40px;
-		font-size: 9pt;
-		margin-left: 3px;
-	}
+md-input-container{
+    margin-bottom: 0px;
+}
 
-	#vertical-container {
-	  height: 100%;
-	  width: 100%; }
-
-	.repeated-item-mobile {
-	  border-bottom: 1px solid #ddd;
-	  box-sizing: border-box;
-	  overflow: hidden;
-	}
-
-	.repeated-item {
-	  border-bottom: 1px solid #ddd;
-	  box-sizing: border-box;
-	  height: 60px;
-	  overflow: hidden;
-	}
-
-	.md-button md-ink-ripple:hover{
-		background: none;
-		background-color: none;
-	}
-
-	.md-button md-ink-ripple:focus{
-		background: none;
-		background-color: none;
-	}
-
-	.md-button:not([disabled]):hover {
-	    background-color: transparent;
-	}
-
-
-	.sortigCriteriaItem{
-		padding: 1rem 0.2rem;
-    	// border-bottom: 1px solid gray;
-    	outline: none;	
-    	cursor: pointer;    
-	}
-
-	.selectedSortigCriteriaItem{
-		padding: 1rem 0.2rem;
-    	// border-bottom: 1px solid gray;	
-    	color: white;
-    	background-color: rgb(63,81,181);
-    	outline: none;
-    	cursor: pointer;
-	}
-
-	.doneTaskEntry{
-		border-left: 5px solid green;
-	}
-
-	.inProgressTaskEntry{
-		border-left: 5px solid orange;
-	}
-
-	.openTaskEntry{
-		border-left: 5px solid red;
-	}
-
-	.noStatusEntry{
-		border-left: 5px solid white;
-	}
-
-	.highlightedText{
-		background: yellow;
-	}
-   
-   .sectionHeaderLabel{
-      border-bottom: solid black 1px;
-      padding: 2px;
-      font-weight: bold;
-      margin-bottom: 2rem;      
-   }
-
-	md-tab-item:not([disabled]).md-active{
-		color: rgb(63,81,181) !important;
-	}
-
-	md-tabs .md-tab {
-	    color: rgba(0,0,0,0.54) !important;
-	}	
-
-	md-dialog{
-		max-width: 100%;
-		max-height: 100%;
-	}
-
-	.md-select-value .md-text {
-	    display: inline;
-	}	
-
-	.highlightedText{
-		background: yellow;
-	}
-
-	.activeActionIcon{
-		color: rgb(63,81,181);
-	}
-
-	.actionIcon{
-		color: black;
-	}
+md-input-container .md-errors-spacer{
+    float: none;
+}

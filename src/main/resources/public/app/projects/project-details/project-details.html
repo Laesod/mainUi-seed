@@ -5,49 +5,52 @@
 
         <div flex=40 flex-md=60 flex-sm=80 flex-xs=80 layout="column">
 
-            <label class="sectionHeaderLabel" style="margin-bottom:0.5rem;">Project Details</label>
+            <div class="detailsSectionHeader">Project Details</div>
 
-            <md-input-container>
-                <label>Description</label>
-                <input type="text" ng-model="project.description" ng-change="onFormElementChange('projectRequestDto_description')" ng-disabled="!isAdmin">
-                <span ng-if="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage">{{$root.formElementsErrors.projectRequestDto_description}}</span>
-            </md-input-container>
-
-            <div ng-if="isAdmin" layout="column" style="padding-bottom: 4rem;">
-                <div layout="row" layout-align="end">
-                    <md-button type="submit" id="submitBtn" ng-click="onSubmitProjectChanges()" class="md-raised md-primary" style="margin-right: 0px;">Save</md-button>
+            <section class="detailsSectionContent">
+                <md-input-container style="width: 100%;">
+                    <label>Description</label>
+                    <input type="text" ng-model="project.description" ng-change="$root.onFormElementChange('projectRequestDto_description')" ng-disabled="!isAdmin">
+                </md-input-container>
+                <div layout="row">
+                    <span ng-if="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage">{{$root.formElementsErrors.projectRequestDto_description}}</span>
+                    <div layout="row" layout-align="end" style="width: 100%;">
+                        <md-button ng-if="isAdmin" type="submit" id="submitBtn" ng-click="onSubmitProjectChanges()" class="md-raised md-primary detailsSectionButton">Save</md-button>
+                    </div>
                 </div>
+            </section>
 
-                <label class="sectionHeaderLabel" style="margin-top: 2rem; margin-bottom:0.5rem;">Assigned Users</label>
-                <div ng-repeat="projectUser in projectUsers" style="border-bottom: 1px solid gray;">
-                    <span>{{projectUser.username}}</span>
+            <div ng-if="isAdmin" class="detailsSectionHeader">Assigned Users</div>
+            <section ng-if="isAdmin" class="detailsSectionContent">
+                <div ng-repeat="projectUser in projectUsers" class="detailsSectionListItem">
+                    <div layout="row" layout-align="space-between">
+                        <span>{{projectUser.username}}</span>
+                        <i class="fa fa fa-times detailsSectionActionIcon" ng-click="onUnassignUser($index)"></i>
+                    </div>
                     <tags-input ng-model="projectUser.roles" key-property="roleGuid" display-property="roleName" placeholder="Add a role">
                         <auto-complete source="getPossibleRoles($query, projectUser.roles)" min-length="0" load-on-focus="true" load-on-empty="true">
                         </auto-complete>
                     </tags-input>
-                    <div layout="row" layout-align="end">
-                        <md-button type="submit" id="submitBtn" ng-click="onChangeAssignedUserRoles($index)" class="md-raised md-primary" style="margin-right: 0px;">Save</md-button>
-                    </div>
                     <tags-input ng-model="projectUser.groups" key-property="groupGuid" display-property="groupName" placeholder="Add a group">
                         <auto-complete source="getPossibleGroups($query, projectUser.groups)" min-length="0" load-on-focus="true" load-on-empty="true">
                         </auto-complete>
                     </tags-input>
                     <div layout="row" layout-align="end">
-                        <md-button type="submit" id="submitBtn" ng-click="onChangeAssignedUserGroups($index)" class="md-raised md-primary" style="margin-right: 0px;">Save</md-button>
-                    </div>                    
-                    <div layout="row" layout-align="end">
-                        <md-button type="submit" id="submitBtn" ng-click="onUnassignUser($index)" class="md-raised md-primary" style="margin-right: 0px;">Unassign user</md-button>
+                        <md-button type="submit" id="submitBtn" ng-click="onChangeAssignedUserRolesAndGroups($index)" class="md-raised md-primary detailsSectionButton">Save</md-button>
                     </div>
                 </div>
+            </section>
 
-                <label class="sectionHeaderLabel" style="margin-top: 2rem; margin-bottom:0.5rem;">Invite a new user</label>
 
-                <md-input-container style="margin-bottom: 0px;">
+            <div ng-if="isAdmin" class="detailsSectionHeader">Invite a new user</div>
+
+            <section ng-if="isAdmin" class="detailsSectionContent">
+                <md-input-container style="width: 100%;">
                     <label>Send to email</label>
-                    <input type="email" ng-model="invitation.email" ng-change="onFormElementChange('projectRequestDto_description')">
-                    <span ng-if="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage">{{$root.formElementsErrors.projectRequestDto_description}}</span>
+                    <input type="email" ng-model="invitation.email" ng-change="$root.onFormElementChange('projectRequestDto_description')">
+                    <span ng-show="$root.formElementsErrors.invitationRequestDto_email" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.invitationRequestDto_email}}</span>
                 </md-input-container>
-
+                
                 <tags-input ng-model="invitation.roles" key-property="roleGuid" display-property="roleName" placeholder="Add a role">
                     <auto-complete source="getPossibleRoles($query, invitation.roles)" min-length="0" load-on-focus="true" load-on-empty="true">
                     </auto-complete>
@@ -55,15 +58,20 @@
                 <tags-input ng-model="invitation.groups" key-property="groupGuid" display-property="groupName" placeholder="Add a group">
                     <auto-complete source="getPossibleGroups($query, invitation.groups)" min-length="0" load-on-focus="true" load-on-empty="true">
                     </auto-complete>
-                </tags-input>
-
-                <div layout="row" layout-align="end">
-                    <md-button type="submit" id="submitBtn" ng-click="onSendInvitation()" class="md-raised md-primary" style="margin-right: 0px;">Save</md-button>
+                </tags-input>                
+                
+                <div layout="row">
+                    <div layout="row" layout-align="end" style="width: 100%;">
+                        <md-button ng-if="isAdmin" type="submit" id="submitBtn" ng-click="onSendInvitation()" class="md-raised md-primary detailsSectionButton">Save</md-button>
+                    </div>
                 </div>
+            </section>
 
-                <label class="sectionHeaderLabel" style="margin-top: 2rem; margin-bottom:0px;">Pending invitations</label>
-                <div ng-repeat="invitation in pendingInvitations">
-                     <div layout="column" style="border-bottom: 1px solid gray; padding: 5px;">
+            <div ng-if="isAdmin && pendingInvitations.length > 0"  class="detailsSectionHeader">Pending invitations</div>
+
+            <section ng-if="isAdmin && pendingInvitations.length > 0" class="detailsSectionContent">
+                <div ng-repeat="invitation in pendingInvitations" class="detailsSectionListItem">
+                     <div layout="column">
                         <div layout="row">
                             <span flex=30>Recipient: </span>
                             <span flex=70 style="margin-bottom: 0.5rem;">{{invitation.email}}</span>
@@ -78,10 +86,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
 
         <div flex=30 flex-md=20 flex-sm=10 flex-xs=10></div>
     </div>
-
 </div>

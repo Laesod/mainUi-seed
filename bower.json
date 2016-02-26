@@ -9,7 +9,7 @@
   ],
   "dependencies": {
     "jquery": "latest",
-    "angular": "latest",
+    "angular": "~1.5.0",
     "angular-cookies": "latest",
     "angular-mocks": "latest",
     "angular-ui-router": "latest",

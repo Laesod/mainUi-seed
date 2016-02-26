@@ -118,6 +118,14 @@ function projectsService($q, $http, $cookies, APP_SETTINGS, globalService) {
       });       
    }   
    
+   service.updateUserRolesAndGroupsForProject = function(params){
+      return globalService.request({
+         method: "PUT",
+         url: apiUrl.apiGatewayUpdateUserRolesAndGroupsForProjectUrl + "/" + params.projectGuid + "?username=" + params.username,
+         data: params.payload
+      });       
+   }
+   
    return service;
 }
 

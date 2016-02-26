@@ -2,8 +2,12 @@
 
 function OnRun($rootScope, $http, $state, $cookies, $window, globalService, APP_SETTINGS) {
     $rootScope.userProfile = angular.copy(APP_SETTINGS.userProfile);
-    
+
     $rootScope.formElementsErrors = {};
+
+    $rootScope.onFormElementChange = function (fieldId) {
+        $rootScope.formElementsErrors[fieldId] = "";
+    };
 
     $rootScope.safeApply = function (fn) {
         var phase = $rootScope.$$phase;

@@ -3,8 +3,8 @@
 </div>
 
 <div ng-if="projects.length > 0" layout="row" layout-align="start center" style="padding-left: 1rem; padding-right: 1rem; padding-top:0.2rem; padding-bottom:0.2rem; font-weight: bold; height: 25px; border-left: 5px solid white;">
-   <div style="min-width: 250px;">Project</div>
-   <div style="min-width: 250px;">Roles</div>
+   <div flex=40>Project</div>
+   <div flex=60>Roles</div>
 </div>
 
 <md-content ng-if="projects.length > 0" layout="column" style="height: calc(100% - 85px);">
@@ -13,9 +13,9 @@
       <div md-virtual-repeat="item in projects" class="repeated-item" flex style="padding-left: 1rem; padding-right: 1rem; padding-top:0.2rem; padding-bottom:0.2rem; outline: none;"
       layout="column" ng-dblclick="onEdit($index)">
          <div layout="row" layout-align="start start">
-            <div style="min-width: 250px;"> {{item.projectDescription !== "" ? item.projectDescription: 'No description available on the current language'}}</div>
+            <div flex=40> {{item.projectDescription !== "" ? item.projectDescription: 'No description available on the current language'}}</div>
 
-            <div layout="row">
+            <div layout="row" flex=60>
                <div class="tag-in-display-mode" ng-repeat="role in item.roles">{{role.roleName}}</div>
             </div>
          </div>

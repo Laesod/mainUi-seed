@@ -1,15 +1,64 @@
-<div style="padding: 2rem">
-   <div style="margin-bottom: 1rem">Current avatar:</div>
+<div style="padding-top: 2rem;" layout="column">
 
-   <div style="padding: 1rem; border: 1px solid gray; width: 230px; height: 230px;">
-      <div ng-style="{'width': '230px', 'height': '230px', 'background': 'url(' + avatarUrl + ')', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></div>
-   </div>
-   <div style="margin-top: 1rem;">
-      <input type="file" name="img" ngf-select ng-model="file" accept="image/*" ngf-max-size="5MB" ngf-change=onUpload()>
-   </div>
-   <!--<div>
-      <md-button ng-click="onUpload()">
-         Upload
-      </md-button>
-   </div>-->
+    <div layout="row" style="width: 100%;">
+        <div flex=30 flex-md=20 flex-sm=10 flex-xs=10></div>
+
+        <div flex=40 flex-md=60 flex-sm=80 flex-xs=80 layout="column">
+
+            <div class="detailsSectionHeader">User Details</div>
+
+            <section class="detailsSectionContent">
+                <md-input-container style="width: 100%;">
+                    <label>Username</label>
+                    <input type="text" ng-model="$root.userProfile.username" disabled>
+                </md-input-container>
+                <md-input-container style="width: 100%;">
+                    <label>First Name</label>
+                    <input type="text" ng-model="$root.userProfile.firstName" disabled>
+                </md-input-container>
+                <md-input-container style="width: 100%;">
+                    <label>Last Name</label>
+                    <input type="text" ng-model="$root.userProfile.lastName" disabled>
+                </md-input-container>
+            </section>
+
+            <div class="detailsSectionHeader">Current Avatar</div>
+            <section class="detailsSectionContent">
+                <div layout="row" layout-align="end">
+                    <div ng-style="{ 'width': '230px', 'height': '230px', 'background': 'url(' + avatarUrl + ')',
+                'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></div>
+                </div>
+                <div layout="row" layout-align="end">
+                    <md-button type="submit" id="submitBtn" ng-click="onChangeAvatar()" class="md-raised md-primary
+                detailsSectionButton" style>Change Avatar</md-button>
+                    <input id="UploadInput" style="height: 0px; width: 0px; postition: absolute; top: -100px;" type="file" name="img" ngf-select ng-model="file" accept="image/*"
+                    ngf-max-size="5MB" ngf-change=onUpload()>
+                </div>
+            </section>
+
+
+            <div class="detailsSectionHeader">Change Password</div>
+
+            <section class="detailsSectionContent">
+                <md-input-container style="width: 100%;">
+                    <label>Current Password</label>
+                    <input type="password" ng-model="changePassword.currentPassword" ng-change="$root.onFormElementChange('userPasswordRequestDto_currentPassword')">
+                    <span ng-show="$root.formElementsErrors.userPasswordRequestDto_currentPassword" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.userPasswordRequestDto_currentPassword}}</span>                    
+                </md-input-container>
+                <md-input-container style="width: 100%; margin-top: 10px;">
+                    <label>New Password</label>
+                    <input type="password" ng-model="changePassword.newPassword" ng-change="$root.onFormElementChange('userPasswordRequestDto_newPassword')">
+                </md-input-container>
+                <div layout="row">
+                    <span ng-if="$root.formElementsErrors.userPasswordRequestDto_newPassword" class="formItemErrorMessage">{{$root.formElementsErrors.userPasswordRequestDto_newPassword}}</span>
+                    <div layout="row" layout-align="end" style="width: 100%;">
+                        <md-button type="submit" id="submitBtn " ng-click="onChangePassword()" class="md-raised md-primary
+                detailsSectionButton">Save</md-button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div flex=30 flex-md=20 flex-sm=10 flex-xs=10></div>
+    </div>
 </div>

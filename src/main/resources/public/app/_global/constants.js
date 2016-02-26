@@ -33,9 +33,11 @@ var AppSettings = function(config) {
             apiGatewayDeclineInvitationUrl: apiGatewayBaseUrl + '/gateway/gateway/declineInvitation', 
             apiGatewayRemoveUserFromProjectUrl: apiGatewayBaseUrl + '/gateway/gateway/removeUserFromProject',  
             apiGatewayUpdateUserRolesForProjectUrl: apiGatewayBaseUrl + '/gateway/gateway/updateUserRolesForProject',  
-            apiGatewayUpdateUserGroupsForProjectUrl: apiGatewayBaseUrl + '/gateway/gateway/updateUserGroupsForProject',                                 
+            apiGatewayUpdateUserGroupsForProjectUrl: apiGatewayBaseUrl + '/gateway/gateway/updateUserGroupsForProject',
+            apiGatewayUpdateUserRolesAndGroupsForProjectUrl: apiGatewayBaseUrl + '/gateway/gateway/updateUserRolesAndGroupsForProject',                                              
             apiGatewayLogoutUrl: apiGatewayBaseUrl + "/gateway/logout",
             changeAvatarUrl: apiGatewayBaseUrl + '/gateway/gateway/changeAvatar',
+            changePasswordUrl: apiGatewayBaseUrl + '/gateway/gateway/changePassword',
             
             tasksManagementGetTasksUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/getTasks',
             tasksManagementExportTasksToCSVUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/exportTasksToCsv',

@@ -57,7 +57,8 @@ module.exports = {
             'src/main/resources/public/lib/ng-file-upload/ng-file-upload.js',
             'src/main/resources/public/lib/angular-file-saver/dist/angular-file-saver.bundle.min.js',
             'src/main/resources/public/lib/ng-tags-input/ng-tags-input.min.js',
-            'src/main/resources/public/lib/lodash/dist/lodash.min.js'
+            'src/main/resources/public/lib/lodash/dist/lodash.min.js',
+            'src/main/resources/public/lib/exif-js/exif.js'
         ],
         dest: 'src/main/resources/public/build/js'
     },

@@ -58,48 +58,34 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
         });
     }
 
-    $scope.onChangeAssignedUserRoles = function (index) {
+    $scope.onChangeAssignedUserRolesAndGroups = function (index) {
         var rolesIds = []
-        _.forEach($scope.projectUsers[index].roles, function(role){
+        _.forEach($scope.projectUsers[index].roles, function (role) {
             rolesIds.push(role.roleGuid);
         });
-        
-        projectsService.updateUserRolesForProject({
-            projectGuid: $scope.projectGuid,
-            username: $scope.projectUsers[index].username,
-            payload: {
-                roles: rolesIds
-            }
-        }).then(function () {
-            globalService.displayToast({
-                messageText: "Roles assignment has been changed.",
-                messageType: "success"
-            });
-        });
-    }
-    
-    $scope.onChangeAssignedUserGroups = function (index) {
+
         var groupsIds = []
         var groupsToCreateAndAdd = []
-        _.forEach($scope.projectUsers[index].groups, function(group){
-            if(group.groupGuid){
+        _.forEach($scope.projectUsers[index].groups, function (group) {
+            if (group.groupGuid) {
                 groupsIds.push(group.groupGuid);
-            }else{
-                groupsToCreateAndAdd.push({groupName: group.groupName})
+            } else {
+                groupsToCreateAndAdd.push({ groupName: group.groupName })
             }
-            
+
         });
-        
-        projectsService.updateUserGroupsForProject({
+
+        projectsService.updateUserRolesAndGroupsForProject({
             projectGuid: $scope.projectGuid,
             username: $scope.projectUsers[index].username,
             payload: {
+                roles: rolesIds,
                 groups: groupsIds,
                 groupsToCreateAndAdd: groupsToCreateAndAdd
             }
         }).then(function () {
             globalService.displayToast({
-                messageText: "Groups assignment has been changed.",
+                messageText: "Roles and groups assignments have been changed.",
                 messageType: "success"
             });
         });
@@ -111,8 +97,8 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
                 messageText: "User has been unassigned from the project.",
                 messageType: "success"
             });
-            $scope.projectUsers.splice(index, 1);            
-         });
+            $scope.projectUsers.splice(index, 1);
+        });
     }
 
     $scope.onSendInvitation = function () {
@@ -148,11 +134,7 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
             //getPendingInvitations();
             $scope.pendingInvitations.push(createdInvitation)
             initCreateInvitationForm();
-        });;
-    };
-
-    $scope.onFormElementChange = function (fieldId) {
-        $rootScope.formElementsErrors[fieldId] = "";
+        });
     };
 }
 
