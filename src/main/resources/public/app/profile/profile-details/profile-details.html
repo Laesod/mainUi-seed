@@ -1,5 +1,4 @@
 <div style="padding-top: 2rem;" layout="column">
-
     <div layout="row" style="width: 100%;">
         <div flex=30 flex-md=20 flex-sm=10 flex-xs=10></div>
 
@@ -16,7 +15,7 @@
                     <label>First Name</label>
                     <input type="text" ng-model="$root.userProfile.firstName" disabled>
                 </md-input-container>
-                <md-input-container style="width: 100%;">
+                <md-input-container style="width: 100%; margin-bottom: 10px;">
                     <label>Last Name</label>
                     <input type="text" ng-model="$root.userProfile.lastName" disabled>
                 </md-input-container>
@@ -31,7 +30,7 @@
                 <div layout="row" layout-align="end">
                     <md-button type="submit" id="submitBtn" ng-click="onChangeAvatar()" class="md-raised md-primary
                 detailsSectionButton" style>Change Avatar</md-button>
-                    <input id="UploadInput" style="height: 0px; width: 0px; postition: absolute; top: -100px;" type="file" name="img" ngf-select ng-model="file" accept="image/*"
+                    <input id="UploadInput" style="height: 0px; width: 0px; position: absolute; top: -100px;" type="file" name="img" ngf-select ng-model="file" accept="image/*"
                     ngf-max-size="5MB" ngf-change=onUpload()>
                 </div>
             </section>

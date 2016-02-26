@@ -75,18 +75,19 @@
     margin-right: 0px;
 }
 .detailsSectionListItem{
-    padding: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 .detailsSectionContent > .detailsSectionListItem:not(:last-child){
     border-bottom: 1px gray dashed;
 }
 .detailsSectionActionIcon{
-    color: rgb(63, 81, 181);
-    margin-right: 3px;
+    color: #3f51b5;
+    margin-left: 3px;
     padding: 3px;
     outline: none;
     cursor: pointer;
     margin-top: -4px;
+    font-size: 16pt;
 }
 .highlightedText {
     background: yellow;
@@ -135,3 +136,7 @@ md-input-container{
 md-input-container .md-errors-spacer{
     float: none;
 }
+
+md-input-container.md-default-theme .md-input[disabled], md-input-container .md-input[disabled], md-input-container.md-default-theme .md-input [disabled], md-input-container .md-input [disabled] {
+    color: gray;
+}    
