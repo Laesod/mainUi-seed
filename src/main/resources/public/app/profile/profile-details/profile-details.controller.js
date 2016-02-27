@@ -35,12 +35,12 @@ function ProfileDetailsCtrl($scope, $rootScope, $http, APP_SETTINGS, globalServi
         globalService.preprocessImg($scope.file, guid).then(function (dataURL) { sendFile($scope.file, dataURL, guid) });
     };
 
-    $scope.onChangeAvatar = function () {
-        var uploadElement = document.getElementById("UploadInput");
-        $timeout(function () {
-            document.getElementById('UploadInput').click();
-        }, 0);
-    }
+    // $scope.onChangeAvatar = function () {
+    //     var uploadElement = document.getElementById("UploadInput");
+    //     $timeout(function () {
+    //         document.getElementById('UploadInput').click();
+    //     }, 0);
+    // }
 
     $scope.onChangePassword = function () {
         profileService.changePassword($scope.changePassword).then(function () {

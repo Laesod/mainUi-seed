@@ -10,14 +10,13 @@
             <section class="detailsSectionContent">
                 <md-input-container style="width: 100%;">
                     <label>Description</label>
-                    <input type="text" ng-model="project.description" ng-change="$root.onFormElementChange('projectRequestDto_description')" ng-disabled="!isAdmin">
+                    <input type="text" ng-model="project.description" ng-change="$root.onFormElementChange('projectRequestDto_description')"
+                    ng-disabled="!isAdmin">
+                    <span ng-show="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.projectRequestDto_description}}</span>
+                    <md-button ng-if="isAdmin" type="submit" id="submitBtn" ng-click="onSubmitProjectChanges()" class="md-raised md-primary detailsSectionButton">Save</md-button>
                 </md-input-container>
-                <div layout="row">
-                    <span ng-if="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage">{{$root.formElementsErrors.projectRequestDto_description}}</span>
-                    <div layout="row" layout-align="end" style="width: 100%;">
-                        <md-button ng-if="isAdmin" type="submit" id="submitBtn" ng-click="onSubmitProjectChanges()" class="md-raised md-primary detailsSectionButton">Save</md-button>
-                    </div>
-                </div>
+                <!--<span ng-show="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.projectRequestDto_description}}</span>
+                <md-button ng-if="isAdmin" type="submit" id="submitBtn" ng-click="onSubmitProjectChanges()" class="md-raised md-primary detailsSectionButton">Save</md-button>-->
             </section>
 
             <div ng-if="isAdmin" class="detailsSectionHeader">Assigned Users</div>
@@ -50,7 +49,7 @@
                     <input type="email" ng-model="invitation.email" ng-change="$root.onFormElementChange('projectRequestDto_description')">
                     <span ng-show="$root.formElementsErrors.invitationRequestDto_email" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.invitationRequestDto_email}}</span>
                 </md-input-container>
-                
+
                 <tags-input ng-model="invitation.roles" key-property="roleGuid" display-property="roleName" placeholder="Add a role">
                     <auto-complete source="getPossibleRoles($query, invitation.roles)" min-length="0" load-on-focus="true" load-on-empty="true">
                     </auto-complete>
@@ -58,8 +57,8 @@
                 <tags-input ng-model="invitation.groups" key-property="groupGuid" display-property="groupName" placeholder="Add a group">
                     <auto-complete source="getPossibleGroups($query, invitation.groups)" min-length="0" load-on-focus="true" load-on-empty="true">
                     </auto-complete>
-                </tags-input>                
-                
+                </tags-input>
+
                 <div layout="row">
                     <div layout="row" layout-align="end" style="width: 100%;">
                         <md-button ng-if="isAdmin" type="submit" id="submitBtn" ng-click="onSendInvitation()" class="md-raised md-primary detailsSectionButton">Save</md-button>
@@ -67,11 +66,11 @@
                 </div>
             </section>
 
-            <div ng-if="isAdmin && pendingInvitations.length > 0"  class="detailsSectionHeader">Pending invitations</div>
+            <div ng-if="isAdmin && pendingInvitations.length > 0" class="detailsSectionHeader">Pending invitations</div>
 
             <section ng-if="isAdmin && pendingInvitations.length > 0" class="detailsSectionContent">
                 <div ng-repeat="invitation in pendingInvitations" class="detailsSectionListItem">
-                     <div layout="column">
+                    <div layout="column">
                         <div layout="row">
                             <span flex=30>Recipient: </span>
                             <span flex=70 style="margin-bottom: 0.5rem;">{{invitation.email}}</span>

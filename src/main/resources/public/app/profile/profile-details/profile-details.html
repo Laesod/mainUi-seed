@@ -28,10 +28,10 @@
                 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></div>
                 </div>
                 <div layout="column" layout-align="end">
-                    <md-button type="submit" id="submitBtn" ng-click="onChangeAvatar()" class="md-raised md-primary
-                detailsSectionButton" style>Change Avatar</md-button>
+                    <md-button type="submit" id="submitBtn" class="md-raised md-primary
+                detailsSectionButton" style="margin-left: 0px;">Change Avatar</md-button>
                     <input id="UploadInput" type="file" name="img" ngf-select ng-model="file" accept="image/*"
-                    ngf-max-size="5MB" ngf-change=onUpload()>
+                    ngf-max-size="5MB" ngf-change=onUpload() style="opacity: 0; height: 36px; z-index: 1; margin-top: -40px;">
                 </div>
             </section>
 
