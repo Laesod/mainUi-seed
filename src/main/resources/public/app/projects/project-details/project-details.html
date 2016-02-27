@@ -24,11 +24,11 @@
                         <div>{{projectUser.username}}</div>
                         <i class="fa fa fa-times detailsSectionActionIcon" ng-click="onUnassignUser($index)"></i>
                     </div>
-                    <tags-input ng-model="projectUser.roles" key-property="roleGuid" display-property="roleName" placeholder="Add a role">
+                    <tags-input ng-model="projectUser.roles" key-property="roleGuid" display-property="roleName" placeholder="Add a role" add-from-autocomplete-only="true">
                         <auto-complete source="getPossibleRoles($query, projectUser.roles)" min-length="0" load-on-focus="true" load-on-empty="true">
                         </auto-complete>
                     </tags-input>
-                    <tags-input ng-model="projectUser.groups" key-property="groupGuid" display-property="groupName" placeholder="Add a group">
+                    <tags-input ng-model="projectUser.groups" display-property="groupName" placeholder="Add a group">
                         <auto-complete source="getPossibleGroups($query, projectUser.groups)" min-length="0" load-on-focus="true" load-on-empty="true">
                         </auto-complete>
                     </tags-input>
@@ -47,11 +47,11 @@
                     <span ng-show="$root.formElementsErrors.invitationRequestDto_email" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.invitationRequestDto_email}}</span>
                 </md-input-container>
 
-                <tags-input ng-model="invitation.roles" key-property="roleGuid" display-property="roleName" placeholder="Add a role">
+                <tags-input ng-model="invitation.roles" key-property="roleGuid" display-property="roleName" placeholder="Add a role" add-from-autocomplete-only="true">
                     <auto-complete source="getPossibleRoles($query, invitation.roles)" min-length="0" load-on-focus="true" load-on-empty="true">
                     </auto-complete>
                 </tags-input>
-                <tags-input ng-model="invitation.groups" key-property="groupGuid" display-property="groupName" placeholder="Add a group">
+                <tags-input ng-model="invitation.groups" display-property="groupName" placeholder="Add a group">
                     <auto-complete source="getPossibleGroups($query, invitation.groups)" min-length="0" load-on-focus="true" load-on-empty="true">
                     </auto-complete>
                 </tags-input>
