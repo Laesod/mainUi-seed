@@ -1,8 +1,8 @@
 <div style="padding-top: 2rem;" layout="column">
     <div layout="row" style="width: 100%;">
-        <div flex=30 flex-md=20 flex-sm=10 flex-xs=10></div>
+        <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>
 
-        <div flex=40 flex-md=60 flex-sm=80 flex-xs=80 layout="column">
+        <div flex-gt-md=40 flex-md=60 flex-sm=90 flex-xs=90 layout="column">
 
             <div class="detailsSectionHeader">User Details</div>
 
@@ -30,8 +30,8 @@
                 <div layout="column" layout-align="end">
                     <md-button type="submit" id="submitBtn" class="md-raised md-primary
                 detailsSectionButton" style="margin-left: 0px;">Change Avatar</md-button>
-                    <input id="UploadInput" type="file" name="img" ngf-select ng-model="file" accept="image/*"
-                    ngf-max-size="5MB" ngf-change=onUpload() style="opacity: 0; height: 36px; z-index: 1; margin-top: -40px;">
+                    <input id="UploadInput" type="file" name="img" ngf-select ng-model="file" accept="image/*" ngf-max-size="5MB" ngf-change=onUpload()
+                    style="opacity: 0; height: 36px; z-index: 1; margin-top: -40px;">
                 </div>
             </section>
 
@@ -42,22 +42,17 @@
                 <md-input-container style="width: 100%;">
                     <label>Current Password</label>
                     <input type="password" ng-model="changePassword.currentPassword" ng-change="$root.onFormElementChange('userPasswordRequestDto_currentPassword')">
-                    <span ng-show="$root.formElementsErrors.userPasswordRequestDto_currentPassword" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.userPasswordRequestDto_currentPassword}}</span>                    
+                    <span ng-show="$root.formElementsErrors.userPasswordRequestDto_currentPassword" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.userPasswordRequestDto_currentPassword}}</span>
                 </md-input-container>
                 <md-input-container style="width: 100%; margin-top: 10px;">
                     <label>New Password</label>
                     <input type="password" ng-model="changePassword.newPassword" ng-change="$root.onFormElementChange('userPasswordRequestDto_newPassword')">
+                    <span ng-show="$root.formElementsErrors.userPasswordRequestDto_newPassword" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.userPasswordRequestDto_newPassword}}</span>
+                    <md-button type="submit" id="submitBtn " ng-click="onChangePassword()" class="md-raised md-primary detailsSectionButton">Save</md-button>
                 </md-input-container>
-                <div layout="row">
-                    <span ng-if="$root.formElementsErrors.userPasswordRequestDto_newPassword" class="formItemErrorMessage">{{$root.formElementsErrors.userPasswordRequestDto_newPassword}}</span>
-                    <div layout="row" layout-align="end" style="width: 100%;">
-                        <md-button type="submit" id="submitBtn " ng-click="onChangePassword()" class="md-raised md-primary
-                detailsSectionButton">Save</md-button>
-                    </div>
-                </div>
             </section>
         </div>
 
-        <div flex=30 flex-md=20 flex-sm=10 flex-xs=10></div>
+        <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>
     </div>
 </div>

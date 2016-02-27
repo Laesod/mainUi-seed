@@ -1,9 +1,9 @@
 <div style="padding-top: 2rem;" layout="column">
 
     <div layout="row" style="width: 100%;">
-        <div flex=30 flex-md=20 flex-sm=10 flex-xs=10></div>
+        <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>
 
-        <div flex=40 flex-md=60 flex-sm=80 flex-xs=80 layout="column">
+        <div flex-gt-md=40 flex-md=60 flex-sm=90 flex-xs=90 layout="column">
 
             <div class="detailsSectionHeader">Project Details</div>
 
@@ -15,8 +15,6 @@
                     <span ng-show="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.projectRequestDto_description}}</span>
                     <md-button ng-if="isAdmin" type="submit" id="submitBtn" ng-click="onSubmitProjectChanges()" class="md-raised md-primary detailsSectionButton">Save</md-button>
                 </md-input-container>
-                <!--<span ng-show="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.projectRequestDto_description}}</span>
-                <md-button ng-if="isAdmin" type="submit" id="submitBtn" ng-click="onSubmitProjectChanges()" class="md-raised md-primary detailsSectionButton">Save</md-button>-->
             </section>
 
             <div ng-if="isAdmin" class="detailsSectionHeader">Assigned Users</div>
@@ -39,7 +37,6 @@
                     </div>
                 </div>
             </section>
-
 
             <div ng-if="isAdmin" class="detailsSectionHeader">Invite a new user</div>
 
@@ -88,6 +85,6 @@
             </section>
         </div>
 
-        <div flex=30 flex-md=20 flex-sm=10 flex-xs=10></div>
+        <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>
     </div>
 </div>
