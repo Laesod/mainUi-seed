@@ -10,11 +10,36 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
         $scope.invitation = {
             email: "",
             roles: [],
-            groups: []
+            groups: [],
+            groupSearchText: "",
+            rouleSearchText: "",
         }
     }
 
     initCreateInvitationForm();
+
+    projectsService.getProjectRoles({ projectGuid: $rootScope.currentProjectGuid }).then(function (projectRoles) {
+        $scope.projectRoles = projectRoles;
+    });
+
+    $scope.searchProjectRole = function (roleSearchText) {
+        return _.filter($scope.projectRoles, function (role) {
+            return role.roleName.indexOf(roleSearchText) > -1;
+        })
+    }
+
+    var getProjectGroups = function () {
+        projectsService.getProjectGroups({ projectGuid: $rootScope.currentProjectGuid }).then(function (projectGroups) {
+            $scope.projectGroups = projectGroups;
+        });
+    }
+    getProjectGroups();
+
+    $scope.searchProjectGroup = function (groupSearchText) {
+        return _.filter($scope.projectGroups, function (group) {
+            return group.groupName.indexOf(groupSearchText) > -1;
+        })
+    }
 
     $scope.getPossibleRoles = function (query, currentRoles) {
         return projectsService.getProjectRoles({ projectGuid: $scope.projectGuid, payload: { nameContains: query, currentRoles: currentRoles } });
@@ -131,11 +156,19 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
                 messageType: "success"
             });
 
-            //getPendingInvitations();
             $scope.pendingInvitations.push(createdInvitation)
             initCreateInvitationForm();
+            getProjectGroups();
         });
     };
+
+    $scope.transformGroupChip = function (groupChip) {
+        if (angular.isObject(groupChip)) {
+            return groupChip;
+        }
+
+        return { groupName: groupChip }
+    }
 }
 
 projectsModule.controller('ProjectDetailsCtrl', ProjectDetailsCtrl);

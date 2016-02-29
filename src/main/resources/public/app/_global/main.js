@@ -4,6 +4,7 @@ require('../general-layout/_index');
 require('../tasks/_index');
 require('../projects/_index');
 require('../profile/_index');
+require('../entries/_index');
 
 var injector = angular.injector,
     app = require('./_index'),

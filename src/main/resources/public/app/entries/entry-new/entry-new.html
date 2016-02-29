@@ -1,0 +1,38 @@
+<div class="viewContentWrapper" layout="column" layout-align="start center">
+    <div layout="row" style="width: 100%;">
+        <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>
+
+        <div flex-gt-md=40 flex-md=60 flex-sm=90 flex-xs=90 layout="column">
+
+            <div class="detailsSectionHeader">Entry Details</div>
+
+            <section class="detailsSectionContent" layout="column">
+                <md-input-container style="margin-bottom: 10px;">
+                    <label>Entry Type</label>
+                    <md-select ng-model="entry.entryTypeGuid" md-on-open="getEntryTypes()">
+                        <md-option ng-repeat="entryType in entryTypes" value="{{entryType.entryTypeGuid}}">
+                            {{entryType.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-chips ng-model="selectedProjectGroups" md-autocomplete-snap md-require-match="true">
+                    <md-autocomplete md-search-text="groupSearchText" md-items="item in searchProjectGroup(groupSearchText)"
+                    md-item-text="item.name" placeholder="Search for a group">
+                        <span md-highlight-text="groupSearchText">{{item.groupName}}</span>
+                    </md-autocomplete>
+                    <md-chip-template>
+                        <span>{{$chip.groupName}}
+                         </span>
+                    </md-chip-template>
+                </md-chips>
+
+                <md-input-container style="margin-top: 20px;">
+                    <label>Description</label>
+                    <textarea ng-model="entry.description" columns="1"></textarea>
+                </md-input-container>
+            </section>
+        </div>
+        <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>
+    </div>
+</div>  

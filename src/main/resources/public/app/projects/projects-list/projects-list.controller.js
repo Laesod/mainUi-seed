@@ -3,10 +3,12 @@
 var projectsModule = require('../_index');
 var url = require('url');
 
-function ProjectsListCtrl($scope, projectsService, $state) {
+function ProjectsListCtrl($rootScope, $scope, projectsService, $state) {
 
    projectsService.getProjects().then(function (data) {
       $scope.projects = data;
+      
+      _.find($scope.projects, {projectGuid: $rootScope.currentProjectGuid})._isCurrent = true;
    })
 
    $scope.onEdit = function (index) {
@@ -15,6 +17,16 @@ function ProjectsListCtrl($scope, projectsService, $state) {
 
    $scope.onAdd = function () {
       $state.go("app.projectNew");
+   }
+   
+   $scope.onChangeCurrent = function(index){
+       var projectGuid = $scope.projects[index].projectGuid;
+       _.forEach($scope.projects, function(project){
+           if(projectGuid !== project.projectGuid){
+               project._isCurrent = false;
+           }
+       });
+       $rootScope.currentProjectGuid = projectGuid;
    }
 }
 

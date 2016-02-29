@@ -1,4 +1,4 @@
-<div style="padding-top: 2rem;" layout="column">
+<div class="viewContentWrapper" layout="column">
 
     <div layout="row" style="width: 100%;">
         <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>
@@ -24,14 +24,31 @@
                         <div>{{projectUser.username}}</div>
                         <i class="fa fa fa-times detailsSectionActionIcon" ng-click="onUnassignUser($index)"></i>
                     </div>
-                    <tags-input ng-model="projectUser.roles" key-property="roleGuid" display-property="roleName" placeholder="Add a role" add-from-autocomplete-only="true">
-                        <auto-complete source="getPossibleRoles($query, projectUser.roles)" min-length="0" load-on-focus="true" load-on-empty="true">
-                        </auto-complete>
-                    </tags-input>
-                    <tags-input ng-model="projectUser.groups" display-property="groupName" placeholder="Add a group">
-                        <auto-complete source="getPossibleGroups($query, projectUser.groups)" min-length="0" load-on-focus="true" load-on-empty="true">
-                        </auto-complete>
-                    </tags-input>
+                    <div style="margin-bottom: 14px;">
+                        <md-chips ng-model="projectUser.roles" md-autocomplete-snap md-require-match="true">
+                            <md-autocomplete md-search-text="projectUser.roleSearchText" md-items="item in searchProjectRole(projectUser.roleSearchText)"
+                            md-item-text="item.name" placeholder="Search for a role">
+                                <span md-highlight-text="projectUser.roleSearchText">{{item.roleName}}</span>
+                            </md-autocomplete>
+                            <md-chip-template>
+                                <span>{{$chip.roleName}}
+                         </span>
+                            </md-chip-template>
+                        </md-chips>
+                    </div>
+
+                    <div style="margin-bottom: 14px;">
+                        <md-chips ng-model="projectUser.groups" md-autocomplete-snap md-require-match="false" md-transform-chip="transformGroupChip($chip)">
+                            <md-autocomplete md-search-text="projectUser.groupSearchText" md-items="item in searchProjectGroup(projectUser.groupSearchText)"
+                            md-item-text="item.name" placeholder="Search for a group" md-no-cache="true">
+                                <span md-highlight-text="projectUser.groupSearchText">{{item.groupName}}</span>
+                            </md-autocomplete>
+                            <md-chip-template>
+                                <span>{{$chip.groupName}}
+                         </span>
+                            </md-chip-template>
+                        </md-chips>
+                    </div>
                     <div layout="row" layout-align="end">
                         <md-button type="submit" id="submitBtn" ng-click="onChangeAssignedUserRolesAndGroups($index)" class="md-raised md-primary detailsSectionButton">Save</md-button>
                     </div>
@@ -43,18 +60,35 @@
             <section ng-if="isAdmin" class="detailsSectionContent">
                 <md-input-container style="width: 100%;">
                     <label>Send to email</label>
-                    <input type="email" ng-model="invitation.email" ng-change="$root.onFormElementChange('projectRequestDto_description')">
+                    <input type="email" ng-model="invitation.email" ng-change="$root.onFormElementChange('invitationRequestDto_email')">
                     <span ng-show="$root.formElementsErrors.invitationRequestDto_email" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.invitationRequestDto_email}}</span>
                 </md-input-container>
 
-                <tags-input ng-model="invitation.roles" key-property="roleGuid" display-property="roleName" placeholder="Add a role" add-from-autocomplete-only="true">
-                    <auto-complete source="getPossibleRoles($query, invitation.roles)" min-length="0" load-on-focus="true" load-on-empty="true">
-                    </auto-complete>
-                </tags-input>
-                <tags-input ng-model="invitation.groups" display-property="groupName" placeholder="Add a group">
-                    <auto-complete source="getPossibleGroups($query, invitation.groups)" min-length="0" load-on-focus="true" load-on-empty="true">
-                    </auto-complete>
-                </tags-input>
+                <div style="margin-bottom: 14px;">
+                    <md-chips ng-model="invitation.roles" md-autocomplete-snap md-require-match="true">
+                        <md-autocomplete md-search-text="invitation.roleSearchText" md-items="item in searchProjectRole(invitation.roleSearchText)"
+                        md-item-text="item.name" placeholder="Search for a role">
+                            <span md-highlight-text="invitation.roleSearchText">{{item.roleName}}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span>{{$chip.roleName}}
+                         </span>
+                        </md-chip-template>
+                    </md-chips>
+                </div>
+
+                <div style="margin-bottom: 14px;">
+                    <md-chips ng-model="invitation.groups" md-autocomplete-snap md-require-match="false" md-transform-chip="transformGroupChip($chip)">
+                        <md-autocomplete md-search-text="invitation.groupSearchText" md-items="item in searchProjectGroup(invitation.groupSearchText)"
+                        md-no-cache="true" md-item-text="item.name" placeholder="Search for a group">
+                            <span md-highlight-text="invitation.groupSearchText">{{item.groupName}}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span>{{$chip.groupName}}
+                         </span>
+                        </md-chip-template>
+                    </md-chips>
+                </div>
 
                 <div layout="row">
                     <div layout="row" layout-align="end" style="width: 100%;">

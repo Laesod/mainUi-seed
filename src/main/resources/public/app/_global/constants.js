@@ -39,6 +39,8 @@ var AppSettings = function(config) {
             changeAvatarUrl: apiGatewayBaseUrl + '/gateway/gateway/changeAvatar',
             changePasswordUrl: apiGatewayBaseUrl + '/gateway/gateway/changePassword',
             
+            apiEntryGetEntryTypesForProjectUrl: apiGatewayBaseUrl + '/gateway/entry/getEntryTypesForProject',
+            
             tasksManagementGetTasksUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/getTasks',
             tasksManagementExportTasksToCSVUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/exportTasksToCsv',
             tasksManagementCreateTaskUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/createTask',

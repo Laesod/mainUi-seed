@@ -52,17 +52,15 @@ function projectsService($q, $http, $cookies, APP_SETTINGS, globalService) {
    
    service.getProjectRoles = function(params){
       return globalService.request({
-         method: "PUT",
+         method: "GET",
          url: apiUrl.apiGatewayGetProjectRolesUrl + "/" + params.projectGuid,
-         data: params.payload
       });       
    }
    
    service.getProjectGroups = function(params){
       return globalService.request({
-         method: "PUT",
+         method: "GET",
          url: apiUrl.apiGatewayGetProjectGroupsUrl + "/" + params.projectGuid,
-         data: params.payload
       });       
    }   
    

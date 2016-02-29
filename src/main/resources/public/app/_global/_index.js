@@ -8,7 +8,6 @@ var requires = [
     'generalLayout',
     'ngCookies',
     'ngMaterial',
-    'ngTagsInput',
     'pascalprecht.translate',
     'iosDblclick',
     'ngFileUpload',
@@ -16,6 +15,7 @@ var requires = [
     'tasks',
     'projects',
     'profile',
+    'entries'
 ];
 
 module.exports = angular.module('app', requires);

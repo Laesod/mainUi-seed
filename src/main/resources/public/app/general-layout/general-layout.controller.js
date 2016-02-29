@@ -61,6 +61,11 @@ function LeftSideNavCtrl($scope, $mdSidenav, $state) {
         $scope.close();        
         $state.go("app.receivedInvitations");         
     }
+    
+    $scope.onListOfEntries = function(){
+        $scope.close();        
+        $state.go("app.entriesList");         
+    }
 } 
 
 
