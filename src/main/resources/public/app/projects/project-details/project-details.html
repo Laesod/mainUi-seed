@@ -6,7 +6,7 @@
 
             <div class="detailsSectionHeader">Project Details</div>
 
-            <div class="detailsSectionContent">
+            <section class="detailsSectionContent">
                 <md-input-container style="width: 100%;">
                     <label>Description</label>
                     <input type="text" ng-model="project.description" ng-change="$root.onFormElementChange('projectRequestDto_description')"
@@ -14,10 +14,10 @@
                     <span ng-show="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.projectRequestDto_description}}</span>
                     <md-button ng-if="isAdmin" type="submit" id="submitBtn" ng-click="onSubmitProjectChanges()" class="md-raised md-primary detailsSectionButton">Save</md-button>
                 </md-input-container>
-            </div>
+            </section>
 
             <div ng-if="isAdmin" class="detailsSectionHeader">Assigned Users</div>
-            <div ng-if="isAdmin" class="detailsSectionContent">
+            <section ng-if="isAdmin" class="detailsSectionContent">
                 <div ng-repeat="projectUser in projectUsers" class="detailsSectionListItem">
                     <div layout="row" layout-align="space-between center">
                         <div>{{projectUser.username}}</div>
@@ -52,11 +52,11 @@
                         <md-button type="submit" id="submitBtn" ng-click="onChangeAssignedUserRolesAndGroups($index)" class="md-raised md-primary detailsSectionButton">Save</md-button>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <div ng-if="isAdmin" class="detailsSectionHeader">Invite a new user</div>
 
-            <div ng-if="isAdmin" class="detailsSectionContent">
+            <section ng-if="isAdmin" class="detailsSectionContent">
                 <md-input-container style="width: 100%;">
                     <label>Send to email</label>
                     <input type="email" ng-model="invitation.email" ng-change="$root.onFormElementChange('invitationRequestDto_email')">
@@ -94,11 +94,11 @@
                         <md-button ng-if="isAdmin" type="submit" id="submitBtn" ng-click="onSendInvitation()" class="md-raised md-primary detailsSectionButton">Save</md-button>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <div ng-if="isAdmin && pendingInvitations.length > 0" class="detailsSectionHeader">Pending invitations</div>
 
-            <div ng-if="isAdmin && pendingInvitations.length > 0" class="detailsSectionContent">
+            <section ng-if="isAdmin && pendingInvitations.length > 0" class="detailsSectionContent">
                 <div ng-repeat="invitation in pendingInvitations" class="detailsSectionListItem">
                     <div layout="column">
                         <div layout="row">
@@ -115,7 +115,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
 
         <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>

@@ -22,18 +22,20 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
         $scope.projectRoles = projectRoles;
     });
 
-    $scope.searchProjectRole = function (roleSearchText) {
-        return _.filter($scope.projectRoles, function (role) {
-            return role.roleName.indexOf(roleSearchText) > -1;
-        })
-    }
+    var getProjectRoles = function () {
+        $scope.searchProjectRole = function (roleSearchText) {
+            return _.filter($scope.projectRoles, function (role) {
+                return role.roleName.indexOf(roleSearchText) > -1;
+            })
+        }
+    };
 
     var getProjectGroups = function () {
         projectsService.getProjectGroups({ projectGuid: $rootScope.currentProjectGuid }).then(function (projectGroups) {
             $scope.projectGroups = projectGroups;
         });
-    }
-    getProjectGroups();
+    };
+
 
     $scope.searchProjectGroup = function (groupSearchText) {
         return _.filter($scope.projectGroups, function (group) {
@@ -41,13 +43,13 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
         })
     }
 
-    $scope.getPossibleRoles = function (query, currentRoles) {
-        return projectsService.getProjectRoles({ projectGuid: $scope.projectGuid, payload: { nameContains: query, currentRoles: currentRoles } });
-    };
+    // $scope.getPossibleRoles = function (query, currentRoles) {
+    //     return projectsService.getProjectRoles({ projectGuid: $scope.projectGuid, payload: { nameContains: query, currentRoles: currentRoles } });
+    // };
 
-    $scope.getPossibleGroups = function (query, currentGroups) {
-        return projectsService.getProjectGroups({ projectGuid: $scope.projectGuid, payload: { nameContains: query, currentGroups: currentGroups } });
-    };
+    // $scope.getPossibleGroups = function (query, currentGroups) {
+    //     return projectsService.getProjectGroups({ projectGuid: $scope.projectGuid, payload: { nameContains: query, currentGroups: currentGroups } });
+    // };
 
     $scope.isAdmin = globalService.checkPermissions($scope.projectGuid, ["admin"]);
 
@@ -65,7 +67,9 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
         projectsService.getProjectUsers({ projectGuid: $scope.projectGuid }).then(function (data) {
             $scope.projectUsers = data;
         });
-
+        
+        getProjectRoles();
+        getProjectGroups();
         getPendingInvitations();
     }
 
