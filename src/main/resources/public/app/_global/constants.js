@@ -40,6 +40,12 @@ var AppSettings = function(config) {
             changePasswordUrl: apiGatewayBaseUrl + '/gateway/gateway/changePassword',
             
             apiEntryGetEntryTypesForProjectUrl: apiGatewayBaseUrl + '/gateway/entry/getEntryTypesForProject',
+            apiEntryGetEntryStatusesUrl: apiGatewayBaseUrl + '/gateway/entry/getEntryStatuses',
+            apiEntryCreateEntryUrl: apiGatewayBaseUrl + '/gateway/entry/createEntry',
+            apiEntryUpdateEntryUrl: apiGatewayBaseUrl + '/gateway/entry/updateEntry',
+            apiEntryCreateDeficiencyDetailsUrl: apiGatewayBaseUrl + '/gateway/entry/createDeficiencyDetails',
+            apiEntryUpdateDeficiencyDetailsUrl: apiGatewayBaseUrl + '/gateway/entry/updateDeficiencyDetails',
+            apiEntryGetEntriesUrl: apiGatewayBaseUrl + '/gateway/entry/getEntries',            
             
             tasksManagementGetTasksUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/getTasks',
             tasksManagementExportTasksToCSVUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/exportTasksToCsv',

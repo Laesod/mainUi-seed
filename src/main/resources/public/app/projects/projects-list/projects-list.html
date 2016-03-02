@@ -12,7 +12,7 @@
     <div style="width: 100%; border-bottom: 1px solid #ddd;"></div>
     <md-virtual-repeat-container id="vertical-container" style="border-bottom: 0px solid #ddd;">
         <div md-virtual-repeat="item in projects" class="listItem projectsListItem" flex layout="column" ng-dblclick="onEdit($index)">
-            <div layout="row" layout-align="start start">
+            <div layout="row" layout-align="start center">
                 <div flex=30> {{item.projectDescription !== "" ? item.projectDescription: 'No description available on the current language'}}</div>
 
                 <div layout="row" flex=40>

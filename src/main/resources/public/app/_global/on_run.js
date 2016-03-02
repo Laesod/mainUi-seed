@@ -2,8 +2,9 @@
 
 function OnRun($rootScope, $http, $state, $cookies, $window, globalService, APP_SETTINGS) {
     $rootScope.userProfile = angular.copy(APP_SETTINGS.userProfile);
-    $rootScope.currentProjectGuid = $rootScope.userProfile.userProjects[0].projectGuid;
-    //debugger;
+    if($rootScope.userProfile.userProjects && $rootScope.userProfile.userProjects.length > 0){
+        $rootScope.currentProjectGuid = $rootScope.userProfile.userProjects[0].projectGuid;        
+    }
 
     $rootScope.formElementsErrors = {};
 

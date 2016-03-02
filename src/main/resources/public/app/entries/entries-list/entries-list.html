@@ -1,3 +1,31 @@
 <div style="height: 60px;" layout-align="end center" layout="row">
-   <md-button class="md-raised md-primary" ng-click="onAdd($event)">{{'add' | translate}}</md-button>
+    <md-button class="md-raised md-primary" ng-click="onAdd($event)">{{'add' | translate}}</md-button>
 </div>
+
+<md-content layout="column" style="height: calc(100% - 60px);">
+    <div style="width: 100%; border-bottom: 1px solid #ddd;"></div>
+    <md-virtual-repeat-container id="vertical-container" style="border-bottom: 0px solid #ddd;" md-top-index="tasksListTopIndex">
+        <div md-virtual-repeat="item in entries" md-on-demand flex layout="column" ng-dblclick="onEdit($event, $index)">
+
+            <div layout="row" style="width: 100%;">
+                <div style="width: 5px;" ng-style="{'background-color': item.deficiencyDetails.entryStatusBackgroundColor}"></div>
+                <div flex=20 layout="column"  class="entriesListItem" style="padding-left: 1rem; padding-right: 1rem; padding-top:0.2rem; padding-bottom:0.2rem; outline: none; width: 100%;"
+                layout-align="start start">
+                    <div>Type:</div>
+                    <div ng-if="item.entryTypeGuid === '1'">Status:</div>
+                    <div ng-if="item.entryTypeGuid === '2'">Blablabla</div>                    
+                    <div>Description:</div>
+
+                </div>                
+                
+                <div flex=80 layout="column"  class="entriesListItem" style="padding-left: 1rem; padding-right: 1rem; padding-top:0.2rem; padding-bottom:0.2rem; outline: none; width: 100%;"
+                layout-align="start start">
+                    <div>{{item.entryTypeName}}</div>
+                    <div ng-if="item.entryTypeGuid === '1'">{{item.deficiencyDetails.entryStatusName}}</div>
+                    <div ng-if="item.entryTypeGuid === '2'">{{item.dailyReportDetails.statusInfo}}</div>
+                    <div>{{item.description}}</div>
+                </div>
+            </div>
+        </div>
+    </md-virtual-repeat-container>
+</md-content>
