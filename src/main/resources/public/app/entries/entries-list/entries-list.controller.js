@@ -3,7 +3,7 @@
 var entriesModule = require('../_index');
 var url = require('url');
 
-function EntriesListCtrl($scope, $state, $http, APP_SETTINGS, globalService, $window, entriesService) {
+function EntriesListCtrl($scope, $rootScope, $state, $http, APP_SETTINGS, globalService, $window, entriesService) {
 
     var DynamicItems = function () {
         this.loadedPages = {};
@@ -32,12 +32,13 @@ function EntriesListCtrl($scope, $state, $http, APP_SETTINGS, globalService, $wi
         var getEntriesParams = {
             size: this.PAGE_SIZE,
             page: pageNumber,
+            projectGuid: $rootScope.currentProjectGuid            
             //  sort: prepareCurrentSortingParams(),
             //  description: $scope.searchCriteria
         };
 
         //prepareCurrentFilteringParams(getEntriesParams);
-        entriesService.getEntries(getEntriesParams).then(angular.bind(this, function (data) {
+        entriesService.getEntries({urlParams:getEntriesParams}).then(angular.bind(this, function (data) {
             this.loadedPages[pageNumber] = [];
             var pageOffset = pageNumber * this.PAGE_SIZE;
             for (var i = 0; i < data.content.length; i++) {
@@ -49,11 +50,12 @@ function EntriesListCtrl($scope, $state, $http, APP_SETTINGS, globalService, $wi
         var getEntriesParams = {
             size: 1,
             page: 0,
+            projectGuid: $rootScope.currentProjectGuid
             // description: $scope.searchCriteria
         };
 
         // prepareCurrentFilteringParams(getEntriesParams);
-        entriesService.getEntries(getEntriesParams).then(angular.bind(this, function (data) {
+        entriesService.getEntries({urlParams:getEntriesParams}).then(angular.bind(this, function (data) {
             this.numItems = data.totalElements;
         }));
     };

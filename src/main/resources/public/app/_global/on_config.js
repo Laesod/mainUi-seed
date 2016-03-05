@@ -68,7 +68,7 @@ function OnConfig($stateProvider, $urlRouterProvider, $httpProvider, $injector, 
         .state('app.entriesList', {
             url: '/entries-list',
             controller: 'EntriesListCtrl',
-            templateUrl: (isNotMobile) ? "views/entries-list.html" : "views/entries-list-mobile.html",
+            templateUrl: (isNotMobile) ? "views/entries-list.html" : "views/entries-list.html",
             title: 'My Entries'
         });
 }

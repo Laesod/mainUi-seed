@@ -51,11 +51,11 @@ function entriesService($q, $http, $cookies, APP_SETTINGS, globalService) {
       });       
    }   
    
-   service.getEntries = function (urlParams) {
+   service.getEntries = function (params) {
       return globalService.request({
          method: "GET",
          url: apiUrl.apiEntryGetEntriesUrl,
-         params: urlParams
+         params: params.urlParams
       });
    };   
    
