@@ -5,6 +5,11 @@ function OnRun($rootScope, $http, $state, $cookies, $window, globalService, APP_
     if($rootScope.userProfile.userProjects && $rootScope.userProfile.userProjects.length > 0){
         $rootScope.currentProjectGuid = $rootScope.userProfile.userProjects[0].projectGuid;        
     }
+    
+    $rootScope.checkPermissions = function(projectGuid, roles){
+        return globalService.checkPermissions(projectGuid, roles);
+    }
+    
 
     $rootScope.formElementsErrors = {};
 

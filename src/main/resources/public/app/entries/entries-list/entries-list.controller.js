@@ -4,7 +4,8 @@ var entriesModule = require('../_index');
 var url = require('url');
 
 function EntriesListCtrl($scope, $rootScope, $state, $http, APP_SETTINGS, globalService, $window, entriesService) {
-
+    //$scope.isManager = globalService.checkPermissions($rootScope.currentProjectGuid, ["manager"]);
+    $scope.entries = [];
     var DynamicItems = function () {
         this.loadedPages = {};
         this.numItems = 0;
@@ -38,7 +39,7 @@ function EntriesListCtrl($scope, $rootScope, $state, $http, APP_SETTINGS, global
         };
 
         //prepareCurrentFilteringParams(getEntriesParams);
-        entriesService.getEntries({urlParams:getEntriesParams}).then(angular.bind(this, function (data) {
+        entriesService.getEntries({ urlParams: getEntriesParams }).then(angular.bind(this, function (data) {
             this.loadedPages[pageNumber] = [];
             var pageOffset = pageNumber * this.PAGE_SIZE;
             for (var i = 0; i < data.content.length; i++) {
@@ -55,7 +56,7 @@ function EntriesListCtrl($scope, $rootScope, $state, $http, APP_SETTINGS, global
         };
 
         // prepareCurrentFilteringParams(getEntriesParams);
-        entriesService.getEntries({urlParams:getEntriesParams}).then(angular.bind(this, function (data) {
+        entriesService.getEntries({ urlParams: getEntriesParams }).then(angular.bind(this, function (data) {
             this.numItems = data.totalElements;
         }));
     };
@@ -68,6 +69,17 @@ function EntriesListCtrl($scope, $rootScope, $state, $http, APP_SETTINGS, global
 
     $scope.onAdd = function () {
         $state.go("app.entryNew");
+    }
+
+    var getEntyByIndex = function (index) {
+        var pageNumber = Math.floor(index / $scope.entries.PAGE_SIZE);
+        var itemNumber = index % $scope.entries.PAGE_SIZE;
+
+        return $scope.entries.loadedPages[pageNumber][itemNumber];
+    };
+
+    $scope.onEdit = function (index) {
+        $state.go("app.entryDetails", { entryGuid: getEntyByIndex(index).entryGuid });
     }
 }
 

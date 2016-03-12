@@ -50,7 +50,7 @@
             <md-button ng-click="onManageProfile()" style="width: 90%;">Manage profile</md-button>
             <md-button ng-click="onListOfProjects()" style="width: 90%;">List of projects</md-button>
             <md-button ng-click="onReceivedInvitations()" style="width: 90%;">Received invitations</md-button>
-            <md-button ng-click="onListOfEntries()" style="width: 90%;">List of entries</md-button>                        
+            <md-button ng-if="$root.checkPermissions($root.currentProjectGuid, ['manager', 'user', 'viewer'])" ng-click="onListOfEntries()" style="width: 90%;">List of entries</md-button>                        
             <md-button ng-click="onListOfTasks()" style="width: 90%;">List of tasks</md-button>
          </md-content>
       </md-sidenav>

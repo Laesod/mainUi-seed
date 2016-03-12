@@ -20,6 +20,7 @@ function ProfileDetailsCtrl($scope, $rootScope, $http, APP_SETTINGS, globalServi
 
     function sendFile(file, dataURL, guid) {
         globalService.fileUploadToS3(file, dataURL, guid).then(function (data) {
+            debugger;
             profileService.changeAvatar({ avatarS3ObjectKey: guid }).then(function () {
                 $rootScope.userProfile.avatarS3ObjectKey = guid;
                 globalService.generatePresignedUrlForS3(guid).then(function (data) {
@@ -34,13 +35,6 @@ function ProfileDetailsCtrl($scope, $rootScope, $http, APP_SETTINGS, globalServi
 
         globalService.preprocessImg($scope.file, guid).then(function (dataURL) { sendFile($scope.file, dataURL, guid) });
     };
-
-    // $scope.onChangeAvatar = function () {
-    //     var uploadElement = document.getElementById("UploadInput");
-    //     $timeout(function () {
-    //         document.getElementById('UploadInput').click();
-    //     }, 0);
-    // }
 
     $scope.onChangePassword = function () {
         profileService.changePassword($scope.changePassword).then(function () {

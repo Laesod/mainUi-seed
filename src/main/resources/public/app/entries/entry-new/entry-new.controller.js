@@ -9,7 +9,7 @@ function EntryNewCtrl($rootScope, $scope, $timeout, $http, APP_SETTINGS, globalS
 
      $scope.entry = {
          groups: [],
-         deficiecyDetails: {}
+         deficiencyDetails: {}
      };
     
     $scope.getEntryTypes = function () {
@@ -74,7 +74,7 @@ function EntryNewCtrl($rootScope, $scope, $timeout, $http, APP_SETTINGS, globalS
         if(!$scope.deficiencyDetailsGuid){
             entriesService.createDeficiencyDetails({
                 parentEntryGuid: $scope.entryGuid, 
-                entryStatusGuid: $scope.entry.deficiecyDetails.entryStatusGuid
+                entryStatusGuid: $scope.entry.deficiencyDetails.entryStatusGuid
             })
             .then(function(deficiencyDetails){
                 $scope.deficiencyDetailsGuid = deficiencyDetails.deficiencyDetailsGuid;
@@ -88,7 +88,7 @@ function EntryNewCtrl($rootScope, $scope, $timeout, $http, APP_SETTINGS, globalS
             entriesService.updateDeficiencyDetails({
                 deficiencyDetailsGuid: $scope.deficiencyDetailsGuid,
                 parentEntryGuid: $scope.entryGuid, 
-                entryStatusGuid: $scope.entry.deficiecyDetails.entryStatusGuid
+                entryStatusGuid: $scope.entry.deficiencyDetails.entryStatusGuid
             })
             .then(function(){
                 globalService.displayToast({

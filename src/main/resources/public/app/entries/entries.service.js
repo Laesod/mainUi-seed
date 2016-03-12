@@ -59,6 +59,13 @@ function entriesService($q, $http, $cookies, APP_SETTINGS, globalService) {
       });
    };   
    
+   service.getEntry = function (params) {
+      return globalService.request({
+         method: "GET",
+         url: apiUrl.apiEntryGetEntryUrl + '/' + params.entryGuid,
+      });
+   };    
+   
    return service;
 }
 

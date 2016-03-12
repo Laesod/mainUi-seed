@@ -40,7 +40,7 @@
             <section ng-if="entry.entryTypeGuid === '1'" class="detailsSectionContent" layout="column">
                 <md-input-container style="margin-bottom: 10px;">
                     <label>Status</label>
-                    <md-select ng-model="entry.deficiecyDetails.entryStatusGuid" md-on-open="getDeficiencyStatuses()"  ng-change="$root.onFormElementChange('deficiencyDetailsRequestDto_entryStatusGuid')">
+                    <md-select ng-model="entry.deficiencyDetails.entryStatusGuid" md-on-open="getDeficiencyStatuses()"  ng-change="$root.onFormElementChange('deficiencyDetailsRequestDto_entryStatusGuid')">
                         <md-option ng-repeat="deficiencyStatus in deficiencyStatuses" value="{{deficiencyStatus.entryStatusGuid}}">
                             {{deficiencyStatus.name}}
                         </md-option>

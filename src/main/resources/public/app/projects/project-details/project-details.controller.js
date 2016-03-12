@@ -18,16 +18,16 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
 
     initCreateInvitationForm();
 
-    projectsService.getProjectRoles({ projectGuid: $rootScope.currentProjectGuid }).then(function (projectRoles) {
-        $scope.projectRoles = projectRoles;
-    });
-
     var getProjectRoles = function () {
-        $scope.searchProjectRole = function (roleSearchText) {
-            return _.filter($scope.projectRoles, function (role) {
-                return role.roleName.indexOf(roleSearchText) > -1;
-            })
-        }
+        projectsService.getProjectRoles({ projectGuid: $rootScope.currentProjectGuid }).then(function (projectRoles) {
+            $scope.projectRoles = projectRoles;
+        });
+    };
+
+    $scope.searchProjectRole = function (roleSearchText) {
+        return _.filter($scope.projectRoles, function (role) {
+            return role.roleName.indexOf(roleSearchText) > -1;
+        })
     };
 
     var getProjectGroups = function () {
@@ -43,15 +43,7 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
         })
     }
 
-    // $scope.getPossibleRoles = function (query, currentRoles) {
-    //     return projectsService.getProjectRoles({ projectGuid: $scope.projectGuid, payload: { nameContains: query, currentRoles: currentRoles } });
-    // };
-
-    // $scope.getPossibleGroups = function (query, currentGroups) {
-    //     return projectsService.getProjectGroups({ projectGuid: $scope.projectGuid, payload: { nameContains: query, currentGroups: currentGroups } });
-    // };
-
-    $scope.isAdmin = globalService.checkPermissions($scope.projectGuid, ["admin"]);
+    //$scope.isAdmin = globalService.checkPermissions($scope.projectGuid, ["admin"]);
 
     projectsService.getProject({ projectGuid: $scope.projectGuid }).then(function (data) {
         $scope.project = data;
@@ -63,11 +55,22 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
         });
     }
 
-    if ($scope.isAdmin) {
+    if ($rootScope.checkPermissions($scope.projectGuid, ['admin'])) {
         projectsService.getProjectUsers({ projectGuid: $scope.projectGuid }).then(function (data) {
             $scope.projectUsers = data;
+            $scope.projectUsersCopy = angular.copy($scope.projectUsers);
+            
+            _.forEach($scope.projectUsers, function(user){
+                if(user.avatar){
+                    globalService.generatePresignedUrlForS3(user.avatar).then(function (data) {
+                        user.avatarUrl = data.presignedUrl;
+                    });                    
+                }else{
+                     user.avatarUrl = "https://farm4.staticflickr.com/3261/2801924702_ffbdeda927_d.jpg";
+                }
+            })
         });
-        
+
         getProjectRoles();
         getProjectGroups();
         getPendingInvitations();
@@ -112,11 +115,21 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
                 groups: groupsIds,
                 groupsToCreateAndAdd: groupsToCreateAndAdd
             }
-        }).then(function () {
+        }).then(function (updatedUserProject) {
+            if($scope.projectUsers[index].username === $rootScope.userProfile.username){
+                var userProject = _.find($rootScope.userProfile.userProjects, function(item){
+                    return item.projectGuid === $scope.projectGuid;
+                });
+                userProject.roles = updatedUserProject.roles;
+                userProject.groups = updatedUserProject.groups;
+            }
+            
             globalService.displayToast({
                 messageText: "Roles and groups assignments have been changed.",
                 messageType: "success"
             });
+        }, function(){
+            $scope.projectUsers[index] = angular.copy($scope.projectUsersCopy[index]);
         });
     }
 
