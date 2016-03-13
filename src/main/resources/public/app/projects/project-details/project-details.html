@@ -12,7 +12,8 @@
                     <input type="text" ng-model="project.description" ng-change="$root.onFormElementChange('projectRequestDto_description')"
                     ng-disabled="!$root.checkPermissions(projectGuid, ['admin'])">
                     <span ng-show="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.projectRequestDto_description}}</span>
-                    <md-button ng-if="$root.checkPermissions(projectGuid, ['admin'])" type="submit" id="submitBtn" ng-click="onSubmitProjectChanges()" class="md-raised md-primary detailsSectionButton">Save</md-button>
+                    <md-button ng-if="$root.checkPermissions(projectGuid, ['admin'])" type="submit" id="submitBtn" ng-click="onSubmitProjectChanges()"
+                    class="md-raised md-primary detailsSectionButton">Save</md-button>
                 </md-input-container>
             </section>
 
@@ -23,8 +24,8 @@
                         <div layout="row" layout-align="start center">
                             <div ng-style="{ 'width': '30px', 'height': '30px', 'border-radius': '3px', 'background': 'url(' + projectUser.avatarUrl + ')',
                                         'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></div>
-                            
-                            <div style="margin-left: 1rem;">{{projectUser.username}}</div>
+
+                            <div style="margin-left: 0.5rem;">{{projectUser.username}}</div>
                         </div>
                         <i class="fa fa fa-times detailsSectionActionIcon" ng-click="onUnassignUser($index)"></i>
                     </div>
@@ -96,7 +97,8 @@
 
                 <div layout="row">
                     <div layout="row" layout-align="end" style="width: 100%;">
-                        <md-button ng-if="$root.checkPermissions(projectGuid, ['admin'])" type="submit" id="submitBtn" ng-click="onSendInvitation()" class="md-raised md-primary detailsSectionButton">Save</md-button>
+                        <md-button ng-if="$root.checkPermissions(projectGuid, ['admin'])" type="submit" id="submitBtn" ng-click="onSendInvitation()"
+                        class="md-raised md-primary detailsSectionButton">Save</md-button>
                     </div>
                 </div>
             </section>
@@ -106,17 +108,22 @@
             <section ng-if="$root.checkPermissions(projectGuid, ['admin']) && pendingInvitations.length > 0" class="detailsSectionContent">
                 <div ng-repeat="invitation in pendingInvitations" class="detailsSectionListItem">
                     <div layout="column">
-                        <div layout="row">
+                        <div layout="row" layout-align="start center" style="margin-bottom: 0.5rem;">
                             <span flex=30>Recipient: </span>
-                            <span flex=70 style="margin-bottom: 0.5rem;">{{invitation.email}}</span>
+                            <span flex=70>{{invitation.email}}</span>
                         </div>
-                        <div layout="row">
+                        <div layout="row" layout-align="start center" style="margin-bottom: 0.5rem;">
                             <span flex=30>Created by: </span>
-                            <span flex=70 style="margin-bottom: 0.5rem;">{{invitation.createdBy}}</span>
+                            <div flex=70 layout="row" layout-align="start center">
+                                <div ng-style="{ 'width': '30px', 'height': '30px', 'border-radius': '3px', 'background': 'url(' + invitation.creatorAvatarUrl + ')',
+                                        'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></div>
+
+                                <span style="margin-left: 0.5rem;">{{invitation.createdBy}}</span>
+                            </div>
                         </div>
-                        <div layout="row">
+                        <div layout="row" layout-align="start center">
                             <span flex=30>Creation date: </span>
-                            <span flex=70 style="margin-bottom: 0.5rem;">{{invitation.createdAt | date:'yyyy-MM-dd'}}</span>
+                            <span flex=70>{{invitation.createdAt | date:'yyyy-MM-dd'}}</span>
                         </div>
                     </div>
                 </div>

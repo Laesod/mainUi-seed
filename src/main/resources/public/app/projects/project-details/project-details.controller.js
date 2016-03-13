@@ -52,6 +52,16 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
     var getPendingInvitations = function () {
         projectsService.getPendingInvitations({ projectGuid: $scope.projectGuid }).then(function (data) {
             $scope.pendingInvitations = data;
+
+            _.forEach($scope.pendingInvitations, function (invitation) {
+                if (invitation.creatorAvatar) {
+                    globalService.generatePresignedUrlForS3(invitation.creatorAvatar).then(function (data) {
+                        invitation.creatorAvatarUrl = data.presignedUrl;
+                    });
+                } else {
+                    invitation.creatorAvatarUrl = "https://farm4.staticflickr.com/3261/2801924702_ffbdeda927_d.jpg";
+                }
+            });
         });
     }
 
@@ -59,16 +69,16 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
         projectsService.getProjectUsers({ projectGuid: $scope.projectGuid }).then(function (data) {
             $scope.projectUsers = data;
             $scope.projectUsersCopy = angular.copy($scope.projectUsers);
-            
-            _.forEach($scope.projectUsers, function(user){
-                if(user.avatar){
+
+            _.forEach($scope.projectUsers, function (user) {
+                if (user.avatar) {
                     globalService.generatePresignedUrlForS3(user.avatar).then(function (data) {
                         user.avatarUrl = data.presignedUrl;
-                    });                    
-                }else{
-                     user.avatarUrl = "https://farm4.staticflickr.com/3261/2801924702_ffbdeda927_d.jpg";
+                    });
+                } else {
+                    user.avatarUrl = "https://farm4.staticflickr.com/3261/2801924702_ffbdeda927_d.jpg";
                 }
-            })
+            });
         });
 
         getProjectRoles();
@@ -116,19 +126,19 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
                 groupsToCreateAndAdd: groupsToCreateAndAdd
             }
         }).then(function (updatedUserProject) {
-            if($scope.projectUsers[index].username === $rootScope.userProfile.username){
-                var userProject = _.find($rootScope.userProfile.userProjects, function(item){
+            if ($scope.projectUsers[index].username === $rootScope.userProfile.username) {
+                var userProject = _.find($rootScope.userProfile.userProjects, function (item) {
                     return item.projectGuid === $scope.projectGuid;
                 });
                 userProject.roles = updatedUserProject.roles;
                 userProject.groups = updatedUserProject.groups;
             }
-            
+
             globalService.displayToast({
                 messageText: "Roles and groups assignments have been changed.",
                 messageType: "success"
             });
-        }, function(){
+        }, function () {
             $scope.projectUsers[index] = angular.copy($scope.projectUsersCopy[index]);
         });
     }
@@ -172,6 +182,16 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
                 messageText: "Invitation was successfully created.",
                 messageType: "success"
             });
+
+            if (createdInvitation.creatorAvatar) {
+                globalService.generatePresignedUrlForS3(createdInvitation.creatorAvatar).then(function (data) {
+                    createdInvitation.creatorAvatarUrl = data.presignedUrl;
+                });
+            } else {
+                createdInvitation.creatorAvatarUrl = "https://farm4.staticflickr.com/3261/2801924702_ffbdeda927_d.jpg";
+            }
+
+
 
             $scope.pendingInvitations.push(createdInvitation)
             initCreateInvitationForm();
