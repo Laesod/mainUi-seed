@@ -20,7 +20,7 @@
                             {{item.projectDescription !== "" ? item.projectDescription: 'No description available on the current language'}}
                         </div>
                         <div layout="row" style="margin-left: 0.5rem;">
-                            <div class="tag-in-display-mode" ng-repeat="role in item.roles">{{role.roleName}}</div>
+                            <div class="tagInDisplayMode" ng-repeat="role in item.roles">{{role.roleName}}</div>
                         </div>
                     </div>
                     <md-switch flex=40 class="md-primary" md-no-ink ng-model="item._isCurrent" ng-change="onChangeCurrent($index)" ng-disabled="item._isCurrent">

@@ -1,4 +1,9 @@
-<div class="viewContentWrapper" layout="column">
+<div style="height: 60px;" layout-align="start center" layout="row">
+    <div ng-click="onBack()" style="padding: 1rem; cursor: pointer; outline: none">
+        <i class="fa fa-arrow-left" style="color: black; cursor: pointer; outline: none; font-size: 15pt;"></i>
+    </div>
+</div>
+<div class="viewContentWrapperWithActionBar" layout="column">
     <div layout="row" style="width: 100%;">
         <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>
 
@@ -7,14 +12,15 @@
             <div class="detailsSectionHeader">Project Details</div>
 
             <section class="detailsSectionContent">
-                <md-input-container style="width: 100%;">
+                <md-input-container class="inputContainerWithError">
                     <label>Description</label>
                     <input type="text" ng-model="project.description" ng-change="$root.onFormElementChange('projectRequestDto_description')"
                     ng-disabled="!$root.checkPermissions(projectGuid, ['admin'])">
-                    <span ng-show="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.projectRequestDto_description}}</span>
-                    <md-button ng-if="$root.checkPermissions(projectGuid, ['admin'])" type="submit" id="submitBtn" ng-click="onSubmitProjectChanges()"
-                    class="md-raised md-primary detailsSectionButton">Save</md-button>
+                    <span ng-style="{'visibility': $root.formElementsErrors.projectRequestDto_description}" class="formItemErrorMessage">{{$root.formElementsErrors.projectRequestDto_description}}</span>
                 </md-input-container>
+                <md-button ng-if="$root.checkPermissions(projectGuid, ['admin'])" type="submit" id="submitBtn" ng-click="onSubmitProjectChanges()"
+                class="md-raised md-primary detailsSectionButton">Save</md-button>
+
             </section>
 
             <div ng-if="$root.checkPermissions(projectGuid, ['admin'])" class="detailsSectionHeader">Assigned Users</div>
@@ -29,7 +35,7 @@
                         </div>
                         <i class="fa fa fa-times detailsSectionActionIcon" ng-click="onUnassignUser($index)"></i>
                     </div>
-                    <div style="margin-bottom: 14px;">
+                    <div class="chipsWrapper">
                         <md-chips ng-model="projectUser.roles" md-autocomplete-snap md-require-match="true">
                             <md-autocomplete md-search-text="projectUser.roleSearchText" md-items="item in searchProjectRole(projectUser.roleSearchText)"
                             md-item-text="item.name" placeholder="Search for a role" md-no-cache="true">
@@ -42,7 +48,7 @@
                         </md-chips>
                     </div>
 
-                    <div style="margin-bottom: 14px;">
+                    <div class="chipsWrapper">
                         <md-chips ng-model="projectUser.groups" md-autocomplete-snap md-require-match="false" md-transform-chip="transformGroupChip($chip)">
                             <md-autocomplete md-search-text="projectUser.groupSearchText" md-items="item in searchProjectGroup(projectUser.groupSearchText)"
                             md-item-text="item.name" placeholder="Search for a group" md-no-cache="true">
@@ -63,13 +69,13 @@
             <div ng-if="$root.checkPermissions(projectGuid, ['admin'])" class="detailsSectionHeader">Invite a new user</div>
 
             <section ng-if="$root.checkPermissions(projectGuid, ['admin'])" class="detailsSectionContent">
-                <md-input-container style="width: 100%;">
+                <md-input-container class="inputContainerWithError">
                     <label>Send to email</label>
                     <input type="email" ng-model="invitation.email" ng-change="$root.onFormElementChange('invitationRequestDto_email')">
                     <span ng-show="$root.formElementsErrors.invitationRequestDto_email" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.invitationRequestDto_email}}</span>
                 </md-input-container>
 
-                <div style="margin-bottom: 14px;">
+                <div class="chipsWrapper"> 
                     <md-chips ng-model="invitation.roles" md-autocomplete-snap md-require-match="true">
                         <md-autocomplete md-search-text="invitation.roleSearchText" md-items="item in searchProjectRole(invitation.roleSearchText)"
                         md-item-text="item.name" placeholder="Search for a role" md-no-cache="true">
@@ -82,7 +88,7 @@
                     </md-chips>
                 </div>
 
-                <div style="margin-bottom: 14px;">
+                <div class="chipsWrapper">
                     <md-chips ng-model="invitation.groups" md-autocomplete-snap md-require-match="false" md-transform-chip="transformGroupChip($chip)">
                         <md-autocomplete md-search-text="invitation.groupSearchText" md-items="item in searchProjectGroup(invitation.groupSearchText)"
                         md-no-cache="true" md-item-text="item.name" placeholder="Search for a group">

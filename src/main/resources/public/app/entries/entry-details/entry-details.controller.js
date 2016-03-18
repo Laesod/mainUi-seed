@@ -3,7 +3,7 @@
 var entriesModule = require('../_index');
 var url = require('url');
 
-function EntryDetailsCtrl($scope, $stateParams, $rootScope, projectsService, $timeout, $http, APP_SETTINGS, globalService, $window, entriesService) {
+function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsService, $timeout, $http, APP_SETTINGS, globalService, $window, entriesService) {
     $scope.projectGuid = $rootScope.currentProjectGuid;
     $scope.groupSearchText = "";
     $scope.selectedProjectGroups = [];
@@ -71,6 +71,10 @@ function EntryDetailsCtrl($scope, $stateParams, $rootScope, projectsService, $ti
             });
         });              
     }
+    
+    $scope.onBack = function(){
+        $state.go("app.entriesList");
+    }     
 }
 
 entriesModule.controller('EntryDetailsCtrl', EntryDetailsCtrl);

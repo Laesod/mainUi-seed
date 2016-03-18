@@ -7,15 +7,15 @@
             <div class="detailsSectionHeader">User Details</div>
 
             <section class="detailsSectionContent">
-                <md-input-container style="width: 100%; margin-bottom: 10px;">
+                <md-input-container>
                     <label>Username</label>
                     <input type="text" ng-model="$root.userProfile.username" disabled>
                 </md-input-container>
-                <md-input-container style="width: 100%; margin-bottom: 10px;">
+                <md-input-container>
                     <label>First Name</label>
                     <input type="text" ng-model="$root.userProfile.firstName" disabled>
                 </md-input-container>
-                <md-input-container style="width: 100%; margin-bottom: 10px;">
+                <md-input-container>
                     <label>Last Name</label>
                     <input type="text" ng-model="$root.userProfile.lastName" disabled>
                 </md-input-container>
@@ -39,12 +39,12 @@
             <div class="detailsSectionHeader">Change Password</div>
 
             <section class="detailsSectionContent">
-                <md-input-container style="width: 100%;">
+                <md-input-container class="inputContainerWithError">
                     <label>Current Password</label>
                     <input type="password" ng-model="changePassword.currentPassword" ng-change="$root.onFormElementChange('userPasswordRequestDto_currentPassword')">
                     <span ng-show="$root.formElementsErrors.userPasswordRequestDto_currentPassword" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.userPasswordRequestDto_currentPassword}}</span>
                 </md-input-container>
-                <md-input-container style="width: 100%; margin-top: 10px;">
+                <md-input-container class="inputContainerWithError">
                     <label>New Password</label>
                     <input type="password" ng-model="changePassword.newPassword" ng-change="$root.onFormElementChange('userPasswordRequestDto_newPassword')">
                     <span ng-show="$root.formElementsErrors.userPasswordRequestDto_newPassword" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.userPasswordRequestDto_newPassword}}</span>

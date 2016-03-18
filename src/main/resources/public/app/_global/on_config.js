@@ -62,7 +62,7 @@ function OnConfig($stateProvider, $urlRouterProvider, $httpProvider, $injector, 
         }).state('app.projectsList', {
             url: '/projects-list',
             controller: 'ProjectsListCtrl',
-            templateUrl: (isNotMobile) ? "views/projects-list.html" : "views/projects-list-mobile.html",
+            templateUrl: (isNotMobile) ? "views/projects-list.html" : "views/projects-list.html",
             title: 'My Projects'
         })
         .state('app.entriesList', {

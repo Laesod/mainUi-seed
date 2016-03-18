@@ -1,5 +1,10 @@
 
-<div class="viewContentWrapper" layout="column" layout-align="start center">
+<div style="height: 60px;" layout-align="start center" layout="row">
+    <div ng-click="onBack()" style="padding: 1rem; cursor: pointer; outline: none">
+        <i class="fa fa-arrow-left" style="color: black; cursor: pointer; outline: none; font-size: 15pt;"></i>
+    </div>
+</div>
+<div class="viewContentWrapperWithActionBar" layout="column" layout-align="start center">
     <div layout="row" style="width: 100%;">
         <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>
 
@@ -8,17 +13,16 @@
             <div class="detailsSectionHeader">Entry Details</div>
 
             <section class="detailsSectionContent" layout="column">
-                <md-input-container style="margin-bottom: 10px;">
+                <md-input-container >
                     <label>Entry Type</label>
                     <md-select ng-model="entry.entryTypeGuid" md-on-open="getEntryTypes()" ng-disabled="entryGuid" ng-change="$root.onFormElementChange('entryRequestDto_entryTypeGuid')">
                         <md-option ng-repeat="entryType in entryTypes" value="{{entryType.entryTypeGuid}}">
                             {{entryType.name}}
                         </md-option>
                     </md-select>
-                    <span ng-show="$root.formElementsErrors.entryRequestDto_entryTypeGuid" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.entryRequestDto_entryTypeGuid}}</span>                    
                 </md-input-container>
 
-                <md-chips ng-model="entry.groups" md-autocomplete-snap md-require-match="true" readonly="!$root.checkPermissions(projectGuid, ['manager', 'user'])">
+                <md-chips class="chipsWrapper" ng-model="entry.groups" md-autocomplete-snap md-require-match="true" readonly="!$root.checkPermissions(projectGuid, ['manager', 'user'])">
                     <md-autocomplete md-search-text="groupSearchText" md-items="item in searchProjectGroup(groupSearchText)" md-item-text="item.name"
                     placeholder="Search for a group" md-no-cache="true">
                           <span md-highlight-text="groupSearchText">{{item.groupName}}</span>
@@ -29,7 +33,7 @@
                     </md-chip-template>
                 </md-chips>
 
-                <md-input-container style="margin-top: 20px;">
+                <md-input-container class="lastSectionInputContainer">
                     <label>Description</label>
                     <textarea ng-model="entry.description" columns="1" ng-disabled="!$root.checkPermissions(projectGuid, ['manager', 'user'])"></textarea>
                 </md-input-container>
@@ -39,14 +43,13 @@
             <div ng-if="entry.entryTypeGuid === '1'" class="detailsSectionHeader">Deficiency Details</div>
 
             <section ng-if="entry.entryTypeGuid === '1'" class="detailsSectionContent" layout="column">
-                <md-input-container style="margin-bottom: 10px;">
+                <md-input-container class="lastSectionInputContainer">
                     <label>Status</label>
                     <md-select ng-model="entry.deficiencyDetails.entryStatusGuid" md-on-open="getDeficiencyStatuses()"  ng-change="$root.onFormElementChange('deficiencyDetailsRequestDto_entryStatusGuid')" ng-disabled="!$root.checkPermissions(projectGuid, ['manager', 'user'])">
                         <md-option ng-repeat="deficiencyStatus in deficiencyStatuses" value="{{deficiencyStatus.entryStatusGuid}}">
                             {{deficiencyStatus.name}}
                         </md-option>
                     </md-select>
-                    <span ng-show="$root.formElementsErrors.deficiencyDetailsRequestDto_entryStatusGuid" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.deficiencyDetailsRequestDto_entryStatusGuid}}</span>                    
                 </md-input-container>
                 <md-button ng-if="$root.checkPermissions(projectGuid, ['manager', 'user'])" type="submit" ng-click="onSaveDeficiencyDetails()" class="md-raised md-primary detailsSectionButton">Save</md-button>
             </section>

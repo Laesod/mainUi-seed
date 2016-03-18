@@ -3,7 +3,7 @@
 var projectsModule = require('../_index');
 var url = require('url');
 
-function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $http, APP_SETTINGS, globalService, $window, projectsService) {
+function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeout, $http, APP_SETTINGS, globalService, $window, projectsService) {
     $scope.projectGuid = $stateParams.projectGuid;
 
     var initCreateInvitationForm = function () {
@@ -206,6 +206,10 @@ function ProjectDetailsCtrl($scope, $rootScope, $stateParams, $q, $timeout, $htt
 
         return { groupName: groupChip }
     }
+    
+    $scope.onBack = function(){
+        $state.go("app.projectsList");
+    }     
 }
 
 projectsModule.controller('ProjectDetailsCtrl', ProjectDetailsCtrl);

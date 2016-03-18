@@ -26,7 +26,11 @@ function ProjectNewCtrl($scope, $rootScope, $state, globalService, projectsServi
     
     $scope.onFormElementChange = function(fieldId) {
         $rootScope.formElementsErrors[fieldId] = "";
-    };      
+    }; 
+    
+    $scope.onBack = function(){
+        $state.go("app.projectsList");
+    }     
 }
 
 projectsModule.controller('ProjectNewCtrl', ProjectNewCtrl);
