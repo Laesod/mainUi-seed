@@ -4,10 +4,10 @@
     </div>
 </div>
 
-<md-content ng-if="projects.length > 0" layout="column" style="height: calc(100% - 85px);">
+<md-content ng-if="projects.length > 0" layout="column" style="height: calc(100% - 60px);">
     <div style="width: 100%; border-bottom: 1px solid #ddd;"></div>
     <md-virtual-repeat-container id="vertical-container" style="border-bottom: 0px solid #ddd;">
-        <div md-virtual-repeat="item in projects" class="listItem projectsListItem" flex layout="column" ng-dblclick="onEdit($index)">
+        <div md-virtual-repeat="item in projects" class="listItem projectsListItem" flex layout="column" ios    -dblclick="onEdit($index)">
             <div layout="column">
                 <table style="width: 100%;">
                     <tr>
@@ -33,7 +33,7 @@
                         <td style="width: 30%; vertical-align: top;">Is current:</td>
                         <td style="width: 70%;">
                             <md-switch class="md-primary" md-no-ink ng-model="item._isCurrent" ng-change="onChangeCurrent($index)" ng-disabled="item._isCurrent">
-                            </md-switch>                            
+                            </md-switch>
                         </td>
                     </tr>
                 </table>
