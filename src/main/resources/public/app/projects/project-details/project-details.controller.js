@@ -89,7 +89,7 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
             projectGuid: $scope.projectGuid,
             payload: {
                 description: $scope.project.description,
-                markedAsDeleted: $scope.project.markedAsDeleted
+                markedAsDeleted: $scope.project.markedAsDeleted === true ? true : false,                
             }
         }).then(function () {
             globalService.displayToast({

@@ -43,13 +43,13 @@ function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsServ
         _.forEach($scope.entry.groups, function(group){
             groups.push(group.groupGuid);
         });
-        
+
         entriesService.updateEntry({
              entryGuid: $scope.entryGuid,
              entryTypeGuid: $scope.entry.entryTypeGuid, 
              projectGuid: $rootScope.currentProjectGuid,                 
              description: $scope.entry.description, 
-             markedAsDeleted: $scope.entry.markedAsDeleted,
+             markedAsDeleted: $scope.entry.markedAsDeleted === true ? true : false,
              groups: groups})
          .then(function(){
              globalService.displayToast({
