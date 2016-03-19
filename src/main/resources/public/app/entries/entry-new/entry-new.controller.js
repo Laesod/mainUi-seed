@@ -31,7 +31,17 @@ function EntryNewCtrl($rootScope, $scope, $state, $timeout, $http, APP_SETTINGS,
     $scope.getDeficiencyStatuses = function(){
         entriesService.getEntryStatuses({entryType: "Deficiency"}).then(function(deficiencyStatuses){
             $scope.deficiencyStatuses = deficiencyStatuses;
-        })
+            $scope.entry.deficiencyDetails.entryStatusGuid = deficiencyStatuses[0].entryStatusGuid;
+        });
+    }
+    
+    $scope.onEntryTypeChange = function(){
+        if($scope.entry.entryTypeGuid === '1'){
+            entriesService.getEntryStatuses({entryType: "Deficiency"}).then(function(deficiencyStatuses){
+               $scope.deficiencyStatuses = deficiencyStatuses;
+               $scope.entry.deficiencyDetails.entryStatusGuid = deficiencyStatuses[0].entryStatusGuid;
+            });            
+        }
     }
     
     $scope.onSaveEntryDetails = function(){
@@ -53,6 +63,8 @@ function EntryNewCtrl($rootScope, $scope, $state, $timeout, $http, APP_SETTINGS,
                     messageText: "New entry has been created.",
                     messageType: "success"
                 });
+                
+                $scope.onSaveDeficiencyDetails();                
             });             
         }else{
             entriesService.updateEntry({

@@ -49,6 +49,7 @@ function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsServ
              entryTypeGuid: $scope.entry.entryTypeGuid, 
              projectGuid: $rootScope.currentProjectGuid,                 
              description: $scope.entry.description, 
+             markedAsDeleted: $scope.entry.markedAsDeleted,
              groups: groups})
          .then(function(){
              globalService.displayToast({

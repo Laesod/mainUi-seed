@@ -3,7 +3,7 @@
 var entriesModule = require('../_index');
 var url = require('url');
 
-function EntriesListCtrl($scope, $rootScope, $state, $http, APP_SETTINGS, globalService, $window, entriesService) {
+function EntriesListCtrl($scope, $rootScope, $state, $timeout, $http, APP_SETTINGS, globalService, $window, entriesService) {
     //$scope.isManager = globalService.checkPermissions($rootScope.currentProjectGuid, ["manager"]);
     $scope.entries = [];
     var DynamicItems = function () {
@@ -79,7 +79,7 @@ function EntriesListCtrl($scope, $rootScope, $state, $http, APP_SETTINGS, global
     };
 
     $scope.onEdit = function (index) {
-        $state.go("app.entryDetails", { entryGuid: getEntyByIndex(index).entryGuid });
+        $timeout(function () { $state.go("app.entryDetails", { entryGuid: getEntyByIndex(index).entryGuid }); }, 100)        
     }
 }
 

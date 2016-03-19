@@ -3,7 +3,7 @@
 var projectsModule = require('../_index');
 var url = require('url');
 
-function ProjectsListCtrl($rootScope, $scope, projectsService, $state) {
+function ProjectsListCtrl($rootScope, $scope, $timeout, projectsService, $state) {
 
     projectsService.getProjects().then(function (data) {
         $scope.projects = data;
@@ -15,7 +15,7 @@ function ProjectsListCtrl($rootScope, $scope, projectsService, $state) {
     })
 
     $scope.onEdit = function (index) {
-        $state.go("app.projectDetails", { projectGuid: $scope.projects[index].projectGuid });
+        $timeout(function () { $state.go("app.projectDetails", { projectGuid: $scope.projects[index].projectGuid }); }, 100)
     }
 
     $scope.onAdd = function () {

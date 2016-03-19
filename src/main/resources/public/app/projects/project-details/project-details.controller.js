@@ -43,8 +43,6 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
         })
     }
 
-    //$scope.isAdmin = globalService.checkPermissions($scope.projectGuid, ["admin"]);
-
     projectsService.getProject({ projectGuid: $scope.projectGuid }).then(function (data) {
         $scope.project = data;
     });
@@ -90,7 +88,8 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
         projectsService.updateProject({
             projectGuid: $scope.projectGuid,
             payload: {
-                description: $scope.project.description
+                description: $scope.project.description,
+                markedAsDeleted: $scope.project.markedAsDeleted
             }
         }).then(function () {
             globalService.displayToast({

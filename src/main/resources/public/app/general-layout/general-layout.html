@@ -1,4 +1,4 @@
-<md-content style="height: 100%;">
+<md-content style="height: 100%; overflow-y: hidden;"> 
    <md-toolbar layout="row" style="height: 64px;">
       <div layout="row" flex=20 layout-align="start center" style="margin-left: 0rem">
          <div ng-click="toggleLeft()" style="padding: 1rem; cursor: pointer; outline: none">
@@ -28,7 +28,7 @@
 
    </md-toolbar>
 
-   <div style="height: calc(100% - 64px); overflow-y: auto; -webkit-overflow-scrolling: touch; width: 100%;">
+   <div style="height: calc(100% - 64px); -webkit-overflow-scrolling: touch; width: 100%;">
       <div ui-view style="clear: both; height: 100%;"></div>
    </div>
 
