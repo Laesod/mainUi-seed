@@ -1,7 +1,10 @@
 <div style="height: 64px;" layout-align="end center" layout="row">
-    <div ng-click="onAdd($event)" style="padding: 1rem; cursor: pointer; outline: none">
-        <i class="fa fa-plus" style="color: black; cursor: pointer; outline: none; font-size: 15pt; margin-top: 5px;"></i>
-    </div>
+   <div ng-click="onAdd($event)" style="padding: 1rem; cursor: pointer; outline: none">
+      <i class="fa fa-plus" style="color: black; cursor: pointer; outline: none; font-size: 15pt; margin-top: 5px;"></i>
+   </div>
+   <div ng-click="onRefresh($event)" style="padding: 1rem; cursor: pointer; outline: none">
+      <i class="fa fa-refresh" style="color: black; cursor: pointer; outline: none; font-size: 15pt; margin-top: 5px;"></i>
+   </div>   
 </div>
 
 <md-content ng-if="projects.length > 0" layout="column" style="height: calc(100% - 64px);">

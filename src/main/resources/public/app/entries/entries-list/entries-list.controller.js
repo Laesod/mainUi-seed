@@ -4,7 +4,6 @@ var entriesModule = require('../_index');
 var url = require('url');
 
 function EntriesListCtrl($scope, $rootScope, $state, $timeout, $http, APP_SETTINGS, globalService, $window, entriesService) {
-    //$scope.isManager = globalService.checkPermissions($rootScope.currentProjectGuid, ["manager"]);
     $scope.entries = [];
     var DynamicItems = function () {
         this.loadedPages = {};
@@ -79,7 +78,11 @@ function EntriesListCtrl($scope, $rootScope, $state, $timeout, $http, APP_SETTIN
     };
 
     $scope.onEdit = function (index) {
-        $timeout(function () { $state.go("app.entryDetails", { entryGuid: getEntyByIndex(index).entryGuid }); }, 100)        
+        $timeout(function () { $state.go("app.entryDetails", { entryGuid: getEntyByIndex(index).entryGuid }); }, 300)        
+    }
+    
+    $scope.onRefresh = function(){
+        loadEntries();
     }
 }
 

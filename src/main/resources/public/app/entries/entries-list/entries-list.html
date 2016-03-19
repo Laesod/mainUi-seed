@@ -1,11 +1,13 @@
-<div ng-if="$root.checkPermissions($root.currentProjectGuid, ['manager'])" style="height: 64px;" layout-align="end center" layout="row">
-   <div ng-click="onAdd($event)" style="padding: 1rem; cursor: pointer; outline: none">
+<div style="height: 64px;" layout-align="end center" layout="row">
+   <div ng-if="$root.checkPermissions($root.currentProjectGuid, ['manager'])" ng-click="onAdd($event)" style="padding: 1rem; cursor: pointer; outline: none">
       <i class="fa fa-plus" style="color: black; cursor: pointer; outline: none; font-size: 15pt; margin-top: 5px;"></i>
    </div>
+   <div ng-click="onRefresh($event)" style="padding: 1rem; cursor: pointer; outline: none">
+      <i class="fa fa-refresh" style="color: black; cursor: pointer; outline: none; font-size: 15pt; margin-top: 5px;"></i>
+   </div>   
 </div>
 
-
-<md-content layout="column" ng-style="$root.checkPermissions($root.currentProjectGuid, ['manager']) && {'height':'calc(100% - 64px)'} || {'height':'100%'}">
+<md-content layout="column" style="height: calc(100% - 64px);">
     <div style="width: 100%; border-bottom: 1px solid #ddd;"></div>
     <span ng-if="!entries.numItems" style="padding: 2rem;">No entries to display</span>    
     <md-virtual-repeat-container id="vertical-container" style="border-bottom: 0px solid #ddd;" md-top-index="entriesListTopIndex">
@@ -30,12 +32,6 @@
                             </td>
                         </tr>
                     </table>
-                    <!--<div ng-if="item.entryTypeGuid === '1'" layout="row" layout-align="start start" style="width: 100%; min-height: 30px;">
-                        <div flex=35 style="margin-left: 0.2rem;">Status:</div>
-                        <div flex=65>
-                            {{item.deficiencyDetails.entryStatusName}}
-                        </div>
-                    </div>  -->
                     <table style="width: 100%;">
                         <tr>
                             <td style="width: 35%; vertical-align: top;">Description:</td>
@@ -44,40 +40,8 @@
                             </td>
                         </tr>
                     </table>                                                  
-                    
                 </div> 
             </div>
         </div>
-
-
-
-
-
-<!--
-            <div layout="row" style="width: 100%;">
-                <div style="width: 5px;" ng-style="{'background-color': item.deficiencyDetails.entryStatusBackgroundColor}"></div>
-                <div flex=30 layout="column" class="entriesListItem" style="padding-left: 1rem; padding-right: 1rem; padding-top:0.2rem; padding-bottom:0.2rem; outline: none; width: 100%;"
-                layout-align="start start">
-                    <div>Type:</div>
-                    <div>Groups:</div>
-                    <div ng-if="item.entryTypeGuid === '1'">Status:</div>
-                    <div ng-if="item.entryTypeGuid === '2'">Blablabla</div>
-                    <div>Description:</div>
-
-                </div>
-
-                <div flex=70 layout="column" class="entriesListItem" style="padding-left: 1rem; padding-right: 1rem; padding-top:0.2rem; padding-bottom:0.2rem; outline: none; width: 100%;"
-                layout-align="start start">
-                    <div>{{item.entryTypeName}}</div>
-                    <div layout="row" style="min-height: 18px;  ">
-                        <div class="tagInDisplayMode" ng-repeat="group in item.groups">{{group.groupName}}</div>
-                    </div>
-                    <div ng-if="item.entryTypeGuid === '1'">{{item.deficiencyDetails.entryStatusName}}</div>
-                    <div ng-if="item.entryTypeGuid === '2'">{{item.dailyReportDetails.statusInfo}}</div>
-                    <div>{{item.description}}</div>
-                </div>
-            </div>-->
-        <!--</div>-->
     </md-virtual-repeat-container> 
-    
 </md-content>

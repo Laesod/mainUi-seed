@@ -4,9 +4,7 @@ var projectsModule = require('../_index');
 var url = require('url');
 
 function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeout, $http, APP_SETTINGS, globalService, $window, projectsService) {
-    $scope.projectGuid = $stateParams.projectGuid;
-
-    var initCreateInvitationForm = function () {
+    var initCreateInvitationForm = function() {
         $scope.invitation = {
             email: "",
             roles: [],
@@ -16,44 +14,25 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
         }
     }
 
-    initCreateInvitationForm();
-
-    var getProjectRoles = function () {
-        projectsService.getProjectRoles({ projectGuid: $rootScope.currentProjectGuid }).then(function (projectRoles) {
+   var getProjectRoles = function() {
+        projectsService.getProjectRoles({ projectGuid: $rootScope.currentProjectGuid }).then(function(projectRoles) {
             $scope.projectRoles = projectRoles;
         });
     };
 
-    $scope.searchProjectRole = function (roleSearchText) {
-        return _.filter($scope.projectRoles, function (role) {
-            return role.roleName.indexOf(roleSearchText) > -1;
-        })
-    };
-
-    var getProjectGroups = function () {
-        projectsService.getProjectGroups({ projectGuid: $rootScope.currentProjectGuid }).then(function (projectGroups) {
+    var getProjectGroups = function() {
+        projectsService.getProjectGroups({ projectGuid: $rootScope.currentProjectGuid }).then(function(projectGroups) {
             $scope.projectGroups = projectGroups;
         });
     };
 
-
-    $scope.searchProjectGroup = function (groupSearchText) {
-        return _.filter($scope.projectGroups, function (group) {
-            return group.groupName.indexOf(groupSearchText) > -1;
-        })
-    }
-
-    projectsService.getProject({ projectGuid: $scope.projectGuid }).then(function (data) {
-        $scope.project = data;
-    });
-
-    var getPendingInvitations = function () {
-        projectsService.getPendingInvitations({ projectGuid: $scope.projectGuid }).then(function (data) {
+    var getPendingInvitations = function() {
+        projectsService.getPendingInvitations({ projectGuid: $scope.projectGuid }).then(function(data) {
             $scope.pendingInvitations = data;
 
-            _.forEach($scope.pendingInvitations, function (invitation) {
+            _.forEach($scope.pendingInvitations, function(invitation) {
                 if (invitation.creatorAvatar) {
-                    globalService.generatePresignedUrlForS3(invitation.creatorAvatar).then(function (data) {
+                    globalService.generatePresignedUrlForS3(invitation.creatorAvatar).then(function(data) {
                         invitation.creatorAvatarUrl = data.presignedUrl;
                     });
                 } else {
@@ -63,35 +42,58 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
         });
     }
 
-    if ($rootScope.checkPermissions($scope.projectGuid, ['admin'])) {
-        projectsService.getProjectUsers({ projectGuid: $scope.projectGuid }).then(function (data) {
-            $scope.projectUsers = data;
-            $scope.projectUsersCopy = angular.copy($scope.projectUsers);
+    var init = function() {
+        $scope.projectGuid = $stateParams.projectGuid;
+        initCreateInvitationForm();
 
-            _.forEach($scope.projectUsers, function (user) {
-                if (user.avatar) {
-                    globalService.generatePresignedUrlForS3(user.avatar).then(function (data) {
-                        user.avatarUrl = data.presignedUrl;
-                    });
-                } else {
-                    user.avatarUrl = "https://farm4.staticflickr.com/3261/2801924702_ffbdeda927_d.jpg";
-                }
-            });
+        projectsService.getProject({ projectGuid: $scope.projectGuid }).then(function(data) {
+            $scope.project = data;
         });
 
-        getProjectRoles();
-        getProjectGroups();
-        getPendingInvitations();
-    }
+        if ($rootScope.checkPermissions($scope.projectGuid, ['admin'])) {
+            projectsService.getProjectUsers({ projectGuid: $scope.projectGuid }).then(function(data) {
+                $scope.projectUsers = data;
+                $scope.projectUsersCopy = angular.copy($scope.projectUsers);
 
-    $scope.onSubmitProjectChanges = function () {
+                _.forEach($scope.projectUsers, function(user) {
+                    if (user.avatar) {
+                        globalService.generatePresignedUrlForS3(user.avatar).then(function(data) {
+                            user.avatarUrl = data.presignedUrl;
+                        });
+                    } else {
+                        user.avatarUrl = "https://farm4.staticflickr.com/3261/2801924702_ffbdeda927_d.jpg";
+                    }
+                });
+            });
+
+            getProjectRoles();
+            getProjectGroups();
+            getPendingInvitations();
+        }
+    }
+    
+    init();
+
+    $scope.searchProjectRole = function(roleSearchText) {
+        return _.filter($scope.projectRoles, function(role) {
+            return role.roleName.indexOf(roleSearchText) > -1;
+        })
+    };
+    
+    $scope.searchProjectGroup = function(groupSearchText) {
+        return _.filter($scope.projectGroups, function(group) {
+            return group.groupName.indexOf(groupSearchText) > -1;
+        })
+    }     
+
+    $scope.onSubmitProjectChanges = function() {
         projectsService.updateProject({
             projectGuid: $scope.projectGuid,
             payload: {
                 description: $scope.project.description,
-                markedAsDeleted: $scope.project.markedAsDeleted === true ? true : false,                
+                markedAsDeleted: $scope.project.markedAsDeleted === true ? true : false,
             }
-        }).then(function () {
+        }).then(function() {
             globalService.displayToast({
                 messageText: "Project was successfully updated.",
                 messageType: "success"
@@ -99,15 +101,15 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
         });
     }
 
-    $scope.onChangeAssignedUserRolesAndGroups = function (index) {
+    $scope.onChangeAssignedUserRolesAndGroups = function(index) {
         var rolesIds = []
-        _.forEach($scope.projectUsers[index].roles, function (role) {
+        _.forEach($scope.projectUsers[index].roles, function(role) {
             rolesIds.push(role.roleGuid);
         });
 
         var groupsIds = []
         var groupsToCreateAndAdd = []
-        _.forEach($scope.projectUsers[index].groups, function (group) {
+        _.forEach($scope.projectUsers[index].groups, function(group) {
             if (group.groupGuid) {
                 groupsIds.push(group.groupGuid);
             } else {
@@ -124,9 +126,9 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
                 groups: groupsIds,
                 groupsToCreateAndAdd: groupsToCreateAndAdd
             }
-        }).then(function (updatedUserProject) {
+        }).then(function(updatedUserProject) {
             if ($scope.projectUsers[index].username === $rootScope.userProfile.username) {
-                var userProject = _.find($rootScope.userProfile.userProjects, function (item) {
+                var userProject = _.find($rootScope.userProfile.userProjects, function(item) {
                     return item.projectGuid === $scope.projectGuid;
                 });
                 userProject.roles = updatedUserProject.roles;
@@ -137,13 +139,13 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
                 messageText: "Roles and groups assignments have been changed.",
                 messageType: "success"
             });
-        }, function () {
+        }, function() {
             $scope.projectUsers[index] = angular.copy($scope.projectUsersCopy[index]);
         });
     }
 
-    $scope.onUnassignUser = function (index) {
-        projectsService.removeUserFromProject({ projectGuid: $scope.projectGuid, username: $scope.projectUsers[index].username }).then(function () {
+    $scope.onUnassignUser = function(index) {
+        projectsService.removeUserFromProject({ projectGuid: $scope.projectGuid, username: $scope.projectUsers[index].username }).then(function() {
             globalService.displayToast({
                 messageText: "User has been unassigned from the project.",
                 messageType: "success"
@@ -152,17 +154,17 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
         });
     }
 
-    $scope.onSendInvitation = function () {
+    $scope.onSendInvitation = function() {
         var rolesToAdd = [];
         var groupsToAdd = [];
         var groupsToCreateAndAdd = [];
 
-        _.forEach($scope.invitation.roles, function (role) {
+        _.forEach($scope.invitation.roles, function(role) {
             if (role.roleGuid) {
                 rolesToAdd.push(role.roleGuid);
             }
         });
-        _.forEach($scope.invitation.groups, function (group) {
+        _.forEach($scope.invitation.groups, function(group) {
             if (group.groupGuid) {
                 groupsToAdd.push(group.groupGuid);
             } else {
@@ -176,21 +178,19 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
             rolesToAdd: rolesToAdd,
             groupsToAdd: groupsToAdd,
             groupsToCreateAndAdd: groupsToCreateAndAdd
-        }).then(function (createdInvitation) {
+        }).then(function(createdInvitation) {
             globalService.displayToast({
                 messageText: "Invitation was successfully created.",
                 messageType: "success"
             });
 
             if (createdInvitation.creatorAvatar) {
-                globalService.generatePresignedUrlForS3(createdInvitation.creatorAvatar).then(function (data) {
+                globalService.generatePresignedUrlForS3(createdInvitation.creatorAvatar).then(function(data) {
                     createdInvitation.creatorAvatarUrl = data.presignedUrl;
                 });
             } else {
                 createdInvitation.creatorAvatarUrl = "https://farm4.staticflickr.com/3261/2801924702_ffbdeda927_d.jpg";
             }
-
-
 
             $scope.pendingInvitations.push(createdInvitation)
             initCreateInvitationForm();
@@ -198,17 +198,24 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
         });
     };
 
-    $scope.transformGroupChip = function (groupChip) {
+    $scope.transformGroupChip = function(groupChip) {
         if (angular.isObject(groupChip)) {
             return groupChip;
         }
-
         return { groupName: groupChip }
     }
-    
-    $scope.onBack = function(){
+
+    $scope.onBack = function() {
         $state.go("app.projectsList");
-    }     
+    }
+
+    $scope.onRefresh = function() {
+        init();
+    }
+    
+    $scope.onAdd = function() {
+        $state.go("app.projectNew");
+    }    
 }
 
 projectsModule.controller('ProjectDetailsCtrl', ProjectDetailsCtrl);
