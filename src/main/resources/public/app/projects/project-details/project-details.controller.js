@@ -15,13 +15,13 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
     }
 
    var getProjectRoles = function() {
-        projectsService.getProjectRoles({ projectGuid: $rootScope.currentProjectGuid }).then(function(projectRoles) {
+        projectsService.getProjectRoles({ projectGuid: $scope.projectGuid }).then(function(projectRoles) {
             $scope.projectRoles = projectRoles;
         });
     };
 
     var getProjectGroups = function() {
-        projectsService.getProjectGroups({ projectGuid: $rootScope.currentProjectGuid }).then(function(projectGroups) {
+        projectsService.getProjectGroups({ projectGuid: $scope.projectGuid }).then(function(projectGroups) {
             $scope.projectGroups = projectGroups;
         });
     };
