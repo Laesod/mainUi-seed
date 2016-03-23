@@ -5,14 +5,15 @@ var url = require('url');
 
 function EntriesListCtrl($scope, $rootScope, $state, $timeout, $http, APP_SETTINGS, globalService, $window, entriesService) {
     $scope.entries = [];
-    var DynamicItems = function () {
+    //$scope.showNoDataLabel = false;
+    var DynamicItems = function() {
         this.loadedPages = {};
         this.numItems = 0;
         this.PAGE_SIZE = 20;
         this.fetchNumItems_();
     };
     // Required.
-    DynamicItems.prototype.getItemAtIndex = function (index) {
+    DynamicItems.prototype.getItemAtIndex = function(index) {
         var pageNumber = Math.floor(index / this.PAGE_SIZE);
         var page = this.loadedPages[pageNumber];
         if (page) {
@@ -22,31 +23,35 @@ function EntriesListCtrl($scope, $rootScope, $state, $timeout, $http, APP_SETTIN
         }
     };
     // Required.
-    DynamicItems.prototype.getLength = function () {
+    DynamicItems.prototype.getLength = function() {
         return this.numItems;
     };
-    DynamicItems.prototype.fetchPage_ = function (pageNumber) {
+    DynamicItems.prototype.fetchPage_ = function(pageNumber) {
         // Set the page to null so we know it is already being fetched.
         this.loadedPages[pageNumber] = null;
 
         var getEntriesParams = {
             size: this.PAGE_SIZE,
             page: pageNumber,
-            projectGuid: $rootScope.currentProjectGuid            
+            projectGuid: $rootScope.currentProjectGuid
             //  sort: prepareCurrentSortingParams(),
             //  description: $scope.searchCriteria
         };
 
         //prepareCurrentFilteringParams(getEntriesParams);
-        entriesService.getEntries({ urlParams: getEntriesParams }).then(angular.bind(this, function (data) {
+        entriesService.getEntries({ urlParams: getEntriesParams }).then(angular.bind(this, function(data) {
+
             this.loadedPages[pageNumber] = [];
             var pageOffset = pageNumber * this.PAGE_SIZE;
             for (var i = 0; i < data.content.length; i++) {
                 this.loadedPages[pageNumber].push(data.content[i]);
             }
+            $timeout(function() {
+                $scope.showNoDataLabel = true;
+            }, 200);
         }));
     };
-    DynamicItems.prototype.fetchNumItems_ = function () {
+    DynamicItems.prototype.fetchNumItems_ = function() {
         var getEntriesParams = {
             size: 1,
             page: 0,
@@ -55,33 +60,39 @@ function EntriesListCtrl($scope, $rootScope, $state, $timeout, $http, APP_SETTIN
         };
 
         // prepareCurrentFilteringParams(getEntriesParams);
-        entriesService.getEntries({ urlParams: getEntriesParams }).then(angular.bind(this, function (data) {
+        entriesService.getEntries({ urlParams: getEntriesParams }).then(angular.bind(this, function(data) {
             this.numItems = data.totalElements;
+            if (!this.numItems) {
+                $timeout(function() {
+                    $scope.showNoDataLabel = true;
+                }, 200);
+            }
         }));
     };
 
-    var loadEntries = function () {
+    var loadEntries = function() {
+        $scope.showNoDataLabel = false;
         $scope.entries = new DynamicItems();
     };
 
     loadEntries();
 
-    $scope.onAdd = function () {
+    $scope.onAdd = function() {
         $state.go("app.entryNew");
     }
 
-    var getEntyByIndex = function (index) {
+    var getEntyByIndex = function(index) {
         var pageNumber = Math.floor(index / $scope.entries.PAGE_SIZE);
         var itemNumber = index % $scope.entries.PAGE_SIZE;
 
         return $scope.entries.loadedPages[pageNumber][itemNumber];
     };
 
-    $scope.onEdit = function (index) {
-        $timeout(function () { $state.go("app.entryDetails", { entryGuid: getEntyByIndex(index).entryGuid }); }, 300)        
+    $scope.onEdit = function(index) {
+        $timeout(function() { $state.go("app.entryDetails", { entryGuid: getEntyByIndex(index).entryGuid }); }, 300)
     }
-    
-    $scope.onRefresh = function(){
+
+    $scope.onRefresh = function() {
         loadEntries();
     }
 }
