@@ -5,19 +5,19 @@ var url = require('url');
 
 function EntriesListCtrl($scope, $rootScope, $state, $timeout, $http, APP_SETTINGS, globalService, $window, entriesService) {
     $scope.entries = [];
-    //$scope.showNoDataLabel = false;
+    //$scope.showNoDataLabel = false;   
     var DynamicItems = function() {
         this.loadedPages = {};
         this.numItems = 0;
-        this.PAGE_SIZE = 20;
+        this.PAGE_SIZE = 40;
         this.fetchNumItems_();
     };
     // Required.
     DynamicItems.prototype.getItemAtIndex = function(index) {
-        var pageNumber = Math.floor(index / this.PAGE_SIZE);
+        var pageNumber = Math.floor((index) / this.PAGE_SIZE);
         var page = this.loadedPages[pageNumber];
         if (page) {
-            return page[index % this.PAGE_SIZE];
+            return page[(index) % this.PAGE_SIZE];
         } else if (page !== null) {
             this.fetchPage_(pageNumber);
         }
@@ -33,21 +33,21 @@ function EntriesListCtrl($scope, $rootScope, $state, $timeout, $http, APP_SETTIN
         var getEntriesParams = {
             size: this.PAGE_SIZE,
             page: pageNumber,
-            projectGuid: $rootScope.currentProjectGuid
+            projectGuid: $rootScope.currentProjectGuid,
+            entryTypeGuid: $rootScope.entriesFilter.entryTypeGuid
             //  sort: prepareCurrentSortingParams(),
             //  description: $scope.searchCriteria
         };
 
         //prepareCurrentFilteringParams(getEntriesParams);
         entriesService.getEntries({ urlParams: getEntriesParams }).then(angular.bind(this, function(data) {
-
             this.loadedPages[pageNumber] = [];
             var pageOffset = pageNumber * this.PAGE_SIZE;
             for (var i = 0; i < data.content.length; i++) {
                 this.loadedPages[pageNumber].push(data.content[i]);
             }
             $timeout(function() {
-                $scope.showNoDataLabel = true;
+                $scope.showBusyIndicator = false;
             }, 200);
         }));
     };
@@ -55,7 +55,8 @@ function EntriesListCtrl($scope, $rootScope, $state, $timeout, $http, APP_SETTIN
         var getEntriesParams = {
             size: 1,
             page: 0,
-            projectGuid: $rootScope.currentProjectGuid
+            projectGuid: $rootScope.currentProjectGuid,
+            entryTypeGuid: $rootScope.entriesFilter.entryTypeGuid            
             // description: $scope.searchCriteria
         };
 
@@ -64,14 +65,14 @@ function EntriesListCtrl($scope, $rootScope, $state, $timeout, $http, APP_SETTIN
             this.numItems = data.totalElements;
             if (!this.numItems) {
                 $timeout(function() {
-                    $scope.showNoDataLabel = true;
+                    $scope.showBusyIndicator = false;
                 }, 200);
             }
         }));
     };
 
     var loadEntries = function() {
-        $scope.showNoDataLabel = false;
+        $scope.showBusyIndicator = true;
         $scope.entries = new DynamicItems();
     };
 
@@ -79,6 +80,10 @@ function EntriesListCtrl($scope, $rootScope, $state, $timeout, $http, APP_SETTIN
 
     $scope.onAdd = function() {
         $state.go("app.entryNew");
+    } 
+
+    $scope.onFilter = function() {
+        $state.go("app.entriesFilter");
     }
 
     var getEntyByIndex = function(index) {

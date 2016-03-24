@@ -5,7 +5,7 @@ var url = require('url');
 
 function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsService, $timeout, $http, APP_SETTINGS, globalService, $window, entriesService) {
     var init = function(){
-        $scope.entry = {};
+        $scope.entry = {deficiencyDetails: {}, contactDetails: {}};
         $scope.projectGuid = $rootScope.currentProjectGuid;
         $scope.selectedProjectGroups = [];
         $scope.entryGuid = $stateParams.entryGuid;      
@@ -16,6 +16,10 @@ function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsServ
             if($scope.entry.deficiencyDetails){
                 $scope.getDeficiencyStatuses();
             }
+            
+            if($scope.entry.contactDetails){
+                $scope.getContactTypes();
+            }            
         })     
         
         entriesService.getEntryTypesForProject({ projectGuid: $rootScope.currentProjectGuid }).then(function (entryTypesForProject) {
@@ -33,7 +37,14 @@ function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsServ
         entriesService.getEntryStatuses({entryType: "Deficiency"}).then(function(deficiencyStatuses){
             $scope.deficiencyStatuses = deficiencyStatuses;
         })
-    }     
+    }  
+    
+    $scope.getContactTypes = function(){
+        entriesService.getContactTypes().then(function(contactTypes){
+            $scope.contactTypes = contactTypes;
+           // $scope.entry.contactDetails.contactTypeGuid = contactTypes[0].contactTypeGuid;
+        });
+    }        
      
     $scope.searchProjectGroup = function(groupSearchText){
         return _.filter($scope.projectGroups, function(group){
@@ -56,54 +67,36 @@ function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsServ
              markedAsDeleted: $scope.entry.markedAsDeleted === true ? true : false,
              groups: groups})
          .then(function(){
-             entriesService.updateDeficiencyDetails({
-                 deficiencyDetailsGuid: $scope.entry.deficiencyDetails.deficiencyDetailsGuid,
-                 parentEntryGuid: $scope.entryGuid, 
-                 entryStatusGuid: $scope.entry.deficiencyDetails.entryStatusGuid
-             })
-             .then(function(){
-                 globalService.displayToast({
-                     messageText: "Entry has been modified.",
-                     messageType: "success"
-                 });
-              });              
+             if($scope.entry.entryTypeGuid === '1'){
+                $scope.entry.deficiencyDetails.parentEntryGuid = $scope.entryGuid;
+                
+                entriesService.updateDeficiencyDetails($scope.entry.deficiencyDetails)
+                .then(function(){
+                    globalService.displayToast({
+                        messageText: "Deficiency has been modified.",
+                        messageType: "success"
+                    });
+                    
+                    $scope.onBack();
+                });                  
+             }
+             
+             if($scope.entry.entryTypeGuid === '2'){
+                $scope.entry.contactDetails.parentEntryGuid = $scope.entryGuid; 
+                 
+                entriesService.updateContactDetails($scope.entry.contactDetails)
+                .then(function(){
+                    globalService.displayToast({
+                        messageText: "Contact has been modified.",
+                        messageType: "success"
+                    });
+                    
+                    $scope.onBack();
+                });                  
+             }             
+             
          });         
     }
-    
-    // $scope.onSaveEntryDetails = function(){
-    //    var groups = [];
-    //     _.forEach($scope.entry.groups, function(group){
-    //         groups.push(group.groupGuid);
-    //     });
-
-    //     entriesService.updateEntry({
-    //          entryGuid: $scope.entryGuid,
-    //          entryTypeGuid: $scope.entry.entryTypeGuid, 
-    //          projectGuid: $rootScope.currentProjectGuid,                 
-    //          description: $scope.entry.description, 
-    //          markedAsDeleted: $scope.entry.markedAsDeleted === true ? true : false,
-    //          groups: groups})
-    //      .then(function(){
-    //          globalService.displayToast({
-    //              messageText: "Entry has been modified.",
-    //              messageType: "success"
-    //          });
-    //      });         
-    //  }
-    
-    // $scope.onSaveDeficiencyDetails = function(){
-    //     entriesService.updateDeficiencyDetails({
-    //         deficiencyDetailsGuid: $scope.entry.deficiencyDetails.deficiencyDetailsGuid,
-    //         parentEntryGuid: $scope.entryGuid, 
-    //         entryStatusGuid: $scope.entry.deficiencyDetails.entryStatusGuid
-    //     })
-    //     .then(function(){
-    //         globalService.displayToast({
-    //             messageText: "Deficiency details have been modified.",
-    //             messageType: "success"
-    //         });
-    //     });              
-    // }
     
     $scope.onBack = function(){
         $state.go("app.entriesList");

@@ -124,6 +124,13 @@ function projectsService($q, $http, $cookies, APP_SETTINGS, globalService) {
       });       
    }
    
+   service.getEntryTypes = function(){
+      return globalService.request({
+         method: "GET",
+         url: apiUrl.apiEntryGetEntryTypesUrl
+      });       
+   }
+   
    return service;
 }
 

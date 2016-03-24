@@ -46,7 +46,11 @@ var AppSettings = function(config) {
             apiEntryCreateDeficiencyDetailsUrl: apiGatewayBaseUrl + '/gateway/entry/createDeficiencyDetails',
             apiEntryUpdateDeficiencyDetailsUrl: apiGatewayBaseUrl + '/gateway/entry/updateDeficiencyDetails',
             apiEntryGetEntriesUrl: apiGatewayBaseUrl + '/gateway/entry/getEntries',
-            apiEntryGetEntryUrl: apiGatewayBaseUrl + '/gateway/entry/getEntry',                          
+            apiEntryGetEntryUrl: apiGatewayBaseUrl + '/gateway/entry/getEntry', 
+            apiEntryGetEntryTypesUrl: apiGatewayBaseUrl + '/gateway/entry/getEntryTypes',  
+            apiEntryGetContactTypesUrl: apiGatewayBaseUrl + '/gateway/entry/getContactTypes',  
+            apiEntryCreateContactDetailsUrl: apiGatewayBaseUrl + '/gateway/entry/createContactDetails',  
+            apiEntryUpdateContactDetailsUrl: apiGatewayBaseUrl + '/gateway/entry/updateContactDetails',                         
             
             tasksManagementGetTasksUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/getTasks',
             tasksManagementExportTasksToCSVUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/exportTasksToCsv',

@@ -64,7 +64,30 @@ function entriesService($q, $http, $cookies, APP_SETTINGS, globalService) {
          method: "GET",
          url: apiUrl.apiEntryGetEntryUrl + '/' + params.entryGuid,
       });
-   };    
+   };  
+   
+   service.getContactTypes = function () {
+      return globalService.request({
+         method: "GET",
+         url: apiUrl.apiEntryGetContactTypesUrl,
+      });
+   };   
+   
+   service.createContactDetails = function(payload){
+      return globalService.request({
+         method: "POST",
+         url: apiUrl.apiEntryCreateContactDetailsUrl,
+         data: payload
+      });        
+   }   
+   
+   service.updateContactDetails = function(payload){
+      return globalService.request({
+         method: "PUT",
+         url: apiUrl.apiEntryUpdateContactDetailsUrl,
+         data: payload
+      });       
+   }       
    
    return service;
 }

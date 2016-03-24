@@ -3,7 +3,8 @@
 var projectsModule = require('../_index');
 var url = require('url');
 
-function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeout, $http, APP_SETTINGS, globalService, $window, projectsService) {
+function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeout, $http, APP_SETTINGS, globalService, $window, projectsService, entriesService) {
+    var projectEntryTypes = [];
     var initCreateInvitationForm = function() {
         $scope.invitation = {
             email: "",
@@ -14,7 +15,27 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
         }
     }
 
-   var getProjectRoles = function() {
+    var getEntryTypes = function() {
+        var entryTypesPromise = projectsService.getEntryTypes();
+        entryTypesPromise.then(function(receivedEntryTypes) {
+            $scope.entryTypes = receivedEntryTypes;
+        });
+
+        var projectEntryTypesPromise = entriesService.getEntryTypesForProject({ projectGuid: $scope.projectGuid });
+        projectEntryTypesPromise.then(function(receivedProjectEntryTypes) {
+            projectEntryTypes = receivedProjectEntryTypes;
+        });
+
+        $q.all([entryTypesPromise, projectEntryTypesPromise]).then(function() {
+            _.forEach(projectEntryTypes, function(projectEntryType) {
+                _.find($scope.entryTypes, function(entryType) {
+                    return entryType.entryTypeGuid === projectEntryType.entryTypeGuid;
+                }).enabled = true;
+            });
+        });
+    }
+
+    var getProjectRoles = function() {
         projectsService.getProjectRoles({ projectGuid: $scope.projectGuid }).then(function(projectRoles) {
             $scope.projectRoles = projectRoles;
         });
@@ -44,6 +65,8 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
 
     var init = function() {
         $scope.projectGuid = $stateParams.projectGuid;
+        //var entryTypes = [];
+        getEntryTypes();
         initCreateInvitationForm();
 
         projectsService.getProject({ projectGuid: $scope.projectGuid }).then(function(data) {
@@ -71,7 +94,7 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
             getPendingInvitations();
         }
     }
-    
+
     init();
 
     $scope.searchProjectRole = function(roleSearchText) {
@@ -79,19 +102,27 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
             return role.roleName.indexOf(roleSearchText) > -1;
         })
     };
-    
+
     $scope.searchProjectGroup = function(groupSearchText) {
         return _.filter($scope.projectGroups, function(group) {
             return group.groupName.indexOf(groupSearchText) > -1;
         })
-    }     
+    }
 
     $scope.onSubmitProjectChanges = function() {
+        var entryTypesToAdd = [];
+        _.forEach($scope.entryTypes, function(entryType){
+            if(entryType.enabled){
+                entryTypesToAdd.push(entryType.entryTypeGuid);
+            }
+        })
+        
         projectsService.updateProject({
             projectGuid: $scope.projectGuid,
             payload: {
                 description: $scope.project.description,
                 markedAsDeleted: $scope.project.markedAsDeleted === true ? true : false,
+                entryTypesToAdd: entryTypesToAdd
             }
         }).then(function() {
             globalService.displayToast({
@@ -212,10 +243,10 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
     $scope.onRefresh = function() {
         init();
     }
-    
+
     $scope.onAdd = function() {
         $state.go("app.projectNew");
-    }    
+    }
 }
 
 projectsModule.controller('ProjectDetailsCtrl', ProjectDetailsCtrl);

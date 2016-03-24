@@ -4,9 +4,9 @@
     </div>
 
     <div layout="row">
-        <div  ng-if="$root.checkPermissions(projectGuid, ['manager', 'user'])" ng-click="onSave($event)" style="padding: 1rem; cursor: pointer; outline: none">
+        <div ng-if="$root.checkPermissions(projectGuid, ['manager', 'user'])" ng-click="onSave($event)" style="padding: 1rem; cursor: pointer; outline: none">
             <i class="fa fa-save" style="color: black; cursor: pointer; outline: none; font-size: 15pt; margin-top: 5px;"></i>
-        </div>        
+        </div>
         <div ng-click="onAdd($event)" style="padding: 1rem; cursor: pointer; outline: none">
             <i class="fa fa-plus" style="color: black; cursor: pointer; outline: none; font-size: 15pt; margin-top: 5px;"></i>
         </div>
@@ -34,8 +34,8 @@
                 </md-input-container>
                 <div class="chipsWrapper">
                     <md-chips ng-model="entry.groups" md-autocomplete-snap md-require-match="true" readonly="!$root.checkPermissions(projectGuid, ['manager', 'user'])">
-                            <md-autocomplete md-search-text="groupSearchText" md-items="item in searchProjectGroup(groupSearchText)" md-item-text="item.name"
-                        placeholder="Search for a group" md-no-cache="true">
+                        <md-autocomplete md-search-text="groupSearchText" md-items="item in searchProjectGroup(groupSearchText)" md-item-text="item.name"
+                        placeholder="Groups" md-no-cache="true">
                             <span md-highlight-text="groupSearchText">{{item.groupName}}</span>
                         </md-autocomplete>
                         <md-chip-template>
@@ -56,9 +56,6 @@
                     style="width: 40px;">
                     </md-switch>
                 </div>
-
-                <!--<md-button ng-if="$root.checkPermissions(projectGuid, ['manager', 'user'])" type="submit" id="submitBtn " ng-click="onSaveEntryDetails()"
-                class="md-raised md-primary detailsSectionButton">Save</md-button>-->
             </section>
 
             <div ng-if="entry.entryTypeGuid === '1'" class="detailsSectionHeader">Deficiency Details</div>
@@ -73,10 +70,69 @@
                         </md-option>
                     </md-select>
                 </md-input-container>
-                <!--<md-button ng-if="$root.checkPermissions(projectGuid, ['manager', 'user'])" type="submit" ng-click="onSaveDeficiencyDetails()"
-                class="md-raised md-primary detailsSectionButton">Save</md-button>-->
+            </section>
+
+            <div ng-if="entry.entryTypeGuid === '2'" class="detailsSectionHeader">Contact Details</div>
+
+            <section ng-if="entry.entryTypeGuid === '2'" class="detailsSectionContent">
+                <md-input-container>
+                    <label>Contact Type</label>
+                    <md-select ng-disabled=true ng-model="entry.contactDetails.contactTypeGuid" md-on-open="getContactTypes()">
+                        <md-option ng-repeat="contactType in contactTypes" value="{{contactType.contactTypeGuid}}">
+                            {{contactType.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <div ng-if="entry.contactDetails.contactTypeGuid === '1'">
+                    <md-input-container>
+                        <label>First Name</label>
+                        <input type="text" ng-model="entry.contactDetails.personFirstName">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Last Name</label>
+                        <input type="text" ng-model="entry.contactDetails.personLastName">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Mobile Phone</label>
+                        <input type="text" ng-model="entry.contactDetails.personMobilePhone">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Email</label>
+                        <input type="email" ng-model="entry.contactDetails.personEmail">
+                    </md-input-container>
+                    <md-input-container class="lastSectionInputContainer">
+                        <label>Address</label>
+                        <textarea ng-model="entry.contactDetails.personAddress" columns="1"></textarea>                        
+                        <!--<input type="text" ng-model="entry.contactDetails.personAddress">-->
+                    </md-input-container>
+                </div>
+
+                <div ng-if="entry.contactDetails.contactTypeGuid === '2'">
+                    <md-input-container>
+                        <label>Organization Name</label>
+                        <input type="text" ng-model="entry.contactDetails.organizationName">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Web Site</label>
+                        <input type="text" ng-model="entry.contactDetails.organizationWebSite">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Contact Phone</label>
+                        <input type="text" ng-model="entry.contactDetails.organizationContactPhone">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Contact Email</label>
+                        <input type="email" ng-model="entry.contactDetails.organizationContactEmail">
+                    </md-input-container>
+                    <md-input-container class="lastSectionInputContainer">
+                        <label>Address</label>
+                        <textarea ng-model="entry.contactDetails.organizationAddress" columns="1"></textarea>                        
+                    </md-input-container>
+                </div>
             </section>
         </div>
-        <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>
     </div>
+    <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>
+</div>
 </div>

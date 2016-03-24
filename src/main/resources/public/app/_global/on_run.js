@@ -6,6 +6,8 @@ function OnRun($rootScope, $http, $state, $cookies, $window, globalService, APP_
         $rootScope.currentProjectGuid = $rootScope.userProfile.userProjects[0].projectGuid;        
     }
     
+    $rootScope.entriesFilter = {entryTypeGuid: '1'};    
+    
     $rootScope.checkPermissions = function(projectGuid, roles){
         return globalService.checkPermissions(projectGuid, roles);
     }

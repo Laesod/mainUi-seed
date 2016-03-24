@@ -1,6 +1,9 @@
-<div layout-align="start center" layout="row" class="actionBar">
+<div layout-align="space-between center" layout="row" class="actionBar">
     <div ng-click="onBack()" style="padding: 1rem; cursor: pointer; outline: none">
         <i class="fa fa-arrow-left" style="color: black; cursor: pointer; outline: none; font-size: 15pt;"></i>
+    </div>
+    <div ng-click="onCreate($event)" style="padding: 1rem; cursor: pointer; outline: none">
+        <i class="fa fa-save" style="color: black; cursor: pointer; outline: none; font-size: 15pt; margin-top: 5px;"></i>
     </div>
 </div>
 
@@ -17,8 +20,17 @@
                     <label>Description</label>
                     <input type="text" ng-model="project.description" ng-keypress="onKeyPress($event)" ng-change="$root.onFormElementChange('projectRequestDto_description')">
                     <span ng-show="$root.formElementsErrors.projectRequestDto_description" class="formItemErrorMessage" style="display: initial !important;">{{$root.formElementsErrors.projectRequestDto_description}}</span>
-                    <md-button type="submit" id="submitBtn" ng-click="onCreate()" class="md-raised md-primary detailsSectionButton">Create</md-button>
+                    <!--<md-button type="submit" id="submitBtn" ng-click="onCreate()" class="md-raised md-primary detailsSectionButton">Create</md-button>-->
                 </md-input-container>
+            </section>
+
+            <div class="detailsSectionHeader">Entry Types</div>
+
+            <section class="detailsSectionContent">
+                <md-checkbox ng-repeat="entryType in entryTypes" ng-model="entryType.enabled"
+                md-no-ink class="md-primary" aria-label="entryType.name">
+                    {{::entryType.name}}
+                </md-checkbox>
             </section>
         </div>
         <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>
