@@ -6,6 +6,7 @@ var url = require('url');
 function EntryNewCtrl($rootScope, $scope, $state, $timeout, $http, APP_SETTINGS, globalService, $window, entriesService, projectsService) {
     $scope.groupSearchText = "";
     $scope.selectedProjectGroups = [];
+    $scope.minDueDate = new Date();
 
      $scope.entry = {
          entryTypeGuid: $rootScope.entriesFilter.entryTypeGuid,
@@ -40,7 +41,9 @@ function EntryNewCtrl($rootScope, $scope, $state, $timeout, $http, APP_SETTINGS,
     $scope.getContactTypes = function(){
         entriesService.getContactTypes().then(function(contactTypes){
             $scope.contactTypes = contactTypes;
-            $scope.entry.contactDetails.contactTypeGuid = contactTypes[0].contactTypeGuid;
+            if(!$scope.entry.contactDetails.contactTypeGuid){
+                $scope.entry.contactDetails.contactTypeGuid = contactTypes[0].contactTypeGuid;                
+            }
         });
     }  
     
@@ -78,10 +81,8 @@ function EntryNewCtrl($rootScope, $scope, $state, $timeout, $http, APP_SETTINGS,
             $scope.entryGuid = entryDetails.entryGuid;
 
             if($scope.entry.entryTypeGuid === '1'){
-                entriesService.createDeficiencyDetails({
-                    parentEntryGuid: $scope.entryGuid, 
-                    entryStatusGuid: $scope.entry.deficiencyDetails.entryStatusGuid
-                })                
+                $scope.entry.deficiencyDetails.parentEntryGuid = $scope.entryGuid;
+                entriesService.createDeficiencyDetails($scope.entry.deficiencyDetails)                
                 .then(function(deficiencyDetails){
                     $scope.onBack();
                     globalService.displayToast({

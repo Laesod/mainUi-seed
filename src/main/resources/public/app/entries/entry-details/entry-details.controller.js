@@ -8,18 +8,27 @@ function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsServ
         $scope.entry = {deficiencyDetails: {}, contactDetails: {}};
         $scope.projectGuid = $rootScope.currentProjectGuid;
         $scope.selectedProjectGroups = [];
-        $scope.entryGuid = $stateParams.entryGuid;      
+        $scope.entryGuid = $stateParams.entryGuid; 
+        $scope.showBusyIndicator = true;   
+        $scope.minDueDate = new Date();  
         
         entriesService.getEntry({entryGuid: $scope.entryGuid}).then(function(entryData){
-            $scope.entry = entryData;
-            
-            if($scope.entry.deficiencyDetails){
+            if(entryData.deficiencyDetails){
                 $scope.getDeficiencyStatuses();
+                if(entryData.deficiencyDetails.dueDate){
+                    entryData.deficiencyDetails.dueDate = new Date(entryData.deficiencyDetails.dueDate);
+                }
             }
             
             if($scope.entry.contactDetails){
                 $scope.getContactTypes();
-            }            
+            }  
+            
+            $scope.entry = entryData; 
+            
+            $timeout(function() {
+                $scope.showBusyIndicator = false;
+            }, 300);                    
         })     
         
         entriesService.getEntryTypesForProject({ projectGuid: $rootScope.currentProjectGuid }).then(function (entryTypesForProject) {

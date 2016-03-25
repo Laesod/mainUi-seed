@@ -64,12 +64,12 @@
 .viewContentWrapper{
     min-height: 100%;
     padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
     box-sizing: border-box;    
 }
 
 .viewContentWrapperWithActionBar{
-    padding-bottom: 2rem; 
+    padding-bottom: 1rem; 
     padding-top: 2rem; 
     overflow-y: auto;
     box-sizing: border-box;    
@@ -129,8 +129,20 @@
     margin-bottom: 0px;
 }
 
+.busyIndicator{
+    height: calc(100% - 1px); 
+    background-color: white; 
+    position: absolute; 
+    width: 100%; 
+    z-index: 2;    
+}
+
 .chipsWrapper, .lastSectionInputContainer{
    margin-bottom: 18px; 
+}
+
+.lastSectionDateInput{
+    margin-bottom: 14px; 
 }
 
 md-input-container{
@@ -167,14 +179,6 @@ md-input-container.md-input-focused .md-input, md-input-container .md-input.ng-i
     border-width: 0 0 1px 0; 
 }
 
-// md-content {
-//     overflow: hidden !important;
-// }
-
-// md-input-container{
-//     margin-bottom: 0px;
-// }
-
 md-input-container .md-errors-spacer{
     float: none;
     min-height: 0px;
@@ -187,3 +191,15 @@ md-input-container.md-default-theme .md-input[disabled], md-input-container .md-
 md-switch{
     margin: 0px;
 } 
+
+.md-datepicker-triangle-button.md-button.md-icon-button:focus{
+    background-color: transparent;
+}
+
+// md-autocomplete{
+//     min-width: 0px;
+// }
+
+// md-autocomplete input{
+//     width: 90px;
+// }

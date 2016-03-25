@@ -5,20 +5,23 @@ var url = require('url');
 
 function ProjectsListCtrl($rootScope, $scope, $timeout, projectsService, $state) {
     var init = function() {
+        $scope.showBusyIndicator = true;
         projectsService.getProjects().then(function(data) {
             $scope.projects = data;
 
             if ($rootScope.currentProjectGuid) {
                 _.find($scope.projects, { projectGuid: $rootScope.currentProjectGuid })._isCurrent = true;
             }
-
+            $timeout(function() {
+                $scope.showBusyIndicator = false;
+            }, 200);
         });
     }
 
     init();
 
     $scope.onEdit = function(index) {
-        $timeout(function() { $state.go("app.projectDetails", { projectGuid: $scope.projects[index].projectGuid }); }, 100)
+        $state.go("app.projectDetails", { projectGuid: $scope.projects[index].projectGuid });
     }
 
     $scope.onAdd = function() {

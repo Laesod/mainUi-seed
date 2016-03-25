@@ -3,8 +3,9 @@
 var entriesModule = require('../_index');
 var url = require('url');
 
-function EntriesListCtrl($scope, $rootScope, $state, $timeout, $http, APP_SETTINGS, globalService, $window, entriesService) {
+function EntriesListCtrl($scope, $rootScope, $filter,   $state, $timeout, $http, $sce, APP_SETTINGS, globalService, $window, entriesService) {
     $scope.entries = [];
+    $scope.searchCriteria = "";
     //$scope.showNoDataLabel = false;   
     var DynamicItems = function() {
         this.loadedPages = {};
@@ -34,16 +35,21 @@ function EntriesListCtrl($scope, $rootScope, $state, $timeout, $http, APP_SETTIN
             size: this.PAGE_SIZE,
             page: pageNumber,
             projectGuid: $rootScope.currentProjectGuid,
-            entryTypeGuid: $rootScope.entriesFilter.entryTypeGuid
+            entryTypeGuid: $rootScope.entriesFilter.entryTypeGuid,
+            description: $scope.searchCriteria
             //  sort: prepareCurrentSortingParams(),
-            //  description: $scope.searchCriteria
         };
 
         //prepareCurrentFilteringParams(getEntriesParams);
         entriesService.getEntries({ urlParams: getEntriesParams }).then(angular.bind(this, function(data) {
             this.loadedPages[pageNumber] = [];
             var pageOffset = pageNumber * this.PAGE_SIZE;
+            debugger;
             for (var i = 0; i < data.content.length; i++) {
+                if(data.content[i].deficiencyDetails.dueDate){
+                    data.content[i].deficiencyDetails.dueDate = $filter('date')(new Date(data.content[i].deficiencyDetails.dueDate), 'dd/MM/yyyy') ;
+                }
+                
                 this.loadedPages[pageNumber].push(data.content[i]);
             }
             $timeout(function() {
@@ -56,8 +62,8 @@ function EntriesListCtrl($scope, $rootScope, $state, $timeout, $http, APP_SETTIN
             size: 1,
             page: 0,
             projectGuid: $rootScope.currentProjectGuid,
-            entryTypeGuid: $rootScope.entriesFilter.entryTypeGuid            
-            // description: $scope.searchCriteria
+            entryTypeGuid: $rootScope.entriesFilter.entryTypeGuid,
+            description: $scope.searchCriteria
         };
 
         // prepareCurrentFilteringParams(getEntriesParams);
@@ -80,7 +86,7 @@ function EntriesListCtrl($scope, $rootScope, $state, $timeout, $http, APP_SETTIN
 
     $scope.onAdd = function() {
         $state.go("app.entryNew");
-    } 
+    }
 
     $scope.onFilter = function() {
         $state.go("app.entriesFilter");
@@ -93,13 +99,28 @@ function EntriesListCtrl($scope, $rootScope, $state, $timeout, $http, APP_SETTIN
         return $scope.entries.loadedPages[pageNumber][itemNumber];
     };
 
+    $scope.highlight = function(text, searchCriteria) {
+        if (!searchCriteria || !text) {
+            return $sce.trustAsHtml(text);
+        }
+        return $sce.trustAsHtml(text.replace(new RegExp(searchCriteria, "gi"), function(match) {
+            return '<span class="highlightedText">' + match + '</span>';
+        }));
+    };
+
     $scope.onEdit = function(index) {
-        $timeout(function() { $state.go("app.entryDetails", { entryGuid: getEntyByIndex(index).entryGuid }); }, 300)
+        $state.go("app.entryDetails", { entryGuid: getEntyByIndex(index).entryGuid });   
     }
 
     $scope.onRefresh = function() {
         loadEntries();
     }
+    
+   $scope.onKeyPress = function (event) {
+      if (event.keyCode === 13) {
+         loadEntries();
+      }
+   };    
 }
 
 entriesModule.controller('EntriesListCtrl', EntriesListCtrl);

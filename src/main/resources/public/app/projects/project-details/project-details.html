@@ -4,9 +4,9 @@
     </div>
 
     <div layout="row">
-        <div  ng-if="$root.checkPermissions(projectGuid, ['admin'])" ng-click="onSubmitProjectChanges($event)" style="padding: 1rem; cursor: pointer; outline: none">
+        <div ng-if="$root.checkPermissions(projectGuid, ['admin'])" ng-click="onSubmitProjectChanges($event)" style="padding: 1rem; cursor: pointer; outline: none">
             <i class="fa fa-save" style="color: black; cursor: pointer; outline: none; font-size: 15pt; margin-top: 5px;"></i>
-        </div>            
+        </div>
         <div ng-click="onAdd($event)" style="padding: 1rem; cursor: pointer; outline: none">
             <i class="fa fa-plus" style="color: black; cursor: pointer; outline: none; font-size: 15pt; margin-top: 5px;"></i>
         </div>
@@ -15,8 +15,11 @@
         </div>
     </div>
 </div>
+<div ng-show="showBusyIndicator" layout="row" class="busyIndicator" layout-align="space-around center">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
 <div class="viewContentWrapperWithActionBar" style="min-height: calc(100% - 64px); height: calc(100% - 64px); overflow-y: auto;">
-    <div layout="row" style="width: 100%;">
+        <div layout="row" style="width: 100%;">
         <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>
 
         <div flex-gt-md=40 flex-md=60 flex-sm=90 flex-xs=90>
@@ -41,7 +44,8 @@
             <div class="detailsSectionHeader">Entry Types</div>
 
             <section class="detailsSectionContent">
-                <md-checkbox ng-disabled="!$root.checkPermissions(projectGuid, ['admin'])" ng-repeat="entryType in entryTypes" ng-model="entryType.enabled" md-no-ink class="md-primary"aria-label="entryType.name">
+                <md-checkbox ng-disabled="!$root.checkPermissions(projectGuid, ['admin'])" ng-repeat="entryType in entryTypes" ng-model="entryType.enabled"
+                md-no-ink class="md-primary" aria-label="entryType.name">
                     {{::entryType.name}}
                 </md-checkbox>
             </section>

@@ -9,6 +9,11 @@
 
 <md-content layout="column" style="height: calc(100% - 64px);">
     <div style="width: 100%; border-bottom: 1px solid #ddd;"></div>
+
+    <div ng-show="showBusyIndicator" layout="row" class="busyIndicator"
+    layout-align="space-around center">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
     <span ng-if="projects.length === 0" style="padding: 2rem;">No projects assigned yet</span>
     <md-virtual-repeat-container ng-if="projects.length > 0" id="vertical-container" style="border-bottom: 0px solid #ddd;">
         <div md-virtual-repeat="item in projects" class="listItem projectsListItem" flex layout="column" ios-dblclick="onEdit($index)">

@@ -36,19 +36,19 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
     }
 
     var getProjectRoles = function() {
-        projectsService.getProjectRoles({ projectGuid: $scope.projectGuid }).then(function(projectRoles) {
+        return projectsService.getProjectRoles({ projectGuid: $scope.projectGuid }).then(function(projectRoles) {
             $scope.projectRoles = projectRoles;
         });
     };
 
     var getProjectGroups = function() {
-        projectsService.getProjectGroups({ projectGuid: $scope.projectGuid }).then(function(projectGroups) {
+        return projectsService.getProjectGroups({ projectGuid: $scope.projectGuid }).then(function(projectGroups) {
             $scope.projectGroups = projectGroups;
         });
     };
 
     var getPendingInvitations = function() {
-        projectsService.getPendingInvitations({ projectGuid: $scope.projectGuid }).then(function(data) {
+        return projectsService.getPendingInvitations({ projectGuid: $scope.projectGuid }).then(function(data) {
             $scope.pendingInvitations = data;
 
             _.forEach($scope.pendingInvitations, function(invitation) {
@@ -65,11 +65,14 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
 
     var init = function() {
         $scope.projectGuid = $stateParams.projectGuid;
+        $scope.showBusyIndicator = true;
         //var entryTypes = [];
         getEntryTypes();
         initCreateInvitationForm();
 
-        projectsService.getProject({ projectGuid: $scope.projectGuid }).then(function(data) {
+        var getProjectPromise = projectsService.getProject({ projectGuid: $scope.projectGuid });
+
+        getProjectPromise.then(function(data) {
             $scope.project = data;
         });
 
@@ -92,6 +95,10 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
             getProjectRoles();
             getProjectGroups();
             getPendingInvitations();
+
+            $timeout(function() {
+                $scope.showBusyIndicator = false;
+            }, 300);
         }
     }
 
@@ -111,12 +118,12 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
 
     $scope.onSubmitProjectChanges = function() {
         var entryTypesToAdd = [];
-        _.forEach($scope.entryTypes, function(entryType){
-            if(entryType.enabled){
+        _.forEach($scope.entryTypes, function(entryType) {
+            if (entryType.enabled) {
                 entryTypesToAdd.push(entryType.entryTypeGuid);
             }
         })
-        
+
         projectsService.updateProject({
             projectGuid: $scope.projectGuid,
             payload: {
