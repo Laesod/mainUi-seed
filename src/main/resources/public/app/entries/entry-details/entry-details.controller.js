@@ -108,8 +108,8 @@ function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsServ
     }
     
     $scope.onBack = function(event){
-        event.stopPropagation();        
         $state.go("app.entriesList");
+        $timeout(function(){$state.go("app.entriesList");}, 200);
     }  
     
     $scope.onAdd = function() {
