@@ -107,8 +107,9 @@ function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsServ
          });         
     }
     
-    $scope.onBack = function(){
+    $scope.onBack = function(event){
         $state.go("app.entriesList");
+        event.stopPropagation();
     }  
     
     $scope.onAdd = function() {
