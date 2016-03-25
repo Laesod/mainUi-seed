@@ -3,7 +3,7 @@
 var entriesModule = require('../_index');
 var url = require('url');
 
-function EntriesListCtrl($scope, $rootScope, $filter,   $state, $timeout, $http, $sce, APP_SETTINGS, globalService, $window, entriesService) {
+function EntriesListCtrl($scope, $rootScope, $filter, $state, $timeout, $http, $sce, APP_SETTINGS, globalService, $window, entriesService) {
     $scope.entries = [];
     $scope.searchCriteria = "";
     //$scope.showNoDataLabel = false;   
@@ -44,12 +44,13 @@ function EntriesListCtrl($scope, $rootScope, $filter,   $state, $timeout, $http,
         entriesService.getEntries({ urlParams: getEntriesParams }).then(angular.bind(this, function(data) {
             this.loadedPages[pageNumber] = [];
             var pageOffset = pageNumber * this.PAGE_SIZE;
-            debugger;
             for (var i = 0; i < data.content.length; i++) {
-                if(data.content[i].deficiencyDetails.dueDate){
-                    data.content[i].deficiencyDetails.dueDate = $filter('date')(new Date(data.content[i].deficiencyDetails.dueDate), 'dd/MM/yyyy') ;
+                if (data.content[i].entryTypeGuid === '1') {
+                    if (data.content[i].deficiencyDetails.dueDate) {
+                        data.content[i].deficiencyDetails.dueDate = $filter('date')(new Date(data.content[i].deficiencyDetails.dueDate), 'dd/MM/yyyy');
+                    }
                 }
-                
+
                 this.loadedPages[pageNumber].push(data.content[i]);
             }
             $timeout(function() {
@@ -109,18 +110,18 @@ function EntriesListCtrl($scope, $rootScope, $filter,   $state, $timeout, $http,
     };
 
     $scope.onEdit = function(index) {
-        $state.go("app.entryDetails", { entryGuid: getEntyByIndex(index).entryGuid });   
+        $state.go("app.entryDetails", { entryGuid: getEntyByIndex(index).entryGuid });
     }
 
     $scope.onRefresh = function() {
         loadEntries();
     }
-    
-   $scope.onKeyPress = function (event) {
-      if (event.keyCode === 13) {
-         loadEntries();
-      }
-   };    
+
+    $scope.onKeyPress = function(event) {
+        if (event.keyCode === 13) {
+            loadEntries();
+        }
+    };
 }
 
 entriesModule.controller('EntriesListCtrl', EntriesListCtrl);
