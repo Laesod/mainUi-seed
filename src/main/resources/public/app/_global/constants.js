@@ -50,7 +50,8 @@ var AppSettings = function(config) {
             apiEntryGetEntryTypesUrl: apiGatewayBaseUrl + '/gateway/entry/getEntryTypes',  
             apiEntryGetContactTypesUrl: apiGatewayBaseUrl + '/gateway/entry/getContactTypes',  
             apiEntryCreateContactDetailsUrl: apiGatewayBaseUrl + '/gateway/entry/createContactDetails',  
-            apiEntryUpdateContactDetailsUrl: apiGatewayBaseUrl + '/gateway/entry/updateContactDetails',                         
+            apiEntryUpdateContactDetailsUrl: apiGatewayBaseUrl + '/gateway/entry/updateContactDetails',    
+            apiEntryCreateCommentUrl: apiGatewayBaseUrl + '/gateway/entry/createComment',                       
             
             tasksManagementGetTasksUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/getTasks',
             tasksManagementExportTasksToCSVUrl: apiGatewayBaseUrl + '/gateway/tasksManagement/exportTasksToCsv',

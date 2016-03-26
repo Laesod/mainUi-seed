@@ -87,6 +87,14 @@ function entriesService($q, $http, $cookies, APP_SETTINGS, globalService) {
          url: apiUrl.apiEntryUpdateContactDetailsUrl,
          data: payload
       });       
+   }  
+   
+   service.createComment = function(payload){
+      return globalService.request({
+         method: "POST",
+         url: apiUrl.apiEntryCreateCommentUrl,
+         data: payload
+      });       
    }       
    
    return service;

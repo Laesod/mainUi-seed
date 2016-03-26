@@ -12,7 +12,9 @@ function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsServ
         $scope.showBusyIndicator = true;   
         $scope.minDueDate = new Date(); 
         $scope.showViewContentBlocker = true; 
-        $timeout(function(){$scope.showViewContentBlocker = false}, 500); //due to the error on mobile phone and input focus after navigation...        
+        $timeout(function(){$scope.showViewContentBlocker = false}, 500); //due to the error on mobile phone and input focus after navigation...
+        $scope.comment = {parentEntity: 'Entry', parentEntityGuid: $scope.entryGuid};   
+        //$scope.comments = [];  
         
         entriesService.getEntry({entryGuid: $scope.entryGuid}).then(function(entryData){
             if(entryData.entryTypeGuid === '1'){
@@ -32,6 +34,22 @@ function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsServ
                     $scope.photoUrl = "https://farm4.staticflickr.com/3261/2801924702_ffbdeda927_d.jpg";
                 }                
             }  
+            
+            if(entryData.comments){
+                _.forEach(entryData.comments, function(comment){
+                    if(comment.creatorAvatar){
+                        globalService.generatePresignedUrlForS3(comment.creatorAvatar).then(function (data) {
+                            var filteredComments = _.filter(entryData.comments, function(item){
+                                return item.creatorAvatar === data.initialS3ObjectKey;
+                            })
+                            
+                            _.forEach(filteredComments, function(filteredComment){
+                                filteredComment.creatorAvatarUrl = data.presignedUrl;
+                            });
+                        });                          
+                    }
+                });
+            }
             
             $scope.entry = entryData; 
             
@@ -129,7 +147,29 @@ function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsServ
         var guid = globalService.generateGuid();
 
         globalService.preprocessImg(file, guid).then(function (dataURL) { sendFile(file, dataURL, guid) });
-    };    
+    }; 
+    
+    $scope.onAddComment = function(){
+        entriesService.createComment($scope.comment).then(function(comment){
+            if (comment.creatorAvatar) {
+                globalService.generatePresignedUrlForS3(comment.creatorAvatar).then(function(data) {
+                    comment.creatorAvatarUrl = data.presignedUrl;
+                });
+            } else {
+                comment.creatorAvatarUrl = "https://farm4.staticflickr.com/3261/2801924702_ffbdeda927_d.jpg";
+            }            
+            
+            if(!$scope.entry.comments){
+                $scope.entry.comments = [];
+            }
+            $scope.entry.comments.unshift(comment);
+            
+           globalService.displayToast({
+               messageText: "Comment has been added.",
+               messageType: "success"
+           });            
+        })
+    }  
     
     $scope.onBack = function(event){
         $state.go("app.entriesList");

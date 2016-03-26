@@ -156,6 +156,35 @@
                     </div>
                 </section>
             </div>
+            
+            <div class="detailsSectionHeader">Comments</div>
+            <section class="detailsSectionContent">
+                <md-input-container class="inputContainerWithError">
+                    <label>Comment</label>
+                    <textarea columns="1"  ng-model="comment.message" ng-change="$root.onFormElementChange('commentRequestDto_message')"></textarea>
+                    <span ng-style="{'visibility': $root.formElementsErrors.commentRequestDto_message}" class="formItemErrorMessage">{{$root.formElementsErrors.commentRequestDto_message}}</span>
+                </md-input-container>
+                <md-button type="submit" id="submitBtn" ng-click="onAddComment($index)" class="md-raised md-primary detailsSectionButton">Add</md-button>
+                <div ng-repeat="comment in entry.comments" class="detailsSectionListItem">
+                    <div layout="column">
+                        <div layout="row" layout-align="start center" style="margin-bottom: 0.5rem;">
+                            <div layout="row" layout-align="start center">
+                                <div ng-style="{ 'width': '30px', 'height': '30px', 'border-radius': '3px', 'background': 'url(' + comment.creatorAvatarUrl + ')',
+                                        'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></div>
+
+                                <span style="margin-left: 0.5rem;">{{comment.createdBy}}</span>
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="start center">
+                            <span>{{comment.createdAt | date:'yyyy-MM-dd'}}</span>
+                        </div>
+                        <div layout="row" layout-align="start center">
+                            <span>{{comment.message}}</span>
+                        </div>                        
+                    </div>
+                </div>                
+                
+            </section>            
         </div>
     </div>
     <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>
