@@ -22,6 +22,13 @@ function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsServ
             
             if($scope.entry.contactDetails){
                 $scope.getContactTypes();
+                if (entryData.contactDetails.photoS3ObjectKey) {
+                    globalService.generatePresignedUrlForS3(entryData.contactDetails.photoS3ObjectKey).then(function (data) {
+                        $scope.photoUrl = data.presignedUrl;
+                    });
+                } else {
+                    $scope.photoUrl = "https://farm4.staticflickr.com/3261/2801924702_ffbdeda927_d.jpg";
+                }                
             }  
             
             $scope.entry = entryData; 
@@ -107,8 +114,22 @@ function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsServ
          });         
     }
     
+    function sendFile(file, dataURL, guid) {
+        globalService.fileUploadToS3(file, dataURL, guid).then(function (data) {
+            $scope.entry.contactDetails.photoS3ObjectKey = guid;
+            globalService.generatePresignedUrlForS3(guid).then(function (data) {
+                $scope.photoUrl = data.presignedUrl;
+            });    
+        });
+    }
+
+    $scope.onUpload = function (file) {
+        var guid = globalService.generateGuid();
+
+        globalService.preprocessImg(file, guid).then(function (dataURL) { sendFile(file, dataURL, guid) });
+    };    
+    
     $scope.onBack = function(event){
-        $state.go("app.entriesList");
         $timeout(function(){$state.go("app.entriesList");}, 200);
     }  
     

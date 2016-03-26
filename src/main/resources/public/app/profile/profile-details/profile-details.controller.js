@@ -3,7 +3,7 @@
 var documentsModule = require('../_index');
 var url = require('url');
 
-function ProfileDetailsCtrl($scope, $rootScope, $http, APP_SETTINGS, globalService, $window, $timeout, Upload, profileService) {
+function ProfileDetailsCtrl($scope, $rootScope, $http, APP_SETTINGS, globalService, $window, $timeout, profileService) {
     $scope.avatarUrl = "";
     $scope.changePassword = {
         currentPassword: "",
@@ -20,7 +20,6 @@ function ProfileDetailsCtrl($scope, $rootScope, $http, APP_SETTINGS, globalServi
 
     function sendFile(file, dataURL, guid) {
         globalService.fileUploadToS3(file, dataURL, guid).then(function (data) {
-            debugger;
             profileService.changeAvatar({ avatarS3ObjectKey: guid }).then(function () {
                 $rootScope.userProfile.avatarS3ObjectKey = guid;
                 globalService.generatePresignedUrlForS3(guid).then(function (data) {

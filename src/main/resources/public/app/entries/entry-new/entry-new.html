@@ -66,64 +66,80 @@
                 </div>
             </section>
 
-            <div ng-if="entry.entryTypeGuid === '2'" class="detailsSectionHeader">Contact Details</div>
+            <div ng-if="entry.entryTypeGuid === '2'">
+                <div class="detailsSectionHeader">Contact Details</div>
 
-            <section ng-if="entry.entryTypeGuid === '2'" class="detailsSectionContent">
-                <md-input-container>
-                    <label>Contact Type</label>
-                    <md-select ng-model="entry.contactDetails.contactTypeGuid" md-on-open="getContactTypes()" ng-change="onContactTypeChange()">
-                        <md-option ng-repeat="contactType in contactTypes" value="{{contactType.contactTypeGuid}}">
-                            {{contactType.name}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
+                <section class="detailsSectionContent">
+                    <md-input-container>
+                        <label>Contact Type</label>
+                        <md-select ng-model="entry.contactDetails.contactTypeGuid" md-on-open="getContactTypes()" ng-change="onContactTypeChange()">
+                            <md-option ng-repeat="contactType in contactTypes" value="{{contactType.contactTypeGuid}}">
+                                {{contactType.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
 
-                <div ng-if="entry.contactDetails.contactTypeGuid === '1'">
-                    <md-input-container>
-                        <label>First Name</label>
-                        <input type="text" ng-model="entry.contactDetails.personFirstName">
-                    </md-input-container>
-                    <md-input-container>
-                        <label>Last Name</label>
-                        <input type="text" ng-model="entry.contactDetails.personLastName">
-                    </md-input-container>
-                    <md-input-container>
-                        <label>Mobile Phone</label>
-                        <input type="text" ng-model="entry.contactDetails.personMobilePhone">
-                    </md-input-container>
-                    <md-input-container>
-                        <label>Email</label>
-                        <input type="email" ng-model="entry.contactDetails.personEmail">
-                    </md-input-container>
-                    <md-input-container class="lastSectionInputContainer">
-                        <label>Address</label>
-                        <input type="text" ng-model="entry.contactDetails.personAddress">
-                    </md-input-container>
-                </div>
+                    <div ng-if="entry.contactDetails.contactTypeGuid === '1'">
+                        <md-input-container>
+                            <label>First Name</label>
+                            <input type="text" ng-model="entry.contactDetails.personFirstName">
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Last Name</label>
+                            <input type="text" ng-model="entry.contactDetails.personLastName">
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Mobile Phone</label>
+                            <input type="text" ng-model="entry.contactDetails.personMobilePhone">
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Email</label>
+                            <input type="email" ng-model="entry.contactDetails.personEmail">
+                        </md-input-container>
+                        <md-input-container class="lastSectionInputContainer">
+                            <label>Address</label>
+                            <input type="text" ng-model="entry.contactDetails.personAddress">
+                        </md-input-container>
+                    </div>
 
-                <div ng-if="entry.contactDetails.contactTypeGuid === '2'">
-                    <md-input-container>
-                        <label>Organization Name</label>
-                        <input type="text" ng-model="entry.contactDetails.organizationName">
-                    </md-input-container>
-                    <md-input-container>
-                        <label>Web Site</label>
-                        <input type="text" ng-model="entry.contactDetails.organizationWebSite">
-                    </md-input-container>
-                    <md-input-container>
-                        <label>Contact Phone</label>
-                        <input type="text" ng-model="entry.contactDetails.organizationContactPhone">
-                    </md-input-container>
-                    <md-input-container>
-                        <label>Contact Email</label>
-                        <input type="email" ng-model="entry.contactDetails.organizationContactEmail">
-                    </md-input-container>
-                    <md-input-container class="lastSectionInputContainer">
-                        <label>Address</label>
-                        <input type="text" ng-model="entry.contactDetails.organizationAddress">
-                    </md-input-container>
-                </div>
-            </section>
+                    <div ng-if="entry.contactDetails.contactTypeGuid === '2'">
+                        <md-input-container>
+                            <label>Organization Name</label>
+                            <input type="text" ng-model="entry.contactDetails.organizationName">
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Web Site</label>
+                            <input type="text" ng-model="entry.contactDetails.organizationWebSite">
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Contact Phone</label>
+                            <input type="text" ng-model="entry.contactDetails.organizationContactPhone">
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Contact Email</label>
+                            <input type="email" ng-model="entry.contactDetails.organizationContactEmail">
+                        </md-input-container>
+                        <md-input-container class="lastSectionInputContainer">
+                            <label>Address</label>
+                            <input type="text" ng-model="entry.contactDetails.organizationAddress">
+                        </md-input-container>
+                    </div>
+                </section>
+                
+                <div class="detailsSectionHeader">Photo</div>
+                <section class="detailsSectionContent">
+                    <div layout="row" layout-align="end">
+                        <div ng-style="{ 'width': '255px', 'height': '255px', 'background': 'url(' + photoUrl + ')',
+                'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center'}"></div>
+                    </div>
+                    <div layout="column" layout-align="end">
+                        <md-button type="submit" id="submitBtn" class="md-raised md-primary
+                         detailsSectionButton" style="margin-left: 0px;">Change Photo</md-button>
+                        <input id="ContactPhoto" type="file" name="img" ngf-select ng-model="file" accept="image/*" ngf-max-size="5MB" ngf-change=onUpload($file)
+                        style="opacity: 0; height: 36px; z-index: 1; margin-top: -40px;">
+                    </div>
+                </section>                
+            </div>
         </div>
         <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>
     </div>

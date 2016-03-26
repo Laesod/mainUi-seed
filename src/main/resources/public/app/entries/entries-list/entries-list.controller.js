@@ -43,11 +43,24 @@ function EntriesListCtrl($scope, $rootScope, $filter, $state, $timeout, $http, $
         //prepareCurrentFilteringParams(getEntriesParams);
         entriesService.getEntries({ urlParams: getEntriesParams }).then(angular.bind(this, function(data) {
             this.loadedPages[pageNumber] = [];
+            var that = this;
             var pageOffset = pageNumber * this.PAGE_SIZE;
             for (var i = 0; i < data.content.length; i++) {
                 if (data.content[i].entryTypeGuid === '1') {
                     if (data.content[i].deficiencyDetails.dueDate) {
                         data.content[i].deficiencyDetails.dueDate = $filter('date')(new Date(data.content[i].deficiencyDetails.dueDate), 'dd/MM/yyyy');
+                    }
+                    
+                   // this.loadedPages[pageNumber].push(data.content[i]);
+                }
+                
+                if(data.content[i].entryTypeGuid === '2'){
+                    if(data.content[i].contactDetails.photoS3ObjectKey){
+                        globalService.generatePresignedUrlForS3(data.content[i].contactDetails.photoS3ObjectKey).then(function (urlData) {
+                           _.find(that.loadedPages[pageNumber], function(item){
+                               return item.contactDetails.photoS3ObjectKey === urlData.initialS3ObjectKey;
+                           }).contactDetails.photoUrl = urlData.presignedUrl;
+                        });                         
                     }
                 }
 
