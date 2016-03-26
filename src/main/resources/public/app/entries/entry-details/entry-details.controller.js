@@ -13,14 +13,14 @@ function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsServ
         $scope.minDueDate = new Date();  
         
         entriesService.getEntry({entryGuid: $scope.entryGuid}).then(function(entryData){
-            if(entryData.deficiencyDetails){
+            if(entryData.entryTypeGuid === '1'){
                 $scope.getDeficiencyStatuses();
                 if(entryData.deficiencyDetails.dueDate){
                     entryData.deficiencyDetails.dueDate = new Date(entryData.deficiencyDetails.dueDate);
                 }
             }
             
-            if($scope.entry.contactDetails){
+            if(entryData.entryTypeGuid === '2'){
                 $scope.getContactTypes();
                 if (entryData.contactDetails.photoS3ObjectKey) {
                     globalService.generatePresignedUrlForS3(entryData.contactDetails.photoS3ObjectKey).then(function (data) {
@@ -130,7 +130,7 @@ function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsServ
     };    
     
     $scope.onBack = function(event){
-        $timeout(function(){$state.go("app.entriesList");}, 200);
+        $state.go("app.entriesList");
     }  
     
     $scope.onAdd = function() {

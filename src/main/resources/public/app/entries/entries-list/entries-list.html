@@ -1,5 +1,5 @@
 <div style="height: 64px;" layout-align="end center" layout="row" layout-align="space-between">
-    <md-input-container flex style="margin-left: 1rem; margin-top: 1rem;">
+    <md-input-container flex style="margin-left: 1rem; margin-top: 1rem;" ng-show="showSearch">
         <label>Search</label>
         <input type="text" id="search" ng-model="searchCriteria" style="width: 20%; min-width: 150px;" ng-keypress="onKeyPress($event)">
     </md-input-container>
@@ -20,7 +20,7 @@
 <md-content layout="column" style="height: calc(100% - 64px); font-size: 10pt;">
     <div style="width: 100%; border-bottom: 1px solid #ddd;"></div>
 
-    <div ng-show="showBusyIndicator" layout="row" class="busyIndicator" layout-align="space-around center">
+    <div ng-show="showBusyIndicator" style="height: calc(100% - 1px);" layout="row" class="busyIndicator" layout-align="space-around center">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
     <span ng-show="entries.numItems === 0 && !showBusyIndicator" style="padding: 2rem;">No entries to display</span>

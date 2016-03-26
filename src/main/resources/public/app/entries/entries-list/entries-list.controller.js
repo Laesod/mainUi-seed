@@ -6,6 +6,8 @@ var url = require('url');
 function EntriesListCtrl($scope, $rootScope, $filter, $state, $timeout, $http, $sce, APP_SETTINGS, globalService, $window, entriesService) {
     $scope.entries = [];
     $scope.searchCriteria = "";
+    $scope.showSearch = false;
+    $timeout(function(){$scope.showSearch = true}, 200); //due to the error on mobile phone and input focus after navigation...
     //$scope.showNoDataLabel = false;   
     var DynamicItems = function() {
         this.loadedPages = {};

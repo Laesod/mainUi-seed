@@ -15,7 +15,7 @@
         </div>
     </div>
 </div>
-<div ng-show="showBusyIndicator" layout="row" class="busyIndicator" layout-align="space-around center">
+<div ng-show="showBusyIndicator" style="height: calc(100% - 128px);" layout="row" class="busyIndicator" layout-align="space-around center">
     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
 </div>
 <div class="viewContentWrapperWithActionBar" style="min-height: calc(100% - 64px); height: calc(100% - 64px);">
@@ -79,7 +79,7 @@
                 </div>
             </section>
 
-            <div ng-if="entry.entryTypeGuid === '2'" >
+            <div ng-if="entry.entryTypeGuid === '2'">
                 <div class="detailsSectionHeader">Contact Details</div>
 
                 <section class="detailsSectionContent">
