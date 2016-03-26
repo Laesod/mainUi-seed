@@ -135,10 +135,16 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
                 entryTypesToAdd: entryTypesToAdd
             }
         }).then(function() {
+            if($scope.project.markedAsDeleted){// clear currentProjectGuild in case of project deletion
+                $rootScope.currentProjectGuild = '';
+            }
+            
             globalService.displayToast({
                 messageText: "Project was successfully updated.",
                 messageType: "success"
             });
+            
+            $scope.onBack();
         });
     }
 
