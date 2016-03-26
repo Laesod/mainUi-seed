@@ -18,6 +18,8 @@
 <div ng-show="showBusyIndicator" style="height: calc(100% - 128px);" layout="row" class="busyIndicator" layout-align="space-around center">
     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
 </div>
+
+<div ng-show="showViewContentBlocker" style="opacity: 0; height: 100%; width: 100%; z-index: 2; position: absolute; margin-top: 0px;"></div>
 <div class="viewContentWrapperWithActionBar" style="min-height: calc(100% - 64px); height: calc(100% - 64px);">
     <div layout="row" style="width: 100%;">
         <div flex-gt-md=30 flex-md=20 flex-sm=5 flex-xs=5></div>

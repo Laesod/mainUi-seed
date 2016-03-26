@@ -10,7 +10,9 @@ function EntryDetailsCtrl($scope, $state, $stateParams, $rootScope, projectsServ
         $scope.selectedProjectGroups = [];
         $scope.entryGuid = $stateParams.entryGuid; 
         $scope.showBusyIndicator = true;   
-        $scope.minDueDate = new Date();  
+        $scope.minDueDate = new Date(); 
+        $scope.showViewContentBlocker = true; 
+        $timeout(function(){$scope.showViewContentBlocker = false}, 500); //due to the error on mobile phone and input focus after navigation...        
         
         entriesService.getEntry({entryGuid: $scope.entryGuid}).then(function(entryData){
             if(entryData.entryTypeGuid === '1'){

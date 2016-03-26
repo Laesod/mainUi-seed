@@ -66,6 +66,9 @@ function ProjectDetailsCtrl($scope, $state, $rootScope, $stateParams, $q, $timeo
     var init = function() {
         $scope.projectGuid = $stateParams.projectGuid;
         $scope.showBusyIndicator = true;
+        $scope.showViewContentBlocker = true; 
+        $timeout(function(){$scope.showViewContentBlocker = false}, 500); //due to the error on mobile phone and input focus after navigation...        
+        
         //var entryTypes = [];
         getEntryTypes();
         initCreateInvitationForm();
