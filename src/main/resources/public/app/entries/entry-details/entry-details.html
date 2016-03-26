@@ -48,7 +48,7 @@
                     </md-chips>
                 </div>
 
-                <md-input-container>
+                <md-input-container ng-if="entry.entryTypeGuid === '1'">
                     <label>Description</label>
                     <textarea ng-model="entry.description" columns="1" ng-disabled="!$root.checkPermissions(projectGuid, ['manager', 'user'])"></textarea>
                 </md-input-container>
