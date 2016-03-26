@@ -8,10 +8,15 @@ function ProjectsListCtrl($rootScope, $scope, $timeout, projectsService, $state)
         $scope.showBusyIndicator = true;
         projectsService.getProjects().then(function(data) {
             $scope.projects = data;
-
-            if ($rootScope.currentProjectGuid) {
-                _.find($scope.projects, { projectGuid: $rootScope.currentProjectGuid })._isCurrent = true;
+            var currentProject = _.find($scope.projects, { projectGuid: $rootScope.currentProjectGuid });
+            if(currentProject){
+                currentProject._isCurrent = true;
+            }else{
+                if($scope.projects.length){
+                    $scope.projects[0]._isCurrent = true;
+                }
             }
+
             $timeout(function() {
                 $scope.showBusyIndicator = false;
             }, 200);
